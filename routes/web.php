@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+// Esta es la página de bienvenida (la que trae Laravel)
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Esta es TU nueva página de login
+Route::get('/login', function () {
+    return view('login');
+});
+
+
