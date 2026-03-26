@@ -1,25 +1,24 @@
-@extends('layouts.auth')
-
-@section('title', 'Login')
-@section('content')
+<?php $__env->startSection('title', 'Login'); ?>
+<?php $__env->startSection('content'); ?>
     <main class="login-container">
         <div class="glass-panel">
             
             <h1 class="welcome-title">Welcome</h1>
             <p class="subtitle">Small actions can create a big impact on our planet</p>
 
-            @if ($errors->any())
+            <?php if($errors->any()): ?>
                 <div style="color: #ffffff; background: rgba(255, 0, 0, 0.3); padding: 10px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem; text-align: center;">
-                    {{ $errors->first() }}
-                </div>
-            @endif
+                    <?php echo e($errors->first()); ?>
 
-            <form class="login-form" action="{{ route('register.post') }}" method="POST">
-                @csrf <div class="input-group">
+                </div>
+            <?php endif; ?>
+
+            <form class="login-form" action="<?php echo e(route('register.post')); ?>" method="POST">
+                <?php echo csrf_field(); ?> <div class="input-group">
                     <label for="name" class="field-label">Full Name</label>
                     <div class="input-wrapper">
                         <span class="icon">👤</span> 
-                        <input type="text" id="name" name="name" placeholder="Tu nombre completo" value="{{ old('name') }}" required>
+                        <input type="text" id="name" name="name" placeholder="Tu nombre completo" value="<?php echo e(old('name')); ?>" required>
                     </div>
                 </div>
 
@@ -27,7 +26,7 @@
                     <label for="email" class="field-label">Email</label>
                     <div class="input-wrapper">
                         <span class="icon">&#127809;</span> 
-                        <input type="email" id="email" name="email" placeholder="example@urbangreen.es" value="{{ old('email') }}" required>
+                        <input type="email" id="email" name="email" placeholder="example@urbangreen.es" value="<?php echo e(old('email')); ?>" required>
                     </div>
                 </div>
 
@@ -49,7 +48,7 @@
                     </div>
                 </div>
 
-                <a href="{{ route('login') }}" class="forgot-password" style="text-align: center; margin-bottom: 10px;">I already have an account</a>
+                <a href="<?php echo e(route('login')); ?>" class="forgot-password" style="text-align: center; margin-bottom: 10px;">I already have an account</a>
 
                 <button type="submit" class="sign-in-btn">Register</button>
             </form>
@@ -77,4 +76,5 @@
             passwordConfirm.setAttribute('type', type);
         });
     </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\ecoGuide\resources\views/auth/register.blade.php ENDPATH**/ ?>

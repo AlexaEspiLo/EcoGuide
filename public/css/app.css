@@ -1,0 +1,70 @@
+body {
+    background-color: #f2edde;
+}
+
+/* Navbar base */
+.navbar {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 12px 50px;
+    font-family: 'Glacial indifference', sans-serif;
+    font-size: 1.5em;
+}
+
+.nav-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+/* Contenedor */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-center {
+    list-style: none;
+    display: flex;
+    gap: clamp(15px, 4vw, 65px);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-center li a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.nav-center li a:hover {
+    background-color: var(--botones);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+/* Logo */
+.logo img {
+    height: clamp(35px, 6vw, 75px);
+    width: auto;
+    display: block;
+}
+
+/* Botón activo (Home) */
+.nav-links .active {
+    background-color: var(--botones);
+    padding: 8px 20px;
+    border-radius: 20px;
+    color: var(--kombu-green);
+    font-weight: 500;
+}

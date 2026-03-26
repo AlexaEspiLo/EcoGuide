@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
-// --- RUTAS DE LOGIN ---
-
-// 1. Mostrar la página de login
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-// 2. Procesar el inicio de sesión
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
+
 Route::post('/login', function (Request $request) {
     $credentials = $request->validate([
         'email' => ['required', 'email'],
@@ -22,7 +22,7 @@ Route::post('/login', function (Request $request) {
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-        return redirect()->intended('dashboard');
+        return redirect()->intended('home');
     }
 
     return back()->withErrors([
@@ -30,15 +30,12 @@ Route::post('/login', function (Request $request) {
     ])->onlyInput('email');
 })->name('login.post');
 
-
 // --- RUTAS DE REGISTRO ---
 
-// 3. Mostrar la página de registro
 Route::get('/register', function () {
     return view('auth.register'); 
 })->name('register');
 
-// 4. Procesar el registro (Guardar usuario)
 Route::post('/register', function (Request $request) {
     $request->validate([
         'name' => 'required|string|max:255',
@@ -54,21 +51,16 @@ Route::post('/register', function (Request $request) {
 
     Auth::login($user);
 
-    return redirect()->route('dashboard');
+    return redirect()->route('home');
 })->name('register.post');
 
-
-// --- RUTAS PROTEGIDAS ---
-
-// 5. Dashboard (Solo entras si estás logueado)
-Route::get('/dashboard', function () {
+Route::get('/home', function () {
     return "<h1>¡Bienvenido a EcoGuide, " . Auth::user()->name . "! Estás dentro.</h1>
             <form action='" . route('logout') . "' method='POST'>" . csrf_field() . "
                 <button type='submit'>Cerrar Sesión</button>
             </form>";
-})->name('dashboard')->middleware('auth');
+})->name('home')->middleware('auth');
 
-// 6. Cerrar sesión
 Route::post('/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();

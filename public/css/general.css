@@ -1,0 +1,56 @@
+:root {
+    /* Paleta de Colores */
+    --bg-cream: #ffffff;
+    --panel-green-base: rgba(144, 161, 126, 0.85); /* Un poco más de opacidad para legibilidad */
+    --text-dark: #2d3436;
+    --text-on-green: #ffffff; /* Texto blanco dentro del panel verde */
+    --btn-taupe: #d1c0a8; /* Color beige/crema del botón Register */
+    --btn-taupe-hover: #c4b095;
+    --border-color: rgba(255, 255, 255, 0.3);
+
+    --cafe-noir: #4C3D19;
+    --kombu-green: #354024;
+    --moss-green: #889063;
+    --tan: #CFBB99;
+    --bone:#E5D7C4;
+
+    --botones: #cadbb7;
+
+    /* Tipografía */
+    --font-serif-title: 'Ahsing', serif;
+    --font-serif-field: 'Glacial indifference', serif;
+    --font-sans-body: 'Cormorant Garamond', sans-serif;
+}
+
+@font-face {
+    font-family: 'Ahsing';
+    src: url('/fonts/typogama-ahsing.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Glacial indifference';
+    src: url('/fonts/glacial-indifference/GlacialIndifference-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Glacial indifference';
+    src: url('/fonts/glacial-indifference/GlacialIndifference-Italic.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Glacial indifference';
+    src: url('/fonts/glacial-indifference/GlacialIndifference-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Cormorant Garamond';
+    src: url('/fonts/CormorantGaramond-Regular.ttf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}

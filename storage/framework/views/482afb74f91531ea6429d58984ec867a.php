@@ -1,0 +1,1 @@
+<?php /**PATH C:\laragon\www\ecoGuide\resources\views/partials/footer.blade.php ENDPATH**/ ?>
