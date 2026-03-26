@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoGuide - Login</title>
-    <link rel="stylesheet" href="{{ asset('style.css?v=' . time()) }}">
+    <link rel="stylesheet" href="<?php echo e(asset('style.css?v=' . time())); ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,400;1,700&family=Playfair+Display:ital@1&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
 <body>
 
     <header class="header">
-    <img src="{{ asset('images/logo_ecoguide.png?v=' . time()) }}" alt="Logo" class="logo">
+    <img src="<?php echo e(asset('images/logo_ecoguide.png?v=' . time())); ?>" alt="Logo" class="logo">
 </header>
 
     <main class="login-container">
@@ -21,7 +21,7 @@
             <p class="subtitle">Explore new ways to care for the planet</p>
 
             <form class="login-form">
-                @csrf 
+                <?php echo csrf_field(); ?> 
                 <div class="input-group">
                     <label for="email" class="field-label">Email</label>
                     <div class="input-wrapper">
@@ -46,7 +46,7 @@
             <div class="social-login">
     <p>Or enter with:</p>
     <button type="button" class="google-btn" style="background:none; border:none; cursor:pointer;">
-        <img src="{{ asset('images/google_icon.png?v=' . time()) }}" alt="Google Logo" class="google-icon">
+        <img src="<?php echo e(asset('images/google_icon.png?v=' . time())); ?>" alt="Google Logo" class="google-icon">
     </button>
 </div>
             
@@ -60,4 +60,4 @@
     <div class="corner-leaf bottom-right">&#127809;</div>
 
 </body>
-</html>
+</html><?php /**PATH C:\laragon\www\EcoGuide\resources\views/login.blade.php ENDPATH**/ ?>

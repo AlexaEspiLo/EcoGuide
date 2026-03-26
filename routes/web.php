@@ -19,9 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Esta es TU nueva página de login
+// Busca esta línea y déjala así:
 Route::get('/login', function () {
-    return view('login');
-});
-
-
+    return view('auth.login');
+})->name('login');
