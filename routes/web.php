@@ -67,3 +67,28 @@ Route::post('/logout', function (Request $request) {
     $request->session()->regenerateToken();
     return redirect('/login');
 })->name('logout');
+
+// Ruta para visualizar la vista de administrador sin validación de usuario aún
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard');
+
+Route::get('/categories', function () {
+    return view('admin.categories');
+})->name('categories');
+
+Route::get('/tips', function () {
+    return view('admin.tips');
+})->name('tips');
+
+Route::get('/users', function () {
+    return view('admin.users');
+})->name('users');
+
+Route::get('/info-pages', function () {
+    return view('admin.info-pages');
+})->name('info-pages');
+
+Route::get('/account', function () {
+    return view('admin.account');
+})->name('account');

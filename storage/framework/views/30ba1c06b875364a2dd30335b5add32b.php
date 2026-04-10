@@ -1,96 +1,46 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoGuide - Register</title>
-    <link rel="stylesheet" href="<?php echo e(asset('style.css?v=' . time())); ?>">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,400;1,700&family=Playfair+Display:ital@1&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
-<body>
-
-    <header class="header">
+<?php $__env->startSection('content'); ?>
+<div class="auth-container">
+    <div class="auth-box">
         <img src="<?php echo e(asset('images/logo_ecoguide.png')); ?>" alt="EcoGuide Logo" class="logo">
-    </header>
+        <h1 class="auth-title">Explore new ways to care for the planet</h1>
 
-    <main class="login-container">
-        <div class="glass-panel">
-            
-            <h1 class="welcome-title">Welcome</h1>
-            <p class="subtitle">Small actions can create a big impact on our planet</p>
+        <form method="POST" action="<?php echo e(route('register')); ?>">
+            <?php echo csrf_field(); ?>
+            <div class="input-group">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Full Name" required>
+            </div>
 
-            <?php if($errors->any()): ?>
-                <div style="color: #ffffff; background: rgba(255, 0, 0, 0.3); padding: 10px; border-radius: 10px; margin-bottom: 20px; font-size: 0.8rem; text-align: center;">
-                    <?php echo e($errors->first()); ?>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="example@urbangreen.es" required>
+            </div>
 
+            <div class="input-group">
+                <div class="password-wrapper">
+                        <label>Password</label>
+                        <input type="password" name="password" id="password" placeholder="********" required>
+                        <img src="<?php echo e(asset('icons/eye-hidden-icon.png')); ?>" class="password-toggle-icon" onclick="toggleInput('password', this)" alt="Toggle Password">
                 </div>
-            <?php endif; ?>
+            </div>
 
-            <form class="login-form" action="<?php echo e(route('register.post')); ?>" method="POST">
-                <?php echo csrf_field(); ?> <div class="input-group">
-                    <label for="name" class="field-label">Full Name</label>
-                    <div class="input-wrapper">
-                        <span class="icon">👤</span> 
-                        <input type="text" id="name" name="name" placeholder="Tu nombre completo" value="<?php echo e(old('name')); ?>" required>
-                    </div>
+            <div class="input-group">
+                <div class="password-wrapper">
+                    <label>Confirm Password</label>
+                    <input type="password" name="password_confirmation" id="password_confirmation" placeholder="********" required>
+                    <img src="<?php echo e(asset('icons/eye-hidden-icon.png')); ?>" class="password-toggle-icon" onclick="toggleInput('password_confirmation', this)" alt="Toggle Password">
                 </div>
+            </div>
 
-                <div class="input-group">
-                    <label for="email" class="field-label">Email</label>
-                    <div class="input-wrapper">
-                        <span class="icon">&#127809;</span> 
-                        <input type="email" id="email" name="email" placeholder="example@urbangreen.es" value="<?php echo e(old('email')); ?>" required>
-                    </div>
-                </div>
+            <button type="submit" class="btn-primary">Join</button>
+        </form>
 
-                <div class="input-group">
-                    <label for="password" class="field-label">Password</label>
-                    <div class="input-wrapper">
-                        <span class="icon">🔒</span>
-                        <input type="password" id="password" name="password" placeholder="••••••••" required>
-                        <span class="icon eye-icon" id="togglePassword">&#128065;</span>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="password_confirmation" class="field-label">Confirm Password</label>
-                    <div class="input-wrapper">
-                        <span class="icon">🔒</span>
-                        <input type="password" id="password_confirmation" name="password_confirmation" placeholder="••••••••" required>
-                         <span class="icon eye-icon" id="togglePasswordConfirm">&#128065;</span>
-                    </div>
-                </div>
-
-                <a href="<?php echo e(route('login')); ?>" class="forgot-password" style="text-align: center; margin-bottom: 10px;">I already have an account</a>
-
-                <button type="submit" class="sign-in-btn">Register</button>
-            </form>
-
-            
+        <div class="auth-options">
+            <a href="<?php echo e(route('login')); ?>" class="login-link">I already have an account</a><br>
+            <span class="divider">or</span>
+            <button class="btn-google">Register with a Google account</button>
         </div>
-    </main>
-
-    <div class="corner-leaf bottom-left">&#127809;</div>
-    <div class="corner-leaf bottom-right">&#127809;</div>
-
-    <script>
-        // Función para mostrar/ocultar contraseña
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#password');
-        togglePassword.addEventListener('click', function () {
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-        });
-
-        const togglePasswordConfirm = document.querySelector('#togglePasswordConfirm');
-        const passwordConfirm = document.querySelector('#password_confirmation');
-        togglePasswordConfirm.addEventListener('click', function () {
-            const type = passwordConfirm.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordConfirm.setAttribute('type', type);
-        });
-    </script>
-</body>
-</html><?php /**PATH C:\laragon\www\EcoGuide\resources\views/auth/register.blade.php ENDPATH**/ ?>
+    </div>
+</div>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.auth', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\EcoGuide\resources\views/auth/register.blade.php ENDPATH**/ ?>
