@@ -1,10 +1,10 @@
-@extends('layouts.admin')
 
-@section('styles')
-<link href="{{ asset('css/admin/users.css') }}" rel="stylesheet">
-@endsection
 
-@section('content')
+<?php $__env->startSection('styles'); ?>
+<link href="<?php echo e(asset('css/admin/users.css')); ?>" rel="stylesheet">
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="admin-users-page">
     <div class="admin-users-inner">
         <div class="admin-users-header">
@@ -75,4 +75,5 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\EcoGuide\resources\views/admin/users.blade.php ENDPATH**/ ?>
