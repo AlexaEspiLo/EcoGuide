@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('styles'); ?>
 <link href="<?php echo e(asset('css/admin/users.css')); ?>" rel="stylesheet">
 <?php $__env->stopSection(); ?>
