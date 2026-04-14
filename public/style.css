@@ -1,0 +1,224 @@
+/* ==========================================================================
+   EcoGuide - Estilos Globales Corregidos (Iconos y Líneas Verdes)
+   ========================================================================== */
+
+:root {
+    /* Paleta de Colores Corregida */
+    --bg-cream: #ffffff;
+    --panel-green-base: rgba(144, 161, 126, 0.85); 
+    --text-dark: #354024; /* Verde oscuro de tu paleta */
+    --text-on-green: #354024; /* Ahora el texto es verde oscuro para contraste */
+    --btn-taupe: #CFBB99; /* Beige exacto de tu paleta */
+    --btn-taupe-hover: #C4AD87;
+    --border-line: rgba(53, 64, 36, 0.4); /* Línea verde traslúcida */
+
+    /* Tipografía */
+    --font-serif-title: 'Playfair Display', serif;
+    --font-serif-field: 'Lora', serif;
+    --font-sans-body: 'Poppins', sans-serif;
+}
+
+/* --- Reset y Body --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans-body);
+    background-color: var(--bg-cream);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: relative;
+    background-image: linear-gradient(rgba(0,0,0,0.05), rgba(0,0,0,0.05)), url('images/decoracion_plantas.jpg');
+    background-repeat: no-repeat;
+    background-position: center; 
+    background-size: cover; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Logo --- */
+.header {
+    padding: 2rem 4rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+.logo {
+    height: 80px;
+    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1));
+}
+
+/* --- Layout --- */
+.login-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 10%;
+    z-index: 5;
+}
+
+/* --- Panel de Cristal --- */
+.glass-panel {
+    background-color: var(--panel-green-base);
+    width: 100%;
+    max-width: 420px;
+    padding: 3rem;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Borde de cristal muy sutil */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* --- Tipografía --- */
+.welcome-title {
+    font-family: var(--font-serif-title);
+    font-size: 3rem;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: #ffffff; /* El Welcome lo mantenemos blanco para resaltar */
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.4;
+}
+
+/* --- Formulario (CAMBIOS AQUÍ) --- */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+
+
+.field-label {
+    font-family: var(--font-serif-field);
+    font-size: 0.85rem;
+    color: var(--text-dark); /* CAMBIADO: Ahora es verde oscuro */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    /* CAMBIADO: Línea verde oscuro en lugar de blanca */
+    border-bottom: 1.5px solid var(--border-line); 
+    padding: 5px 0;
+    position: relative;
+    transition: border-color 0.3s ease;
+}
+
+.input-wrapper:focus-within {
+    border-bottom-color: var(--text-dark); /* Línea se oscurece al escribir */
+}
+
+.icon {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper input {
+    background: transparent;
+    border: none;
+    flex: 1;
+    padding: 0.5rem 0;
+    font-family: var(--font-sans-body);
+    font-size: 0.95rem;
+    color: var(--text-dark); /* Texto escrito en verde oscuro */
+}
+
+.input-wrapper input:focus {
+    outline: none;
+}
+
+.input-wrapper input::placeholder {
+    color: rgba(53, 64, 36, 0.5); /* Placeholder verde oscuro traslúcido */
+}
+
+/* --- Botones --- */
+.sign-in-btn {
+    background-color: var(--btn-taupe);
+    color: #4C3D19; /* Texto marrón tierra para contraste formal */
+    border: none;
+    padding: 0.9rem 2.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    align-self: center;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+    width: 100%; /* Botón completo para mejor look */
+}
+
+.sign-in-btn:hover {
+    background-color: var(--btn-taupe-hover);
+    transform: translateY(-2px);
+}
+
+.forgot-password {
+    font-size: 0.75rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    text-align: right;
+    margin-top: 5px;
+    opacity: 0.8;
+}
+
+/* --- Social Login (LÍNEAS VERDES) --- */
+.social-login {
+    margin-top: 2rem;
+    text-align: center;
+    /* CAMBIADO: Línea de división ahora es verde oscuro suave */
+    border-top: 1px solid rgba(53, 64, 36, 0.15); 
+    padding-top: 1.5rem;
+}
+
+.social-login p {
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+    opacity: 0.7;
+}
+
+.google-icon {
+    height: 40px;
+    transition: transform 0.2s;
+}
+
+.google-btn:hover .google-icon {
+    transform: scale(1.1);
+}
+
+/* --- Hojas Decorativas --- */
+.corner-leaf {
+    position: absolute;
+    font-size: 2.5rem;
+    opacity: 0.15;
+    pointer-events: none;
+    color: #354024;
+}

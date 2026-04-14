@@ -29,4 +29,4 @@
         </div>
 
     </div>
-</nav><?php /**PATH C:\laragon\www\ecoGuide\resources\views/partials/topnav.blade.php ENDPATH**/ ?>
+</nav><?php /**PATH C:\laragon\www\EcoGuide\resources\views/partials/topnav.blade.php ENDPATH**/ ?>
