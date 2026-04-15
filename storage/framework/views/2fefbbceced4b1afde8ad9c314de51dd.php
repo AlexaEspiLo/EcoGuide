@@ -1,1 +1,0 @@
-<?php /**PATH C:\laragon\www\EcoGuide\resources\views/admin/tips.blade.php ENDPATH**/ ?>

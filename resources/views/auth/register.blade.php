@@ -19,18 +19,18 @@
             </div>
 
             <div class="input-group">
-                <div class="password-wrapper">
-                        <label>Password</label>
-                        <input type="password" name="password" id="password" placeholder="********" required>
-                        <img src="{{ asset('icons/eye-hidden-icon.png') }}" class="password-toggle-icon" onclick="toggleInput('password', this)" alt="Toggle Password">
+                <div class="password-wrapper" style="position: relative;">
+                    <label>Password</label>
+                    <input type="password" name="password" id="password" placeholder="********" required style="width: 100%;">
+                    <img src="{{ asset('icons/eye-hidden-icon.png') }}" class="password-toggle-icon" onclick="toggleInput('password')" style="position: absolute; right: 10px; top: 35px; cursor: pointer; width: 20px;">
                 </div>
             </div>
 
             <div class="input-group">
-                <div class="password-wrapper">
+                <div class="password-wrapper" style="position: relative;">
                     <label>Confirm Password</label>
-                    <input type="password" name="password_confirmation" id="password_confirmation" placeholder="********" required>
-                    <img src="{{ asset('icons/eye-hidden-icon.png') }}" class="password-toggle-icon" onclick="toggleInput('password_confirmation', this)" alt="Toggle Password">
+                    <input type="password" name="password_confirmation" id="password_confirmation" placeholder="********" required style="width: 100%;">
+                    <img src="{{ asset('icons/eye-hidden-icon.png') }}" class="password-toggle-icon" onclick="toggleInput('password_confirmation')" style="position: absolute; right: 10px; top: 35px; cursor: pointer; width: 20px;">
                 </div>
             </div>
 
@@ -40,8 +40,19 @@
         <div class="auth-options">
             <a href="{{ route('login') }}" class="login-link">I already have an account</a><br>
             <span class="divider">or</span>
-            <button class="btn-google">Register with a Google account</button>
+            
+            <a href="{{ url('/auth/google') }}" class="btn-google" style="text-decoration: none; display: flex; align-items: center; justify-content: center; border: 1px solid #354024; border-radius: 20px; padding: 10px; color: #354024;">
+                <img src="{{ asset('images/google-icon.png') }}" alt="" style="margin-right: 10px; width: 18px;">
+                Register with a Google account
+            </a>
         </div>
     </div>
 </div>
+
+<script>
+    function toggleInput(id) {
+        const input = document.getElementById(id);
+        input.type = input.type === "password" ? "text" : "password";
+    }
+</script>
 @endsection
