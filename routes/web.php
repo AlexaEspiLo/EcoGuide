@@ -5,8 +5,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Page;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TipController;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\GoogleController;
 
 // Rutas para solicitar el enlace
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
@@ -16,13 +21,10 @@ Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkE
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
+//Autentificación
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
 
 Route::post('/login', function (Request $request) {
     $credentials = $request->validate([
@@ -64,13 +66,16 @@ Route::post('/register', function (Request $request) {
     return redirect()->route('home');
 })->name('register.post');
 
-Route::get('/home', function () {
-    return "<h1>¡Bienvenido a EcoGuide, " . Auth::user()->name . "! Estás dentro.</h1>
-            <form action='" . route('logout') . "' method='POST'>" . csrf_field() . "
-                <button type='submit'>Cerrar Sesión</button>
-            </form>";
-})->name('home')->middleware('auth');
+//Home
+Route::get('/', [HomeController::class, 'index'])->name('home1');
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::post('/like', [TipController::class, 'like'])->middleware('auth');
+Route::get('/search', [Controller::class, 'index'])->middleware('auth')->name('search');
 
+Route::get('/tip/{id}', [TipController::class, 'show'])->name('tip.show');
+
+
+//Logout
 Route::post('/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
@@ -78,8 +83,12 @@ Route::post('/logout', function (Request $request) {
     return redirect('/login');
 })->name('logout');
 
+// Creación de Páginas desde Admin - Vista
+Route::get('/page/{slug}', function ($slug) {
+    $page = Page::where('slug', $slug)->firstOrFail();
+    return view('user.info', compact('page'));
+})->name('page.show');
 
-use App\Http\Controllers\GoogleController;
 
 // Esta es la ruta que pones en el enlace del botón
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
