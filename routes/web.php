@@ -12,16 +12,17 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TipController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\SearchController; // <--- Agregado
 
 // Rutas para solicitar el enlace
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
-// Rutas para resetear la contraseña (el enlace que llega al correo)
+// Rutas para resetear la contraseña
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
-//Autentificación
+// Autentificación
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
@@ -43,7 +44,6 @@ Route::post('/login', function (Request $request) {
 })->name('login.post');
 
 // --- RUTAS DE REGISTRO ---
-
 Route::get('/register', function () {
     return view('auth.register'); 
 })->name('register');
@@ -62,20 +62,32 @@ Route::post('/register', function (Request $request) {
     ]);
 
     Auth::login($user);
-
     return redirect()->route('home');
 })->name('register.post');
 
-//Home
+// --- HOME Y FUNCIONALIDAD ---
 Route::get('/', [HomeController::class, 'index'])->name('home1');
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 Route::post('/like', [TipController::class, 'like'])->middleware('auth');
-Route::get('/search', [Controller::class, 'index'])->middleware('auth')->name('search');
+
+// Ruta de Búsqueda actualizada
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 Route::get('/tip/{id}', [TipController::class, 'show'])->name('tip.show');
 
+// --- PRIVACIDAD ---
+Route::get('/privacidad', function () {
+    return view('auth.privacidad');
+})->name('privacidad')->middleware('auth');
 
-//Logout
+Route::post('/privacidad-aceptar', function () {
+    $user = Auth::user();
+    $user->privacy_accepted = true;
+    $user->save();
+    return redirect()->route('home');
+})->name('privacidad.aceptar')->middleware('auth');
+
+// --- LOGOUT ---
 Route::post('/logout', function (Request $request) {
     Auth::logout();
     $request->session()->invalidate();
@@ -83,15 +95,12 @@ Route::post('/logout', function (Request $request) {
     return redirect('/login');
 })->name('logout');
 
-// Creación de Páginas desde Admin - Vista
+// Creación de Páginas desde Admin
 Route::get('/page/{slug}', function ($slug) {
     $page = Page::where('slug', $slug)->firstOrFail();
     return view('user.info', compact('page'));
 })->name('page.show');
 
-
-// Esta es la ruta que pones en el enlace del botón
+// --- GOOGLE AUTH ---
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
-
-// Esta es la ruta a la que Google regresa al usuario
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
