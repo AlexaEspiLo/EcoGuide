@@ -1,0 +1,138 @@
+@import url("general.css");
+
+body { /*carga de imagen*/
+    background-color: #f2edde; 
+    font-family: var(--font-sans-body);
+    margin: 0;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    color: var(--kombu-green);
+    position: relative;
+}
+
+.logo-top-container{
+    position: absolute;
+    top: 30px;
+    left: 40px; /*izquierda*/
+}
+
+.site-logo { /*tamaño del logo*/
+    max-width: 180px;
+    height: auto;
+    display: block;
+}
+
+.main-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 0 auto; 
+    padding-top: 150px; /*espacio arriba*/
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.main-title {
+    font-family: var(--font-serif-title);
+    font-size: 3.5rem;
+    color: var(--kombu-green);
+    margin: 0;
+}
+
+.post-button {
+    background-color: #899064;
+    color: #314528;
+    border: none;
+    padding: 15px 50px;
+    border-radius: 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /*dos columnas*/
+    gap: 250px; /*ancho del medio*/
+    align-items: start;
+}
+
+.field-label {
+    display: block;
+    font-weight: bold;
+    font-size: 1.8rem;
+    color: var(--kombu-green);
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-input, .form-select {
+    width: 100%;
+    background-color: #cadbb7; /* --bone */
+    border: none;
+    border-radius: 30px;
+    padding: 20px;
+    font-size: 1.3rem;
+    color: #314528;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+select-icon {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #314528;
+    pointer-events: none;
+    font-size: 1.2rem;
+}
+
+.description-input {
+    height: 300px;
+    border-radius: 40px;
+    resize: none;
+}
+
+.image-upload-container { /*cuadro de imagen*/
+    background-color: #cadbb7;
+    height: 280px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.upload-icon {
+    font-size: 5rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.error-message {
+    color: #8b4513;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 5px;
+    display: none; /*oculta el mensaje hasta encontrar un error*/
+    padding-left: 10px;
+}
+
+.input-error {
+    border: 2px solid #8b4513 !important;
+}

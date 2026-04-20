@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\TipController;
+
 
 // --- PÁGINA DE INICIO ---
 Route::get('/', function () {
@@ -105,3 +107,7 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('
 // --- GOOGLE LOGIN ---
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+
+Route::get('/tips/create', [TipController::class, 'create'])->name('tips.create');
+Route::post('/tips', [TipController::class, 'store'])->name('tips.store');
