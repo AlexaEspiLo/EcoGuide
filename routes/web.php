@@ -96,6 +96,19 @@ Route::post('/logout', function (Request $request) {
     return redirect('/login');
 })->name('logout');
 
+
+// --Solo para visualizar la pagina profile sin usuario autenticado---
+Route::get('/profile', function () {
+    return view('user.profile');
+})->name('profile'); 
+
+Route::get('/perfil', function () {
+    $user = (object)[ 'name' => 'Aitana Torres' ];
+    $tips = []; // luego aquí irá tu consulta
+
+    return view('profile', compact('user', 'tips'));
+});
+
 // --- RECUPERACIÓN DE CONTRASEÑA ---
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');

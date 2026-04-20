@@ -16,7 +16,7 @@
                 @endguest
 
                 @auth
-                    <li><a href="{{ route('tips.create') }}"><img src="{{ asset('icons/add-icon.png') }}" class="nav-icon"> Add Tip</a>
+                    <li><a href="{{ route('register') }}"><img src="{{ asset('icons/add-icon.png') }}" class="nav-icon"> Add Tip</a>
                     </li>
                     <li><a href="{{ route('home') }}"><img src="{{ asset('icons/account-icon.png') }}" class="nav-icon"> Account</a></li>
                 @endauth
