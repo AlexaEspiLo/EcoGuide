@@ -1,40 +1,42 @@
 @import url("general.css");
 
-body { /*carga de imagen*/
+body {
     background-color: #f2edde; 
     font-family: var(--font-sans-body);
     margin: 0;
-    padding: 0px;
+    padding: 0;
     display: flex;
     justify-content: center;
     color: var(--kombu-green);
     position: relative;
+    min-height: 100vh;
 }
 
-.logo-top-container{
+.logo-top-container {
     position: absolute;
     top: 30px;
-    left: 40px; /*izquierda*/
+    left: 40px;
 }
 
-.site-logo { /*tamaño del logo*/
+.site-logo {
     max-width: 180px;
     height: auto;
     display: block;
 }
 
 .main-container {
-    width: 90%;
-    max-width: 1400px;
+    width: 95%; 
+    max-width: 1400px; 
     margin: 0 auto; 
-    padding-top: 150px; /*espacio arriba*/
+    padding-top: 150px;
+    padding-bottom: 50px;
 }
 
 .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .main-title {
@@ -53,12 +55,19 @@ body { /*carga de imagen*/
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
+
+.post-button:hover {
+    background-color: #7a8259;
+    transform: scale(1.05);
+}
+
 
 .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr; /*dos columnas*/
-    gap: 250px; /*ancho del medio*/
+    grid-template-columns: 1fr 1fr;
+    gap: 200px; 
     align-items: start;
 }
 
@@ -68,71 +77,93 @@ body { /*carga de imagen*/
     font-size: 1.8rem;
     color: var(--kombu-green);
     margin-bottom: 15px;
-    text-align: left;
 }
 
-.form-input, .form-select {
+
+.form-input, 
+.image-upload-container {
     width: 100%;
-    background-color: #cadbb7; /* --bone */
-    border: none;
-    border-radius: 30px;
+    background-color: #cadbb7;
+    border: 3px solid #5d6d4a;
+    border-radius: 40px;
     padding: 20px;
     font-size: 1.3rem;
     color: #314528;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-.select-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-select-icon {
-    position: absolute;
-    right: 25px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #314528;
-    pointer-events: none;
-    font-size: 1.2rem;
+    font-family: inherit;
+    box-sizing: border-box;
 }
 
 .description-input {
-    height: 300px;
-    border-radius: 40px;
+    height: 250px; 
+    border-radius: 45px;
     resize: none;
 }
 
-.image-upload-container { /*cuadro de imagen*/
-    background-color: #cadbb7;
-    height: 280px;
-    border-radius: 40px;
+.category-buttons-grid {
     display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.category-button {
+    cursor: pointer;
+    flex: 1;
+    min-width: 120px;
+}
+
+.radio-input {
+    display: none;
+}
+
+.button-content {
+    display: block;
+    background-color: #cadbb7;
+    padding: 15px 10px;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #314528;
+    transition: all 0.3s ease;
+    border: 3px solid #5d6d4a;
+}
+
+.radio-input:checked + .button-content {
+    background-color: #899064;
+    color: #f2edde;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(49, 69, 40, 0.2);
+}
+
+.image-upload-container {
+    height: 300px; 
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    text-align: center;
-    font-size: 1.5rem;
+    transition: all 0.3s ease;
 }
 
 .upload-icon {
-    font-size: 5rem;
-    display: block;
-    margin-bottom: 10px;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: #314528;
 }
 
 .error-message {
     color: #8b4513;
     font-size: 1rem;
     font-weight: bold;
-    margin-top: 5px;
-    display: none; /*oculta el mensaje hasta encontrar un error*/
+    margin-top: 8px;
+    display: none;
     padding-left: 10px;
 }
 
 .input-error {
-    border: 2px solid #8b4513 !important;
+    border-color: #8b4513 !important; 
+}
+
+.group-error .button-content {
+    border-color: #8b4513;
 }

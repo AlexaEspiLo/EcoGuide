@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <title>EcoGuide - Create New Tip</title>
     
-    <link rel="stylesheet" href="{{ asset('css/general.css') }}?v={{ time() }}">
-    <link rel="stylesheet" href="{{ asset('css/tip.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="<?php echo e(asset('css/general.css')); ?>?v=<?php echo e(time()); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/tip.css')); ?>?v=<?php echo e(time()); ?>">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="logo-top-container">
-        <a href="{{ url('/') }}">
-            <img src="{{ asset('images/logo_ecoguide.png') }}" alt="EcoGuide" class="site-logo">
+        <a href="<?php echo e(url('/')); ?>">
+            <img src="<?php echo e(asset('images/logo_ecoguide.png')); ?>" alt="EcoGuide" class="site-logo">
         </a>
     </div>
             
     <div class="main-container">
-        <form action="{{ route('tips.store') }}" method="POST" enctype="multipart/form-data" novalidate>
-            @csrf
+        <form action="<?php echo e(route('tips.store')); ?>" method="POST" enctype="multipart/form-data" novalidate>
+            <?php echo csrf_field(); ?>
 
             <div class="header-container">
                 <h1 class="main-title">Create new tip</h1>
@@ -29,13 +29,13 @@
                 <div class="left-column">
                     <div class="form-group">
                         <label class="field-label">Title:</label>
-                        <input type="text" name="title" id="title" class="form-input" value="{{ old('title') }}"> 
+                        <input type="text" name="title" id="title" class="form-input" value="<?php echo e(old('title')); ?>"> 
                         <span class="error-message" id="error-title"></span>
                     </div>
 
                     <div class="form-group">
                         <label class="field-label">Description:</label>
-                        <textarea name="description" id="description" class="form-input description-input">{{ old('description') }}</textarea> 
+                        <textarea name="description" id="description" class="form-input description-input"><?php echo e(old('description')); ?></textarea> 
                         <span class="error-message" id="error-description"></span>
                     </div>
                 </div>
@@ -81,6 +81,6 @@
         </form>
     </div>
     
-    <script src="{{ asset('js/validaciones.js') }}"></script>
+    <script src="<?php echo e(asset('js/validaciones.js')); ?>"></script>
 </body>
-</html>
+</html><?php /**PATH C:\laragon\www\EcoGuide\resources\views/tips/create_tip.blade.php ENDPATH**/ ?>

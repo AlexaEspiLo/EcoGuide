@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('title', 100);
             $table->text('description');
             $table->unsignedBigInteger('category_id');
-            $table->string('image')->nullable;
+            $table->string('image');
             $table->timestamps();
         });
     }
