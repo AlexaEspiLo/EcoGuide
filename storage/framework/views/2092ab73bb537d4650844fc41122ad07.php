@@ -20,4 +20,6 @@
     </main>
 
 </body>
+
+<?php echo $__env->yieldPushContent('scripts'); ?>
 </html><?php /**PATH C:\laragon\www\EcoGuide\resources\views/layouts/app.blade.php ENDPATH**/ ?>

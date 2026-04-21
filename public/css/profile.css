@@ -1,108 +1,192 @@
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-   background: red !important;
-
-.container {
-    width: 90%;
-    margin: auto;
+/* VARIABLES SEGÚN TUS INDICACIONES */
+:root {
+    --bg-green: #d8e5d2;        /* Fondo del bloque de perfil */
+    --moss-green-80: #90a57e;   /* Pestaña activa */
+    --dk-green: #2a3b24;        /* Texto, bordes y corazón */
+    --body-beige: #E5D7C4;      /* Fondo de la página */
 }
 
-.header {
-    background: #b7c2a5;
-    border-radius: 0 0 20px 20px;
+/* CONTENEDOR PADRE */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ESTO CENTRA TODO */
+    width: 100%;
+    background-color: var(--body-beige);
+    min-height: 100vh;
+    
+
+}
+
+/* BANNER SUPERIOR */
+/* Contenedor del banner */
+.banner-top {
+    width: 100%;
+    height: 200px; /* Ajusta la altura según prefieras */
     overflow: hidden;
-    text-align: center;
     position: relative;
-    padding-bottom: 30px;
+    border-radius: 15px 15px 0 0; /* Bordes redondeados superiores */
 }
 
-.banner {
-    height: 180px;
-    background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6') center/cover;
+.banner-top img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Esto hace que la imagen no se deforme */
+    display: block;
 }
 
-/* PERFIL CENTRADO ENCIMA */
-.profile {
-    position: absolute;
-    top: 120px;
-    left: 50%;
-    transform: translateX(-50%);
+/* --- AVATAR (Contenedor y Posicionamiento) --- */
+.avatar-wrapper {
+    position: relative;
+    z-index: 10;          
     text-align: center;
+    margin-top: -135px;   
+    margin-bottom: 70px; 
 }
 
-.avatar {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    border: 5px solid #e9e2d0;
+/* --- IMAGEN DEL AVATAR (Tamaño y Estilo) --- */
+.avatar-img {
+    /* REDUCIMOS EL TAMAÑO: Como en la referencia, que es más pequeño */
+    width: 150px;         /* Tamaño del avatar (ancho) - Antes 200px */
+    height: 150px;        /* Tamaño del avatar (alto), debe ser igual para ser un círculo */
+    
+    border-radius: 50%;   /* Lo hace circular */
+    object-fit: cover;     /* Asegura que la foto se vea bien dentro del círculo */
+    
+    /* Borde blanco profesional */
+    border: 2px solid white; 
+    
+    /* Sombra suave para que resalte (opcional, como en la referencia) */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
+}
+.profile-info-block {
+    margin-top: -87px; 
+    position: relative;
+    z-index: 1;
+    background-color: var(--bg-green); /* Usando la variable definida arriba */
+    padding: 30px; /* Un poco más de padding interno */
+    border-radius: 20px 20px 0 0;
+  padding: 20px -200px;
+    /* ESTOS SON LOS CAMBIOS PARA QUE SE VEA ALARGADO */
+    width: 90%;          /* Ocupa el 90% del ancho de la pantalla */
+    max-width: 1500px;    /* Pero no más de 800px (como las cards de abajo) */
+    margin-left: auto;   /* Centrado horizontal */
+    margin-right: auto;  /* Centrado horizontal */
+    display: flex;       /* Cambiamos a flex para alinear contenido */
+    flex-direction: column;
+    align-items: center; /* Centra el nombre y los tabs */
 }
 
-.profile h2 {
-    margin-top: 10px;
-    letter-spacing: 3px;
-    font-weight: 500;
-}
-.tabs {
-    margin-top: 80px;
+.username-row {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
 }
 
+.username {
+    color: var(--dk-green);
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+.edit-icon {
+    width: 20px;
+    height: 20px;
+    stroke: var(--dk-green);
+    fill: none;
+    stroke-width: 2;
+}
+
+/* Contenedor: quitamos bordes y fondo */
+.tabs-container {
+    display: flex;
+    justify-content: center; /* Centra los botones */
+    gap: 15px;              /* Espacio de separación entre los dos recuadros */
+    width: 100%;
+    max-width: 500px;
+    margin-top: 20px;
+    border: none;           /* IMPORTANTE: quitamos el borde que los unía */
+    background: transparent;
+}
+
+/* Botones individuales */
 .tab {
-    padding: 12px 40px;
-    border: 1px solid #333;
-    background: #c7cfb8;
+    flex: 1;
+    padding: 12px 20px;
+    border: 1px solid var(--dk-green); /* Borde individual para cada uno */
+    border-radius: 8px;               /* Esquinas redondeadas para cada recuadro */
+    background-color: transparent;     /* Fondo por defecto */
+    color: var(--dk-green);
+    font-weight: bold;
     cursor: pointer;
-    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
 }
 
+/* Estado Activo: el que está seleccionado */
 .tab.active {
-    background: #8fa36b;
-    color: #1c1c1c;
+    background-color: var(--moss-green-80);
+    color: white;
+    border-color: var(--moss-green-80);
 }
-.cards {
+
+.tab.active .heart-icon {
+    fill: white;
+}
+
+/* Efecto Hover (opcional) */
+.tab:hover:not(.active) {
+    background-color: rgba(144, 165, 126, 0.1); /* Un toque verde muy suave */
+}
+.heart-icon {
+    width: 18px;
+    height: 18px;
+    fill: var(--dk-green);
+}
+
+/* SECCIÓN DE CARDS (CONTENIDO) */
+.content-section {
+    width: 100%;
+    max-width: 800px;
+    padding: 30px 20px;
+}
+
+.cards-grid {
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-    margin-top: 40px;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .card {
-    width: 280px;
-    background: #f5f1e6;
-    border-radius: 25px;
+    background: white;
     padding: 20px;
-    border: 1px solid #333;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    border: 1px solid #e2e2e2;
 }
 
 .card h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.card p {
-    font-size: 14px;
-    color: #555;
+    color: var(--dk-green);
+    margin-top: 0;
 }
 
 .card-footer {
-    margin-top: 15px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 15px;
 }
 
-.card-footer button {
-    background: #8fa36b;
+.btn-see {
+    background-color: var(--moss-green-80);
+    color: var(--dk-green);
     border: none;
-    padding: 6px 12px;
-    border-radius: 12px;
-    color: white;
-}
-.container {
-    width: 80%;
-    margin: auto;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
 }

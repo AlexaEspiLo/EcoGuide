@@ -20,4 +20,6 @@
     </main>
 
 </body>
+
+@stack('scripts')
 </html>

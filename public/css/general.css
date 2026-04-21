@@ -65,4 +65,5 @@ body {
     color: var(--text-dark);
     height: 100vh;
     width: 100vw;
+    overflow-x: hidden;
 }

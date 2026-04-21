@@ -109,6 +109,10 @@ Route::get('/perfil', function () {
     return view('profile', compact('user', 'tips'));
 });
 
+Route::get('/account', function () {
+    return view('user.account');
+})->name('account');
+
 // --- RECUPERACIÓN DE CONTRASEÑA ---
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
