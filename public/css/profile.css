@@ -1,11 +1,3 @@
-/* VARIABLES SEGÚN TUS INDICACIONES */
-:root {
-    --bg-green: #d8e5d2;        /* Fondo del bloque de perfil */
-    --moss-green-80: #90a57e;   /* Pestaña activa */
-    --dk-green: #2a3b24;        /* Texto, bordes y corazón */
-    --body-beige: #E5D7C4;      /* Fondo de la página */
-}
-
 /* CONTENEDOR PADRE */
 .profile-container {
     display: flex;
@@ -66,7 +58,7 @@
     background-color: var(--bg-green); /* Usando la variable definida arriba */
     padding: 30px; /* Un poco más de padding interno */
     border-radius: 20px 20px 0 0;
-  padding: 20px -200px;
+    padding: 20px -200px;
     /* ESTOS SON LOS CAMBIOS PARA QUE SE VEA ALARGADO */
     width: 90%;          /* Ocupa el 90% del ancho de la pantalla */
     max-width: 1500px;    /* Pero no más de 800px (como las cards de abajo) */
@@ -130,9 +122,9 @@
 
 /* Estado Activo: el que está seleccionado */
 .tab.active {
-    background-color: var(--moss-green-80);
+    background-color: var(--moss-green);
     color: white;
-    border-color: var(--moss-green-80);
+    border-color: var(--moss-green);
 }
 
 .tab.active .heart-icon {
@@ -189,4 +181,17 @@
     border-radius: 4px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.edit-btn {
+    color: var(--dk-green);
+    padding: 7px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.edit-btn:hover {
+    background: #354024;
+    color: white;
+    transform: scale(1.1);
 }

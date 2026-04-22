@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 <div class="profile-container">
 
     <div class="banner-top"><img src="{{ asset('images/campo_banner.jpg.jpeg') }}" alt="Banner plantas">
    </div>
 
     <div class="avatar-wrapper">
-         <img src="{{ asset('images/placeholder_user.png') }}" class="avatar-img" alt="Avatar Usuario">
+        <img src="{{ auth()->user()->avatar? asset('storage/' . auth()->user()->avatar): asset('images/placeholder_user.png') }}" class="avatar-img" alt="Avatar Usuario">
+
     </div>
 
     <div class="profile-info-block">
@@ -42,20 +42,12 @@
  <div class="content-section">
     <div id="favorites" class="tab-content active-content">
         <div class="cards-grid">
-            @forelse($favorites ?? [] as $tip)
-                @empty
-                <div class="empty-message">No hay tips favoritos todavía.</div>
-            @endforelse
+            @include('components.fav-tip-card')
         </div>
     </div>
 
     <div id="my-tips" class="tab-content" style="display: none;">
-        <div class="cards-grid">
-            @forelse($my_tips ?? [] as $tip)
-                @empty
-                <div class="empty-message">Aún no has creado ningún tip.</div>
-            @endforelse
-        </div>
+            @include('components.my-tip-card')
     </div>
 @push('scripts')
 <script src="{{ asset('js/profile.js') }}"></script>
