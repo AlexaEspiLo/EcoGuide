@@ -51,4 +51,4 @@
     </script>
 
 </body>
-</html><?php /**PATH C:\laragon\www\EcoGuide\resources\views/layouts/auth.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\laragon\www\ecoGuide\resources\views/layouts/auth.blade.php ENDPATH**/ ?>

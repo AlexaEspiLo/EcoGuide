@@ -1,0 +1,49 @@
+<div class="cards-grid">
+    @forelse($my_tips as $tip)
+        <div class="cards">
+            <div class="header-card">
+                <h3 class="title-card">{{ $tip->title }}</h3>
+                <img src="{{ asset('images/bg-home.jpeg') }}" class="category-img" alt="category">
+            </div>
+
+            <div class="card-author">
+                <img src="{{ auth()->user()->avatar? asset('storage/' . auth()->user()->avatar): asset('images/placeholder_user.png') }}" class="author-img" alt="Avatar Usuario">
+                <span class="author-name">{{ $tip->user->name }}</span>
+            </div>
+
+            <p class="card-description">{{ Str::limit($tip->description, 80) }}</p>
+
+            <div class="footer-card">
+                <a class="more" href="{{ route('tip.show', $tip->id) }}">See Tip</a>
+
+                <div class="tipss like-section" id="{{$tip->id}}" style="cursor: pointer;">
+                    <span id="count{{$tip->id}}" class="likes-count">
+                        {{ number_format($tip->likes->count()) }}
+                    </span>
+                    <span id="heart{{$tip->id}}"
+                        style="color: {{ $tip->isLikedByLoggedInUser() ? '#354024' : 'var(--beige)' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                            class="bi bi-heart-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                        </svg>
+                    </span>
+                    <a href="" class="edit-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                            class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path
+                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                            <path fill-rule="evenodd"
+                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    @empty
+        <div class="empty-message">
+            You haven't created any tips yet.
+        </div>
+    @endforelse
+</div>
