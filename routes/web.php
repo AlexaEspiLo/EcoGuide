@@ -5,19 +5,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Page;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TipController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\GoogleController;
+
+// --- RECUPERACIÓN DE CONTRASEÑA ---
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 // --- PÁGINA DE INICIO ---
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-// --- AUTENTICACIÓN (LOGIN) ---
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+// --- LOGIN ---
+Route::get('/login', fn() => view('auth.login'))->name('login');
 
 Route::post('/login', function (Request $request) {
     $credentials = $request->validate([
@@ -27,44 +35,40 @@ Route::post('/login', function (Request $request) {
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
-        // Al loguearse, intentamos ir a home (el middleware verificará la privacidad)
         return redirect()->intended('home');
     }
 
     return back()->withErrors([
-        'email' => 'Las credenciales no coinciden con nuestros registros.',
-    ])->onlyInput('email');
+        'email' => 'Las credenciales no coinciden.',
+    ]);
 })->name('login.post');
 
 // --- REGISTRO ---
-Route::get('/register', function () {
-    return view('auth.register'); 
-})->name('register');
+Route::get('/register', fn() => view('auth.register'))->name('register');
 
 Route::post('/register', function (Request $request) {
     $request->validate([
         'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:8|confirmed',
     ]);
 
     $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
-        'privacy_accepted' => false, // Aseguramos que empiece en false
+        'privacy_accepted' => false,
     ]);
 
     Auth::login($user);
 
-    // Después de registrarse, va directo a leer la privacidad
     return redirect()->route('privacidad');
 })->name('register.post');
 
-// --- FLUJO DE PRIVACIDAD (CANVA) ---
-Route::get('/privacidad', function () {
-    return view('auth.privacidad'); // Asegúrate de crear este archivo
-})->name('privacidad')->middleware('auth');
+// --- PRIVACIDAD ---
+Route::get('/privacidad', fn() => view('auth.privacidad'))
+    ->middleware('auth')
+    ->name('privacidad');
 
 Route::post('/privacidad-aceptar', function () {
     $user = Auth::user();
@@ -72,21 +76,16 @@ Route::post('/privacidad-aceptar', function () {
     $user->save();
 
     return redirect()->route('home');
-})->name('privacidad.aceptar')->middleware('auth');
+})->middleware('auth')->name('privacidad.aceptar');
 
-// --- HOME (PROTEGIDO) ---
-Route::get('/home', function () {
-    // Verificamos si ya aceptó la privacidad
-    if (!Auth::user()->privacy_accepted) {
-        return redirect()->route('privacidad');
-    }
+// --- HOME Y FUNCIONALIDAD ---
+Route::get('/home', [HomeController::class, 'index'])
+    ->middleware('auth')
+    ->name('home');
 
-    return "<h1>¡Bienvenido a EcoGuide, " . Auth::user()->name . "! Estás dentro.</h1>
-            <p>Gracias por aceptar nuestras políticas de privacidad.</p>
-            <form action='" . route('logout') . "' method='POST'>" . csrf_field() . "
-                <button type='submit'>Cerrar Sesión</button>
-            </form>";
-})->name('home')->middleware('auth');
+Route::post('/like', [TipController::class, 'like'])->middleware('auth');
+Route::get('/search', [Controller::class, 'index'])->middleware('auth')->name('search');
+Route::get('/tip/{id}', [TipController::class, 'show'])->name('tip.show');
 
 // --- LOGOUT ---
 Route::post('/logout', function (Request $request) {
@@ -96,11 +95,11 @@ Route::post('/logout', function (Request $request) {
     return redirect('/login');
 })->name('logout');
 
-// --- RECUPERACIÓN DE CONTRASEÑA ---
-Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
-Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
-Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+// --- PÁGINAS DINÁMICAS ---
+Route::get('/page/{slug}', function ($slug) {
+    $page = Page::where('slug', $slug)->firstOrFail();
+    return view('user.info', compact('page'));
+})->name('page.show');
 
 // --- GOOGLE LOGIN ---
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
