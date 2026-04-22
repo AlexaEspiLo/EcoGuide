@@ -43,5 +43,17 @@ class TipController extends Controller
         $tip = Tip::with(['user', 'category'])->findOrFail($id);
         return view('user.tip', compact('tip'));
     }
+
+    public function edit($id)
+{
+    $tip = Tip::findOrFail($id);
+
+    // Seguridad: solo el dueño puede editar
+    if ($tip->user_id !== auth()->id()) {
+        abort(403);
+    }
+
+    return view('tips.edit', compact('tip'));
+}
     
 }

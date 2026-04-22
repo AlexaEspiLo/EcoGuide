@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('content'); ?>
 <div class="tip-detail-container" style="background-image: url('/images/bg-home.jpeg')">
     

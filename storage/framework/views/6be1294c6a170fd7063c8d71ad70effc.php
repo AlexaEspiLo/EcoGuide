@@ -13,7 +13,7 @@
 
                 <?php if(auth()->guard()->check()): ?>
                     <li class="nav-links">
-                        <a href="#" class="<?php echo e(request()->routeIs('profile') ? 'active' : ''); ?>">
+                        <a href="<?php echo e(route('perfil')); ?>" class="<?php echo e(request()->routeIs('profile') ? 'active' : ''); ?>">
                             <img src="<?php echo e(asset('icons/account-icon.png')); ?>" class="nav-icon"> Account
                         </a>
                     </li>

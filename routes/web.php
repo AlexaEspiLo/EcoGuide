@@ -12,6 +12,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TipController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\ProfileController;
+
 
 // --- RECUPERACIÓN DE CONTRASEÑA ---
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
@@ -78,14 +80,12 @@ Route::post('/privacidad-aceptar', function () {
     return redirect()->route('home');
 })->middleware('auth')->name('privacidad.aceptar');
 
-// --- HOME Y FUNCIONALIDAD ---
-Route::get('/home', [HomeController::class, 'index'])
-    ->middleware('auth')
-    ->name('home');
-
+// --- HOME Y FUNCIONALIDADES ---
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 Route::post('/like', [TipController::class, 'like'])->middleware('auth');
 Route::get('/search', [Controller::class, 'index'])->middleware('auth')->name('search');
 Route::get('/tip/{id}', [TipController::class, 'show'])->name('tip.show');
+Route::get('/tips/filter', [HomeController::class, 'filter'])->name('tips.filter');
 
 // --- LOGOUT ---
 Route::post('/logout', function (Request $request) {
@@ -94,6 +94,29 @@ Route::post('/logout', function (Request $request) {
     $request->session()->regenerateToken();
     return redirect('/login');
 })->name('logout');
+
+// PERFIL
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->middleware('auth')
+    ->name('perfil');
+
+Route::get('/account', [ProfileController::class, 'account'])
+    ->middleware('auth')
+    ->name('account');
+
+// ACTUALIZAR
+Route::patch('/account/update', [ProfileController::class, 'updateAccount'])
+    ->middleware('auth')
+    ->name('account.update');
+
+Route::post('/account/avatar', [ProfileController::class, 'updateAvatar'])
+    ->middleware('auth')
+    ->name('account.avatar');
+
+// EDITAR TIPS
+Route::get('/tip/{id}/edit', [TipController::class, 'edit'])
+    ->middleware('auth')
+    ->name('tip.edit');
 
 // --- PÁGINAS DINÁMICAS ---
 Route::get('/page/{slug}', function ($slug) {
