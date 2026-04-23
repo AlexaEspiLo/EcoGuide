@@ -8,29 +8,31 @@ use App\Models\User;
 use App\Models\Page;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TipController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\AdminUserController;
 
 
 
 // --- RECUPERACIÓN DE CONTRASEÑA ---
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+
+// Rutas para resetear la contraseña
 Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
-// --- PÁGINA DE INICIO ---
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
-// --- LOGIN ---
-Route::get('/login', fn() => view('auth.login'))->name('login');
+// Autentificación
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
 
 Route::post('/login', function (Request $request) {
     $credentials = $request->validate([
@@ -48,8 +50,10 @@ Route::post('/login', function (Request $request) {
     ]);
 })->name('login.post');
 
-// --- REGISTRO ---
-Route::get('/register', fn() => view('auth.register'))->name('register');
+// --- RUTAS DE REGISTRO ---
+Route::get('/register', function () {
+    return view('auth.register');
+})->name('register');
 
 Route::post('/register', function (Request $request) {
     $request->validate([
@@ -66,9 +70,12 @@ Route::post('/register', function (Request $request) {
     ]);
 
     Auth::login($user);
-
     return redirect()->route('privacidad');
 })->name('register.post');
+
+
+// Ruta de Búsqueda actualizada
+Route::get('/search', [SearchController::class, 'search'])->name('search');
 
 // --- PRIVACIDAD ---
 Route::get('/privacidad', fn() => view('auth.privacidad'))
@@ -84,11 +91,15 @@ Route::post('/privacidad-aceptar', function () {
 })->middleware('auth')->name('privacidad.aceptar');
 
 // --- HOME Y FUNCIONALIDADES ---
+Route::get('/', function () {
+    return redirect()->route('home');
+});
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 Route::post('/like', [TipController::class, 'like'])->middleware('auth');
-Route::get('/search', [Controller::class, 'index'])->middleware('auth')->name('search');
 Route::get('/tip/{id}', [TipController::class, 'show'])->name('tip.show');
 Route::get('/tips/filter', [HomeController::class, 'filter'])->name('tips.filter');
+
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 
 // --- LOGOUT ---
 Route::post('/logout', function (Request $request) {
@@ -106,32 +117,11 @@ Route::get('/profile', [ProfileController::class, 'index'])
 Route::get('/account', [ProfileController::class, 'account'])
     ->middleware('auth')
     ->name('account');
-// Ruta para visualizar la vista de administrador sin validación de usuario aún
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
 
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-Route::patch('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
-Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-
-Route::get('/tips', function () {
-    return view('admin.tips');
-})->name('tips');
-
-Route::get('/users', function () {
-    return view('admin.users');
-})->name('users');
-
-Route::get('/info-pages', function () {
-    return view('admin.info-pages');
-})->name('info-pages');
 
 Route::get('/account', function () {
     return view('admin.account');
 })->name('account');
-
 
 
 // ACTUALIZAR
@@ -154,8 +144,41 @@ Route::get('/page/{slug}', function ($slug) {
     return view('user.info', compact('page'));
 })->name('page.show');
 
+
+// --- ADMIN  ---
+Route::prefix('admin')
+    ->middleware(['auth'])
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('/categories', function () {
+            return view('admin.categories');
+        })->name('categories');
+
+        Route::get('/account', function () {
+            return view('admin.account');
+        })->name('account');
+        Route::get('/tips', [TipController::class, 'index'])->name('tips');
+        Route::get('/users', [AdminUserController::class, 'index'])->name('users');
+        Route::get('/pages', [PageController::class, 'index'])->name('pages');
+        Route::get('/pages/{slug}', [PageController::class, 'edit'])->name('pages.edit');
+        Route::put('/pages/{id}', [PageController::class, 'update'])->name('pages.update');
+
+        Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+        Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+        Route::patch('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+    });
+
+
 // --- GOOGLE LOGIN ---
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
-// Esta es la ruta a la que Google regresa al usuario
-Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+// --- TIPS ACTIONS ---
+Route::get('/tips/create', [TipController::class, 'create'])->name('tips.create');
+Route::post('/tips', [TipController::class, 'store'])->name('tips.store');
+Route::get('/tips/{id}/edit', [TipController::class, 'edit'])->name('tips.edit')->middleware('auth');
+Route::patch('/tips/{id}', [TipController::class, 'update'])->name('tips.update')->middleware('auth');
+Route::delete('/tips/{id}', [TipController::class, 'destroy'])->middleware('auth')->name('tips.destroy');

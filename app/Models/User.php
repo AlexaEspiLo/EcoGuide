@@ -24,6 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'status',   // <--- Agregar esta
+        'is_admin',
     ];
 
     /**
@@ -45,16 +47,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Likes (){
-        return $this->hasMany(Like::class); 
+    public function Likes()
+    {
+        return $this->hasMany(Like::class);
     }
 
     public function tips()
-{
-    return $this->hasMany(Tip::class);
-}
-public function likedTips()
-{
-    return $this->belongsToMany(Tip::class, 'likes', 'user_id', 'tip_id');
-}
+    {
+        return $this->hasMany(Tip::class);
+    }
+    public function likedTips()
+    {
+        return $this->belongsToMany(Tip::class, 'likes', 'user_id', 'tip_id');
+    }
 }

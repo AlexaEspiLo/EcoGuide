@@ -20,7 +20,7 @@
     position: relative;
     z-index: 1;
     max-width: 1180px;
-    margin: 0 auto;
+    margin: 5% auto;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
@@ -316,10 +316,42 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden; /* Evita el rebote lateral en móviles */
-    overflow-y: hidden;
 }
 
-/* Asegura que la tabla no rompa el diseño */
-.admin-table {
-    min-width: 600px; /* Evita que la tabla se colapse demasiado y se vea mal */
+
+
+.save-btn {
+    background-color: #354024;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.save-btn:hover {
+    background-color: #2a331d;
+}
+
+.success-message {
+    background: #354024;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 999px;
+    width: fit-content;
+    margin: 0 auto 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    animation: popIn 0.4s ease;
+}
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

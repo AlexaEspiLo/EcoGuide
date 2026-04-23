@@ -3,14 +3,16 @@
         <div class="cards">
             <div class="header-card">
                 <h3 class="title-card">{{ $tip->title }}</h3>
-                <img src="{{ asset('images/bg-home.jpeg') }}" class="category-img" alt="category">
+                <img src="{{ asset('images/category-image.png') }}" class="category-img" alt="category">
             </div>
 
             <div class="card-author">
                 <img src="{{ $tip->user->avatar
             ? asset('storage/' . $tip->user->avatar)
-            : asset('images/placeholder_user.png') }}" class="author-img" alt="Avatar Usuario"> <span
-                    class="author-name">{{ $tip->user->name }}</span>
+            : asset('images/placeholder_user.png') }}" class="author-img" alt="Avatar Usuario"> <span <a
+                    href="{{ route('users.show', $tip->user->id) }}" class="author-name">
+                    {{ $tip->user->name }}
+                    </a>
             </div>
 
             <p class="card-description">{{ Str::limit($tip->description, 80) }}</p>

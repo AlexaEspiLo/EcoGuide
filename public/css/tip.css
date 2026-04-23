@@ -1,0 +1,218 @@
+.main-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding-top: 120px;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.main-title {
+    font-size: 3rem;
+    color: #354024;
+    font-family: var(--font-serif-title);
+}
+
+.post-button {
+    background: #899064;
+    color: #fff;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.post-button:hover {
+    background: #6f7750;
+    transform: scale(1.05);
+}
+
+/* GRID */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+}
+
+/* INPUTS */
+.form-group-tip {
+    margin-bottom: 30px;
+}
+
+.field-label {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #354024;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.form-input {
+    width: 100%;
+    background: #b7c7a1;
+    border: none;
+    border-radius: 30px;
+    padding: 18px;
+    font-size: 1rem;
+    color: #2f3e2c;
+}
+
+/* TEXTAREA */
+.description-input {
+    height: 220px;
+    border-radius: 25px;
+}
+
+/* SELECT */
+.select-input {
+    appearance: none;
+    cursor: pointer;
+}
+
+/* UPLOAD */
+.image-upload-container {
+    height: 200px;
+    background: #b7c7a1;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.image-upload-container:hover {
+    background: #a9ba92;
+}
+
+.upload-content {
+    text-align: center;
+    color: #2f3e2c;
+}
+
+.upload-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 100%;
+    background-color: #cadbb7;
+    border: 3px solid #5d6d4a;
+    border-radius: 40px;
+    padding: 18px 50px 18px 20px;
+    font-size: 1.2rem;
+    color: #314528;
+    cursor: pointer;
+}
+
+/* Flechita personalizada */
+.select-wrapper::after {
+    content: "▼";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #314528;
+    pointer-events: none;
+    font-size: 1rem;
+}
+
+/* Hover */
+.select-input:hover {
+    background-color: #b9cba5;
+}
+
+/* Focus */
+.select-input:focus {
+    outline: none;
+    border-color: #899064;
+    box-shadow: 0 0 0 3px rgba(137, 144, 100, 0.2);
+}
+
+.image-upload-container {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    border-radius: 25px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 3px solid #5d6d4a;
+    background-color: #cadbb7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Imagen */
+.preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Placeholder */
+.upload-content {
+    text-align: center;
+    color: #314528;
+}
+
+/* Overlay */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    transition: 0.3s ease;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Hover effect */
+.image-upload-container:hover .overlay {
+    opacity: 1;
+}
+
+.delete-btn {
+    color: var(--dk-green);
+    cursor: pointer;
+    padding: 7px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.delete-btn:hover {
+    background: var(--kombu-green);
+    color: white;
+    transform: scale(1.1);
+}

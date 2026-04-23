@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', 'My Profile')
 @section('content')
     <section class="account-page">
         <div class="account-shell">

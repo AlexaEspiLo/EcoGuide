@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', 'Home')
 @section('content')
 
     <section class="hero-home">
@@ -11,7 +11,7 @@
         <p class="phrase">Small actions can create a big impact</p>
     </div>
 
-    <div class="filters">
+    <div class="filters-home">
         <div class="category active" data-id="all">
             All
         </div>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="fixed-add-button-container">
-        <a href="#" class="fixed-add-button">
+        <a href="{{ route('tips.create') }}"" class="fixed-add-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-plus"
                 viewBox="0 0 16 16">
                 <path

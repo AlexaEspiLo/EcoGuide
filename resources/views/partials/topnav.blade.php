@@ -13,7 +13,7 @@
 
                 @auth
                     <li class="nav-links">
-                        <a href="{{ route('perfil') }}" class="{{ request()->routeIs('profile') ? 'active' : '' }}">
+                        <a href="{{ route('perfil') }}" class="{{ request()->routeIs('perfil') ? 'active' : '' }}">
                             <img src="{{ asset('icons/account-icon.png') }}" class="nav-icon"> Account
                         </a>
                     </li>

@@ -20,7 +20,7 @@
     position: relative;
     z-index: 1;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 5% auto;
 }
 
 .admin-users-header {
@@ -122,7 +122,7 @@
 
 .admin-table tbody tr {
     background: rgba(255, 255, 255, 0.9);
-    border-radius: 999px;
+    border-radius: 50%;
 }
 
 .admin-table td {
@@ -186,7 +186,6 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden; /* Evita el rebote lateral en móviles */
-    overflow-y: hidden;
 }
 
 /* Asegura que la tabla no rompa el diseño */

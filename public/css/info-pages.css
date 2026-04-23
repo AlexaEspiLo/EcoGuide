@@ -1,0 +1,31 @@
+.about-container {
+    height: 100vh; /* Ocupa toda la pantalla */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+}
+
+.about-overlay {
+    max-width: 800px;
+    color: #fff;
+}
+
+.about-title {
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.about-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: black;
+}
