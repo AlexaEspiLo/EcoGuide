@@ -127,3 +127,7 @@ Route::get('/page/{slug}', function ($slug) {
 // --- GOOGLE LOGIN ---
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+
+Route::get('/tips/create', [TipController::class, 'create'])->name('tips.create');
+Route::post('/tips', [TipController::class, 'store'])->name('tips.store');
