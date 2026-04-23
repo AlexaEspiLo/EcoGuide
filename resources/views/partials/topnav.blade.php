@@ -7,26 +7,31 @@
             <ul class="nav-center">
                 @guest
                     <li><a href="{{ route('login') }}"><img src="{{ asset('icons/login-icon.png') }}" class="nav-icon">Login</a></li>
-                @endguest
-
-                <li><a href="{{ route('home') }}" class="active"><img src="{{ asset('icons/home-icon.png') }}" class="nav-icon">Home</a></li>
-
-                @guest
+                    <li><a href="" class="active"><img src="{{ asset('icons/home-icon.png') }}" class="nav-icon">Home</a></li>
                     <li><a href="{{ route('register') }}"><img src="{{ asset('icons/register-icon.png') }}" class="nav-icon"> Register</a></li>
                 @endguest
 
                 @auth
-                    <li><a href="{{ route('tips.create') }}"><img src="{{ asset('icons/add-icon.png') }}" class="nav-icon"> Add Tip</a>
+                    <li class="nav-links">
+                        <a href="{{ route('perfil') }}" class="{{ request()->routeIs('profile') ? 'active' : '' }}">
+                            <img src="{{ asset('icons/account-icon.png') }}" class="nav-icon"> Account
+                        </a>
                     </li>
-                    <li><a href="{{ route('home') }}"><img src="{{ asset('icons/account-icon.png') }}" class="nav-icon"> Account</a></li>
+
+                    <li class="nav-links">
+                        <a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'active' : '' }}">
+                            <img src="{{ asset('icons/home-icon.png') }}" class="nav-icon"> Home
+                        </a>
+                    </li>
+
+                    <li class="nav-links">
+                        <a href="/search" class="{{ request()->path() == 'search' ? 'active' : '' }}">
+                            <img src="{{ asset('icons/search-icon.png') }}" class="nav-icon"> Search
+                        </a>
+                    </li>
                 @endauth
             </ul>
 
-        <div class="nav-right">
-            <a href="#">
-                <img src="{{ asset('icons/search-icon.png') }}" class="nav-icon">
-            </a>
-        </div>
-
     </div>
 </nav>
+
