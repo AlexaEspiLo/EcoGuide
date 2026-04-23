@@ -128,6 +128,9 @@ Route::get('/page/{slug}', function ($slug) {
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
-
+// --- TIPS ACTIONS ---
 Route::get('/tips/create', [TipController::class, 'create'])->name('tips.create');
 Route::post('/tips', [TipController::class, 'store'])->name('tips.store');
+Route::get('/tips/{id}/edit', [TipController::class, 'edit'])->name('tips.edit')->middleware('auth');
+Route::patch('/tips/{id}', [TipController::class, 'update'])->name('tips.update')->middleware('auth');
+Route::delete('/tips/{id}', [TipController::class, 'destroy'])->middleware('auth')->name('tips.destroy');

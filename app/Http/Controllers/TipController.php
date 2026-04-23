@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tip;
+use App\Models\Category;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
+
 
 class TipController extends Controller
 {
@@ -46,19 +49,20 @@ class TipController extends Controller
 
     public function edit($id)
     {
+        $categories = Category::all();
         $tip = Tip::findOrFail($id);
 
-        // Seguridad: solo el dueño puede editar
         if ($tip->user_id !== auth()->id()) {
             abort(403);
         }
 
-        return view('tips.edit', compact('tip'));
+        return view('tips.edit', compact('tip', 'categories'));
     }
 
     public function create()
     {
-        return view('tips.create_tip');
+        $categories = Category::all();
+        return view('tips.create_tip', compact('categories'));
     }
 
     public function store(Request $request)
@@ -66,7 +70,7 @@ class TipController extends Controller
         $request->validate([
             'title' => 'required|string|max:50',
             'description' => 'required|string|max:500',
-            'category_id' => 'required|integer',
+            'category_id' => 'required|exists:categories,id',
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Máximo 2MB
         ], [
             'title.max' => 'The title is very long (maximum 50 characters).',
@@ -82,9 +86,61 @@ class TipController extends Controller
             'description' => $request->description,
             'category_id' => $request->category_id,
             'image' => $imagePath,
+            'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('tips.create')->with('success', '¡Tip cshared successfully!');
+        return redirect()->route('home')->with('success', 'Tip shared successfully!');
     }
 
+    public function update(Request $request, $id)
+    {
+        $tip = Tip::findOrFail($id);
+
+        // Seguridad
+        if ($tip->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'title' => 'required|string|max:50',
+            'description' => 'required|string|max:500',
+            'category_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        // Si sube nueva imagen
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('tips', 'public');
+            $tip->image = $imagePath;
+        }
+
+        // Actualizar datos
+        $tip->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+        ]);
+
+        return redirect()->route('tip.show', $tip->id)
+            ->with('success', 'Tip updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $tip = Tip::findOrFail($id);
+
+        if ($tip->user_id !== auth()->id()) {
+            abort(403);
+        }
+
+        $tip->likes()->delete();
+
+        if ($tip->image && \Storage::disk('public')->exists($tip->image)) {
+            \Storage::disk('public')->delete($tip->image);
+        }
+
+        $tip->delete();
+
+        return redirect()->route('home')->with('success', 'Tip deleted');
+    }
 }

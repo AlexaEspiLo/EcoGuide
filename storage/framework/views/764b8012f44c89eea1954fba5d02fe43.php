@@ -1,4 +1,4 @@
-<?php $__env->startSection('title', 'Inicio'); ?>
+<?php $__env->startSection('title', 'Welcome'); ?>
 
 <?php $__env->startSection('content'); ?>
     <div class="container mx-auto py-12 px-6">

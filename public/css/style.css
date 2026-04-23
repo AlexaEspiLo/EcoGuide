@@ -495,11 +495,13 @@ input::placeholder {
 
 .description {
     display: flex;
+    align-items: flex-start;
     flex-direction: row;
     gap: 30px;
 }
 
 .tip-description {
+    flex: 1;
     font-size: 1.5rem;
     line-height: 1.6;
     margin-bottom: 60px;
@@ -524,6 +526,7 @@ input::placeholder {
 .tip-image {
     width: 200px;
     height: 200px;
+    object-fit: cover;
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease;
