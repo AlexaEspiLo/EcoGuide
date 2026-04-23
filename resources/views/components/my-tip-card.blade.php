@@ -7,7 +7,8 @@
             </div>
 
             <div class="card-author">
-                <img src="{{ auth()->user()->avatar? asset('storage/' . auth()->user()->avatar): asset('images/placeholder_user.png') }}" class="author-img" alt="Avatar Usuario">
+                <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/placeholder_user.png') }}"
+                    class="author-img" alt="Avatar Usuario">
                 <span class="author-name">{{ $tip->user->name }}</span>
             </div>
 
@@ -28,7 +29,7 @@
                                 d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
                         </svg>
                     </span>
-                    <a href="" class="edit-btn">
+                    <a href="{{ route('tips.edit', $tip->id) }}" class="edit-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
                             class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path
@@ -37,6 +38,25 @@
                                 d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                         </svg>
                     </a>
+                    @if(auth()->id() === $tip->user_id)
+                        <form action="{{ route('tips.destroy', $tip->id) }}" method="POST"
+                            onsubmit="return confirm('Are you sure you want to delete this tip?')" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="delete-btn" title="Delete tip">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                                    class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5" />
+                                    <path d="M8 5.5A.5.5 0 0 1 8.5 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5" />
+                                    <path d="M11 6a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                                    <path
+                                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1z" />
+                                </svg>
+                            </button>
+                        </form>
+                    @endif
+
                 </div>
             </div>
         </div>

@@ -126,3 +126,23 @@ setTimeout(() => {
         setTimeout(() => msg.remove(), 300);
     }
 }, 3000);
+
+const input = document.getElementById('image-upload');
+const fileName = document.getElementById('file-name');
+const label = document.getElementById('image-label');
+
+input.addEventListener('change', function () {
+    const file = this.files[0];
+    if (!file) return;
+
+    fileName.innerText = file.name;
+
+    const reader = new FileReader();
+    reader.onload = e => {
+        label.style.backgroundImage = `url(${e.target.result})`;
+        label.style.backgroundSize = 'cover';
+        label.style.backgroundPosition = 'center';
+    };
+
+    reader.readAsDataURL(file);
+});

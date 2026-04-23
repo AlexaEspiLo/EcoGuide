@@ -1,58 +1,115 @@
-document.querySelector('form').addEventListener('submit', function(e) {
-    let allValid = true;
+document.querySelector('form').addEventListener('submit', function (e) {
 
-    const fields = [
-        { id: 'title', message: '¡Ups! The title is necessary.' },
-        { id: 'description', message: 'Ou, the description is missing.' },
-        { id: 'image-upload', isFile: true, message: 'Please, select your image.' }
-    ];
+    let valid = true;
 
-    fields.forEach(field => {
-        const input = document.getElementById(field.id);
-        const errorSpan = document.getElementById('error-' + field.id);
-        const visualElement = field.isFile ? document.getElementById('image-label') : input;
+    // TITLE
+    const title = document.getElementById('title');
+    const errorTitle = document.getElementById('error-title');
 
-        let isInvalid = false;
-        if (field.isFile) {
-            isInvalid = !input || input.files.length === 0;
-        } else {
-            isInvalid = !input || input.value.trim() === "";
-        }
-
-        if (isInvalid) {
-            e.preventDefault();
-            allValid = false;
-            if (errorSpan) {
-                errorSpan.innerText = field.message;
-                errorSpan.style.display = 'block';
-            }
-            if (visualElement) visualElement.classList.add('input-error');
-        } else {
-            if (errorSpan) errorSpan.style.display = 'none';
-            if (visualElement) visualElement.classList.remove('input-error');
-        }
-    });
-
-    // Categoría
-    const categoryGroup = document.getElementById('category-group');
-    const categories = document.getElementsByName('category_id');
-    const categoryError = document.getElementById('error-category_id');
-    let categorySelected = false;
-
-    categories.forEach(radio => { //revisa si hay seleccionados
-        if (radio.checked) categorySelected = true;
-    });
-
-    if (!categorySelected) {
-        e.preventDefault();
-        allValid = false;
-        if (categoryError) {
-            categoryError.style.display = 'block';
-            categoryError.innerText = 'Please, select a category.';
-        }
-        if (categoryGroup) categoryGroup.classList.add('group-error');
+    if (!title.value.trim()) {
+        errorTitle.innerText = 'Title is required';
+        errorTitle.style.display = 'block';
+        title.classList.add('input-error');
+        valid = false;
     } else {
-        if (categoryError) categoryError.style.display = 'none';
-        if (categoryGroup) categoryGroup.classList.remove('group-error');
+        errorTitle.style.display = 'none';
+        title.classList.remove('input-error');
     }
+
+    // DESCRIPTION
+    const description = document.getElementById('description');
+    const errorDesc = document.getElementById('error-description');
+
+    if (!description.value.trim()) {
+        errorDesc.innerText = 'Description is required';
+        errorDesc.style.display = 'block';
+        description.classList.add('input-error');
+        valid = false;
+    } else {
+        errorDesc.style.display = 'none';
+        description.classList.remove('input-error');
+    }
+
+    // IMAGE
+    const image = document.getElementById('image-upload');
+    const errorImage = document.getElementById('error-image-upload');
+
+    if (!image.files.length) {
+        errorImage.innerText = 'Image is required';
+        errorImage.style.display = 'block';
+        valid = false;
+    } else {
+        errorImage.style.display = 'none';
+    }
+
+    // CATEGORY
+    const category = document.querySelector('select[name="category_id"]');
+    const errorCategory = document.getElementById('error-category_id');
+
+    if (!category.value) {
+        errorCategory.innerText = 'Select a category';
+        errorCategory.style.display = 'block';
+        category.classList.add('input-error');
+        valid = false;
+    } else {
+        errorCategory.style.display = 'none';
+        category.classList.remove('input-error');
+    }
+
+    // SOLO bloquea si hay errores
+    if (!valid) e.preventDefault();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const input = document.getElementById('image-upload');
+
+    if (!input) return; // seguridad
+
+    input.addEventListener('change', function () {
+
+        const file = this.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+
+            let img = document.getElementById('preview-image');
+
+            // 🔥 Si ya existe → actualizar
+            if (img) {
+                img.src = e.target.result;
+            }
+            // 🔥 Si no existe → crear
+            else {
+                const container = document.getElementById('image-label');
+
+                img = document.createElement('img');
+                img.id = 'preview-image';
+                img.classList.add('preview-image');
+                img.src = e.target.result;
+
+                container.appendChild(img);
+
+                const placeholder = document.getElementById('upload-placeholder');
+                if (placeholder) placeholder.remove();
+            }
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+});
+
+// SOLO validar si NO hay imagen previa
+const hasExistingImage = document.getElementById('preview-image');
+
+if (!image.files.length && !hasExistingImage) {
+    errorImage.innerText = 'Image is required';
+    errorImage.style.display = 'block';
+    valid = false;
+} else {
+    errorImage.style.display = 'none';
+}
+

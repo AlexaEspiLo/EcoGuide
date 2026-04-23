@@ -8,11 +8,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tip extends Model
 {
-    protected $fillable = ['title', 'description', 'category', 'image'];
+    protected $fillable = [
+        'title',
+        'description',
+        'category_id',
+        'image',
+        'user_id',
+    ];
 
 
-    public function Likes (){
-        return $this->hasMany(Like::class); 
+
+    public function Likes()
+    {
+        return $this->hasMany(Like::class);
     }
 
     public function user(): BelongsTo
