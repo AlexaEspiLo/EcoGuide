@@ -1,0 +1,123 @@
+/* CONTENEDOR GENERAL */
+.search-page {
+    background-color: #F3EFE0;
+    min-height: 100vh;
+    padding-top: 100px;
+}
+
+/* 🔍 BARRA DE BÚSQUEDA */
+.search-header {
+    background-color: var(--moss-green);
+    padding: 25px 0;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.search-form {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    gap: 15px;
+}
+
+.search-input {
+    flex: 1;
+    background: rgba(255,255,255,0.4);
+    border: none;
+    border-radius: 30px;
+    padding: 15px 25px;
+    font-size: 18px;
+    outline: none;
+    color: #2f3e2f;
+    backdrop-filter: blur(6px);
+}
+
+.search-btn {
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.search-btn:hover {
+    transform: scale(1.1);
+}
+
+/* CONTENIDO */
+.search-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* TITULOS */
+.search-title {
+    color: #354024;
+    font-weight: 700;
+    border-bottom: 2px solid #d9e4dd;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+/* 👤 USUARIOS (REDISEÑO) */
+.users-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 15px;
+    margin-bottom: 50px;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: white;
+    padding: 12px 18px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Avatar */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Nombre */
+.user-name {
+    font-weight: 600;
+    color: #354024;
+    font-size: 15px;
+}
+
+/* GRID DE TIPS */
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* EMPTY STATE */
+.empty-state {
+    text-align: center;
+    padding: 80px 0;
+    color: #9aa5a0;
+    font-style: italic;
+    font-size: 18px;
+}

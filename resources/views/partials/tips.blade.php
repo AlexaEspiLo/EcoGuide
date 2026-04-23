@@ -10,7 +10,9 @@
                 <img src="{{ $tip->user->avatar
             ? asset('storage/' . $tip->user->avatar)
             : asset('images/placeholder_user.png') }}" class="author-img" alt="Avatar Usuario">
-                <span class="author-name">{{ $tip->user->name }}</span>
+                <a href="{{ route('users.show', $tip->user->id) }}" class="author-name">
+                    {{ $tip->user->name }}
+                </a>
             </div>
 
             <p class="card-description">{{ Str::limit($tip->description, 80) }}</p>
