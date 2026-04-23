@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-
+@section('title', 'My Profile')
 @section('styles')
 <link href="{{ asset('css/admin/account.css') }}" rel="stylesheet">
 @endsection
@@ -16,8 +16,8 @@
                     </button>
                 </div>
                 <div class="account-user">
-                    <h1 class="account-user-name">Elías Montoya</h1>
-                    <p class="account-user-email">montoyaelias@gmail.com</p>
+                    <h1 class="account-user-name">{{ auth()->user()->name ?? 'Usuario' }}</h1>
+                    <p class="account-user-email">{{ auth()->user()->email ?? 'Correo' }}</p>
                 </div>
             </div>
 
@@ -28,27 +28,36 @@
         </div>
 
         <div class="account-form-card">
-            <form action="{{-- route('profile.update') --}}" method="POST" class="profile-content">
-                @csrf
-                @method('PATCH')
+                @if(session('success'))
+                    <div class="success-message">
+                        {{ session('success') }}
+                    </div>
+                @endif
+                <form action="{{ route('account.update') }}" method="POST" class="profile-content">
+                    @csrf
+                    @method('PATCH')
 
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" value="Elías Montoya">
-                </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" value="{{ auth()->user()->name ?? 'Usuario' }}">
+                    </div>
 
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" value="montoyaelias@gmail.com">
-                </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="{{ auth()->user()->email ?? 'Correo' }}">
+                    </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <span class="label-instruction">Enter your new password to change it</span>
-                    <input type="password" id="password" name="password" placeholder="••••••••">
-                </div>
-            </form>
-        </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <span class="label-instruction">Enter your new password to change it</span>
+                        <input type="password" id="password" name="password" placeholder="••••••••">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="save-btn">Save Changes</button>
+                    </div>
+                </form>
+
+            </div>
     </div>
 
   

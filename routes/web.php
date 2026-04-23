@@ -15,6 +15,9 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\AdminUserController;
+
 
 
 // --- RECUPERACIÓN DE CONTRASEÑA ---
@@ -48,7 +51,7 @@ Route::post('/login', function (Request $request) {
 
 // --- RUTAS DE REGISTRO ---
 Route::get('/register', function () {
-    return view('auth.register'); 
+    return view('auth.register');
 })->name('register');
 
 Route::post('/register', function (Request $request) {
@@ -87,7 +90,8 @@ Route::post('/privacidad-aceptar', function () {
 })->middleware('auth')->name('privacidad.aceptar');
 
 // --- HOME Y FUNCIONALIDADES ---
-Route::get('/', function () {return redirect()->route('home');});
+Route::get('/', function () {
+    return redirect()->route('home'); });
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 Route::post('/like', [TipController::class, 'like'])->middleware('auth');
 Route::get('/tip/{id}', [TipController::class, 'show'])->name('tip.show');
@@ -102,31 +106,6 @@ Route::post('/logout', function (Request $request) {
     $request->session()->regenerateToken();
     return redirect('/login');
 })->name('logout');
-
-// Ruta para visualizar la vista de administrador sin validación de usuario aún
-Route::get('/admin', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
-
-Route::get('/categories', function () {
-    return view('admin.categories');
-})->name('categories');
-
-Route::get('/tips', function () {
-    return view('admin.tips');
-})->name('tips');
-
-Route::get('/users', function () {
-    return view('admin.users');
-})->name('users');
-
-Route::get('/info-pages', function () {
-    return view('admin.info-pages');
-})->name('info-pages');
-
-Route::get('/account', function () {
-    return view('admin.account');
-})->name('account');
 
 
 // PERFIL
@@ -157,6 +136,31 @@ Route::get('/page/{slug}', function ($slug) {
     $page = Page::where('slug', $slug)->firstOrFail();
     return view('user.info', compact('page'));
 })->name('page.show');
+
+Route::prefix('admin')
+    ->middleware(['auth'])
+    ->name('admin.')
+    ->group(function () {
+
+    Route::get('/categories', function () {
+        return view('admin.categories');
+    })->name('categories');
+
+    Route::get('/tips', function () {
+        return view('admin.tips');
+    })->name('tips');
+
+    Route::get('/account', function () {
+        return view('admin.account');
+    })->name('account');
+
+    Route::get('/users', [AdminUserController::class, 'index'])->name('users');
+    Route::get('/pages', [PageController::class, 'index'])->name('pages');
+    Route::get('/pages/{slug}', [PageController::class, 'edit'])->name('pages.edit');
+    Route::put('/pages/{id}', [PageController::class, 'update'])->name('pages.update');
+
+});
+
 
 // --- GOOGLE LOGIN ---
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
