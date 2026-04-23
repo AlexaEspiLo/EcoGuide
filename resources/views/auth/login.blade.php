@@ -32,7 +32,7 @@
 
         <div class="auth-options">
             <a href="{{ url('/auth/google') }}" class="btn-google" style="text-decoration: none; display: flex; align-items: center; justify-content: center; margin-top: 20px; border: 1px solid #354024; border-radius: 20px; padding: 10px; color: #354024;">
-                <img src="{{ asset('images/google-icon.png') }}" alt="" style="margin-right: 10px; width: 20px;"> 
+                <img src="{{ asset('icons/google-icon.png') }}" alt="" style="margin-right: 10px; width: 20px;"> 
                 Enter with a Google account
             </a>
             

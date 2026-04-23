@@ -50,6 +50,7 @@
     align-items: center;
     gap: 10px;
 }
+
 .category {
     background-color: color-mix(in srgb, var(--moss-green) 40%, transparent);
     border: 0.09px solid black;
@@ -58,11 +59,39 @@
     padding: 8px 12px;
     font-size: 1.2rem;
     cursor: pointer;
+    text-decoration: none;
+    color: var(--dk-green);
 }
 
 .category:hover {
-    filter: brightness(0.001);
+    background-color: var(--moss-green);
 
+}
+
+.category.active {
+    background-color: var(--moss-green);
+    color: white;
+}
+
+/* estado inicial */
+.fade-out {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+/* entrada */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Cards */
@@ -72,8 +101,9 @@
     margin: 0 5% 20px 5%;
     gap: 30px
 }
+
 .cards {
-    flex:0 1 calc(33.333% - 20px);
+    flex: 0 1 calc(33.333% - 20px);
     border: 1px solid black;
     border-radius: 40px;
     padding: 20px;
@@ -125,6 +155,8 @@
 .author-name {
     font-size: 0.8rem;
     font-weight: 500;
+    text-decoration: none;
+    color: black;
 }
 
 /* Descripción */
@@ -169,6 +201,70 @@
     font-size: 1.1rem;
 }
 
+.heart {
+    position: relative;
+    display: inline-block;
+    color: var(--beige);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.heart.liked {
+    color: #354024;
+}
+
+.heart.animate {
+    animation: pop 0.35s ease;
+}
+
+.heart.animate::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background: currentColor;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+
+    box-shadow:
+        0 -12px currentColor,
+        10px -6px currentColor,
+        10px 6px currentColor,
+        0 12px currentColor,
+        -10px 6px currentColor,
+        -10px -6px currentColor;
+
+    animation: burst 0.5s ease;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.3);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes burst {
+    0% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(2);
+    }
+}
+
 /* Botón para Crear */
 .fixed-add-button-container {
     position: fixed;
@@ -193,7 +289,7 @@
 
 .fixed-add-button:hover {
     transform: scale(1.1);
-    filter: brightness(1.1); 
+    filter: brightness(1.1);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
@@ -202,7 +298,7 @@
 .bg-image {
     min-height: 100vh;
     margin: 0;
-    background-image: url('../images/decoracion_plantas.jpg'); 
+    background-image: url('../images/decoracion_plantas.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -233,6 +329,7 @@
     background-color: rgba(136, 144, 99, 0.85);
     color: white;
 }
+
 .input-group {
     text-align: left;
     width: 80%;
@@ -246,22 +343,25 @@
     margin-bottom: 5px;
     color: var(--kombu-green);
 }
+
 .password-wrapper {
     position: relative;
     margin: 0 auto;
     text-align: left;
 }
-.auth-box input, 
+
+.auth-box input,
 .password-wrapper input {
     width: 100%;
     padding: 12px;
-    padding-right: 40px; 
+    padding-right: 40px;
     border: none;
     border-bottom: 2px solid #4C3D19;
     background: transparent;
     outline: none;
     font-size: 14px;
 }
+
 .password-toggle-icon {
     position: absolute;
     right: 10px;
@@ -269,12 +369,14 @@
     cursor: pointer;
     width: 20px;
     height: auto;
-    opacity: 0.7; 
+    opacity: 0.7;
     transition: opacity 0.3s;
 }
+
 .password-toggle-icon:hover {
     opacity: 1;
 }
+
 .auth-box input {
     width: 100%;
     padding: 10px 0;
@@ -296,7 +398,8 @@
     cursor: pointer;
 }
 
-.btn-google, .btn-outline {
+.btn-google,
+.btn-outline {
     display: block;
     width: 80%;
     margin: 10px auto;
@@ -347,6 +450,7 @@ input::placeholder {
     color: #333;
     transition: color 0.3s;
 }
+
 .back-button:hover {
     color: var(--kombu-green);
 }
@@ -360,7 +464,8 @@ input::placeholder {
     border-radius: 50px;
     padding: 60px 40px 20px 40px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-    color: #ffffff; /* Color de texto bone o blanco */
+    color: #ffffff;
+    /* Color de texto bone o blanco */
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -373,6 +478,7 @@ input::placeholder {
     display: flex;
     align-items: center;
     gap: 10px;
+    text-decoration: none;
 }
 
 .author-avatar {
@@ -392,11 +498,13 @@ input::placeholder {
 
 .description {
     display: flex;
+    align-items: flex-start;
     flex-direction: row;
     gap: 30px;
 }
 
 .tip-description {
+    flex: 1;
     font-size: 1.5rem;
     line-height: 1.6;
     margin-bottom: 60px;
@@ -421,6 +529,7 @@ input::placeholder {
 .tip-image {
     width: 200px;
     height: 200px;
+    object-fit: cover;
     border-radius: 50%;
     cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease;

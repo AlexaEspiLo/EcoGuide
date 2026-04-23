@@ -35,8 +35,8 @@
     /* Paleta de Colores */
     --bg-cream: #f2edde;
     --cafe-noir: #4C3D19;
-    --kombu-green: #354024;
-    --moss-green: #889063;
+    --kombu-green: #354023;
+    --moss-green: #889064;
     --tan: #CFBB99;
     --bone:#E5D7C4;
     --lg-green: #cadbb7;
@@ -64,5 +64,8 @@ body {
     font-family: var(--font-sans-body);
     background-color: var(--bg-cream);
     color: var(--text-dark);
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
 }
 

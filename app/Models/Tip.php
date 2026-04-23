@@ -2,13 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tip extends Model
 {
-    public function Likes (){
-        return $this->hasMany(Like::class); 
+    protected $fillable = [
+        'title',
+        'description',
+        'category_id',
+        'image',
+        'user_id',
+    ];
+
+
+
+    public function Likes()
+    {
+        return $this->hasMany(Like::class);
     }
 
     public function user(): BelongsTo

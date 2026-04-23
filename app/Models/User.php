@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Like;
+use App\Models\Tip;
+
 
 class User extends Authenticatable
 {
@@ -43,6 +46,15 @@ class User extends Authenticatable
     ];
 
     public function Likes (){
-        return $this->hasMany(Likes::class); 
+        return $this->hasMany(Like::class); 
     }
+
+    public function tips()
+{
+    return $this->hasMany(Tip::class);
+}
+public function likedTips()
+{
+    return $this->belongsToMany(Tip::class, 'likes', 'user_id', 'tip_id');
+}
 }

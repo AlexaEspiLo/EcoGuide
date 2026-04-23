@@ -12,9 +12,12 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TipController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GoogleController;
-use App\Http\Controllers\SearchController; // <--- Agregado
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 
-// Rutas para solicitar el enlace
+
+// --- RECUPERACIÓN DE CONTRASEÑA ---
 Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 
@@ -39,8 +42,8 @@ Route::post('/login', function (Request $request) {
     }
 
     return back()->withErrors([
-        'email' => 'Las credenciales no coinciden con nuestros registros.',
-    ])->onlyInput('email');
+        'email' => 'Las credenciales no coinciden.',
+    ]);
 })->name('login.post');
 
 // --- RUTAS DE REGISTRO ---
@@ -51,41 +54,46 @@ Route::get('/register', function () {
 Route::post('/register', function (Request $request) {
     $request->validate([
         'name' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255|unique:users',
-        'password' => 'required|string|min:8|confirmed',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:8|confirmed',
     ]);
 
     $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
         'password' => Hash::make($request->password),
+        'privacy_accepted' => false,
     ]);
 
     Auth::login($user);
-    return redirect()->route('home');
+    return redirect()->route('privacidad');
 })->name('register.post');
 
-// --- HOME Y FUNCIONALIDAD ---
-Route::get('/', [HomeController::class, 'index'])->name('home1');
-Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
-Route::post('/like', [TipController::class, 'like'])->middleware('auth');
 
 // Ruta de Búsqueda actualizada
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 
-Route::get('/tip/{id}', [TipController::class, 'show'])->name('tip.show');
-
 // --- PRIVACIDAD ---
-Route::get('/privacidad', function () {
-    return view('auth.privacidad');
-})->name('privacidad')->middleware('auth');
+Route::get('/privacidad', fn() => view('auth.privacidad'))
+    ->middleware('auth')
+    ->name('privacidad');
 
 Route::post('/privacidad-aceptar', function () {
     $user = Auth::user();
     $user->privacy_accepted = true;
     $user->save();
+
     return redirect()->route('home');
-})->name('privacidad.aceptar')->middleware('auth');
+})->middleware('auth')->name('privacidad.aceptar');
+
+// --- HOME Y FUNCIONALIDADES ---
+Route::get('/', function () {return redirect()->route('home');});
+Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::post('/like', [TipController::class, 'like'])->middleware('auth');
+Route::get('/tip/{id}', [TipController::class, 'show'])->name('tip.show');
+Route::get('/tips/filter', [HomeController::class, 'filter'])->name('tips.filter');
+
+Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
 
 // --- LOGOUT ---
 Route::post('/logout', function (Request $request) {
@@ -95,12 +103,42 @@ Route::post('/logout', function (Request $request) {
     return redirect('/login');
 })->name('logout');
 
-// Creación de Páginas desde Admin
+// PERFIL
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->middleware('auth')
+    ->name('perfil');
+
+Route::get('/account', [ProfileController::class, 'account'])
+    ->middleware('auth')
+    ->name('account');
+
+// ACTUALIZAR
+Route::patch('/account/update', [ProfileController::class, 'updateAccount'])
+    ->middleware('auth')
+    ->name('account.update');
+
+Route::post('/account/avatar', [ProfileController::class, 'updateAvatar'])
+    ->middleware('auth')
+    ->name('account.avatar');
+
+// EDITAR TIPS
+Route::get('/tip/{id}/edit', [TipController::class, 'edit'])
+    ->middleware('auth')
+    ->name('tip.edit');
+
+// --- PÁGINAS DINÁMICAS ---
 Route::get('/page/{slug}', function ($slug) {
     $page = Page::where('slug', $slug)->firstOrFail();
     return view('user.info', compact('page'));
 })->name('page.show');
 
-// --- GOOGLE AUTH ---
+// --- GOOGLE LOGIN ---
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+// --- TIPS ACTIONS ---
+Route::get('/tips/create', [TipController::class, 'create'])->name('tips.create');
+Route::post('/tips', [TipController::class, 'store'])->name('tips.store');
+Route::get('/tips/{id}/edit', [TipController::class, 'edit'])->name('tips.edit')->middleware('auth');
+Route::patch('/tips/{id}', [TipController::class, 'update'])->name('tips.update')->middleware('auth');
+Route::delete('/tips/{id}', [TipController::class, 'destroy'])->middleware('auth')->name('tips.destroy');
