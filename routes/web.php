@@ -8,11 +8,14 @@ use App\Models\User;
 use App\Models\Page;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController;
+
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TipController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\ProfileController;
+
 
 
 // --- RECUPERACIÓN DE CONTRASEÑA ---
@@ -103,6 +106,33 @@ Route::get('/profile', [ProfileController::class, 'index'])
 Route::get('/account', [ProfileController::class, 'account'])
     ->middleware('auth')
     ->name('account');
+// Ruta para visualizar la vista de administrador sin validación de usuario aún
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard');
+
+Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+Route::patch('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+Route::get('/tips', function () {
+    return view('admin.tips');
+})->name('tips');
+
+Route::get('/users', function () {
+    return view('admin.users');
+})->name('users');
+
+Route::get('/info-pages', function () {
+    return view('admin.info-pages');
+})->name('info-pages');
+
+Route::get('/account', function () {
+    return view('admin.account');
+})->name('account');
+
+
 
 // ACTUALIZAR
 Route::patch('/account/update', [ProfileController::class, 'updateAccount'])
@@ -126,4 +156,6 @@ Route::get('/page/{slug}', function ($slug) {
 
 // --- GOOGLE LOGIN ---
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+// Esta es la ruta a la que Google regresa al usuario
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);

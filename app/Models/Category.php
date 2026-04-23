@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'category_name',
+        'image',
+        'status',
+    ];
+
+    public function tips()
+    {
+        return $this->hasMany(\App\Models\Tip::class);
+    }
 }

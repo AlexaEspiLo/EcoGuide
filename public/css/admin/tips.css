@@ -1,0 +1,215 @@
+.admin-tips-page {
+    position: relative;
+    min-height: calc(100vh - 40px);
+    background-image: url('/images/bg-admin.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 3.5rem 1rem 4.5rem;
+}
+
+.admin-tips-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(235, 239, 229, 0.42);
+    pointer-events: none;
+}
+
+.admin-tips-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.admin-tips-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+}
+
+.admin-tips-title {
+    font-size: clamp(2.3rem, 4vw, 3.25rem);
+    line-height: 1;
+    font-weight: 800;
+    color: #21271c;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-bottom: 1.75rem;
+}
+
+.filters .btn-create {
+    min-width: 110px;
+    padding: 0.85rem 1.65rem;
+    border-radius: 999px;
+    border: 1px solid rgba(134, 146, 103, 0.45);
+    background: rgba(214, 220, 181, 0.85);
+    color: #3a452c;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.filters .btn-create:hover,
+.filters .btn-create.active {
+    background: rgba(133, 145, 109, 0.92);
+    color: #ffffff;
+}
+
+.admin-card {
+    border-radius: 34px;
+    background: rgba(227, 236, 211, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 24px 60px rgba(22, 54, 19, 0.08);
+    padding: 1.5rem;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.75rem;
+    min-width: 760px;
+}
+
+.admin-table thead tr {
+    background: rgba(147, 154, 108, 0.96);
+    color: #21271c;
+}
+
+.admin-table th {
+    padding: 1.1rem 1.4rem;
+    text-align: left;
+    font-size: 0.92rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #242f22;
+}
+
+.admin-table tbody tr {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 999px;
+}
+
+.admin-table td {
+    padding: 1.05rem 1.35rem;
+    color: #293026;
+    vertical-align: middle;
+}
+
+.admin-table tbody tr td {
+    border: none;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    justify-content: flex-end;
+}
+
+.btn-edit,
+.btn-delete {
+    border: none;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-edit {
+    background: rgba(241, 229, 173, 0.95);
+    color: #4a5136;
+}
+
+.btn-edit:hover {
+    background: rgba(197, 187, 143, 0.98);
+}
+
+.btn-delete {
+    background: rgba(250, 165, 157, 0.95);
+    color: #7a3533;
+}
+
+.btn-delete:hover {
+    background: rgba(238, 130, 123, 0.98);
+}
+
+.table-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(114, 123, 88, 0.18);
+}
+
+.table-footer h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #21271c;
+}
+
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #3f492d;
+    font-weight: 700;
+}
+
+.pagination input {
+    width: 4rem;
+    border: 1px solid rgba(114, 123, 88, 0.35);
+    border-radius: 999px;
+    padding: 0.65rem 0.9rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: #3f492d;
+    text-align: center;
+}
+
+.admin-page-button {
+    min-width: 44px;
+    border-radius: 999px;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(114, 123, 88, 0.35);
+    background: rgba(255, 255, 255, 0.78);
+    color: #3f492d;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+}
+
+@media (max-width: 780px) {
+    .admin-tips-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filters {
+        justify-content: center;
+    }
+
+    .table-footer {
+        justify-content: center;
+    }
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}

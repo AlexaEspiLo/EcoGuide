@@ -1,0 +1,325 @@
+.account-page {
+    position: relative;
+    min-height: calc(100vh - 40px);
+    background-image: url('/images/bg-admin.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 3.5rem 1rem 4.5rem;
+}
+
+.account-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(235, 239, 229, 0.42);
+    pointer-events: none;
+}
+
+.account-shell {
+    position: relative;
+    z-index: 1;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.account-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.account-profile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.account-avatar {
+    position: relative;
+    width: 134px;
+    height: 134px;
+    border-radius: 999px;
+    overflow: hidden;
+    box-shadow: 0 22px 44px rgba(12, 36, 16, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.82);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.account-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.avatar-edit {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(133, 145, 109, 0.22);
+    background: rgba(255, 255, 255, 0.94);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 18px rgba(15, 36, 17, 0.16);
+}
+
+.avatar-edit img {
+    width: 18px;
+    height: 18px;
+}
+
+.account-user {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.account-user-name {
+    font-size: clamp(1.75rem, 2.5vw, 2.4rem);
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    margin: 0;
+    color: #1b2517;
+}
+
+.account-user-email {
+    margin: 0;
+    font-size: 0.96rem;
+    letter-spacing: 0.05em;
+    color: #202b1f;
+}
+
+.logout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 146px;
+    padding: 0.95rem 1.9rem;
+    border-radius: 999px;
+    border: 1px solid rgba(133, 145, 109, 0.42);
+    background: rgba(165, 180, 133, 0.9);
+    color: #000000;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: capitalize;
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(13, 29, 13, 0.2);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.logout-btn:hover {
+    transform: translateY(-1px);
+    background: #94b47e;
+}
+
+.account-form-card {
+    width: 100%;
+    padding: 2rem;
+    border-radius: 38px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.92);
+    box-shadow: 0 30px 80px rgba(19, 48, 20, 0.12);
+    backdrop-filter: blur(14px);
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.form-group label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #1e2819;
+}
+
+.label-instruction {
+    font-size: 0.8rem;
+    color: #4f5a40;
+    margin-top: -0.25rem;
+}
+
+.profile-content input {
+    width: 100%;
+    padding: 1.35rem 1.5rem;
+    border-radius: 30px;
+    border: 1px solid rgba(133, 145, 109, 0.25);
+    background: rgba(222, 232, 205, 0.84);
+    color: #202c1f;
+    font-size: 1rem;
+    line-height: 1.5;
+    outline: none;
+    box-shadow: inset 0 6px 16px rgba(255, 255, 255, 0.9);
+}
+
+.profile-content input::placeholder {
+    color: rgba(49, 67, 38, 0.5);
+}
+
+.profile-content input:focus {
+    border-color: rgba(133, 145, 109, 0.8);
+    background: rgba(255, 255, 255, 0.96);
+}
+
+.account-page::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.12) 35%, rgba(255,255,255,0.26) 62%, rgba(255,255,255,0.34) 100%);
+    pointer-events: none;
+}
+
+.upload-modal {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(18, 33, 15, 0.45);
+    z-index: 1200;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(1.02);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.upload-modal.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+.upload-modal-card {
+    position: relative;
+    width: min(580px, 92%);
+    padding: 2rem;
+    border-radius: 32px;
+    background: rgba(227, 237, 215, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow: 0 30px 90px rgba(18, 35, 16, 0.28);
+}
+
+.upload-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+}
+
+.upload-modal-close img {
+    width: 50%;
+    height: auto;
+    display: block;
+}
+
+.upload-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 220px;
+    border-radius: 100px;
+    border: 2px dashed rgba(105, 121, 84, 0.55);
+    background: rgba(235, 246, 226, 0.95);
+    color: #2b3a27;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.upload-dropzone:hover {
+    background: rgba(235, 246, 226, 1);
+    border-color: rgba(105, 121, 84, 0.8);
+    transform: translateY(-1px);
+}
+
+.upload-dropzone img {
+    width: 48px;
+    height: auto;
+}
+
+.upload-file-input {
+    display: none;
+}
+
+@media (max-width: 720px) {
+    .upload-modal-card {
+        padding: 1.4rem;
+    }
+}
+
+@media (max-width: 980px) {
+    .account-top {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .account-profile {
+        width: 100%;
+    }
+
+    .logout-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 720px) {
+    .account-page {
+        padding: 2rem 1rem 2.5rem;
+    }
+
+    .account-shell {
+        gap: 1.5rem;
+    }
+
+    .account-avatar {
+        width: 118px;
+        height: 118px;
+    }
+
+    .account-top {
+        gap: 1rem;
+    }
+
+    .account-form-card {
+        padding: 1.5rem;
+    }
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden; /* Evita el rebote lateral en móviles */
+    overflow-y: hidden;
+}
+
+/* Asegura que la tabla no rompa el diseño */
+.admin-table {
+    min-width: 600px; /* Evita que la tabla se colapse demasiado y se vea mal */
+}
