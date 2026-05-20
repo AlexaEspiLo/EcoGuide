@@ -17,9 +17,12 @@
         </div>
 
         @foreach ($categories as $category)
-            <div class="category" data-id="{{ $category->id }}">
-                #{{ str_replace(' ', '', Str::title($category->category_name)) }}
-            </div>
+            {{-- Solo mostramos si el estatus es 1 --}}
+            @if($category->status == 1)
+                <div class="category" data-id="{{ $category->id }}">
+                    #{{ str_replace(' ', '', Str::title($category->category_name)) }}
+                </div>
+            @endif
         @endforeach
     </div>
 
@@ -28,7 +31,7 @@
     </div>
 
     <div class="fixed-add-button-container">
-        <a href="{{ route('tips.create') }}"" class="fixed-add-button">
+        <a href="{{ route('tips.create') }}"" class=" fixed-add-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-plus"
                 viewBox="0 0 16 16">
                 <path

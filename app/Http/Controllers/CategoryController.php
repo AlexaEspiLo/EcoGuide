@@ -41,7 +41,7 @@ class CategoryController extends Controller
             'image' => $imageName ? 'icons/' . $imageName : '',
         ]);
 
-        return redirect()->route('categories')->with('success', 'Categoría creada exitosamente.');
+        return redirect()->route('admin.categories')->with('success', 'Categoría creada exitosamente.');
     }
 
     public function update(Request $request, Category $category)
@@ -69,13 +69,13 @@ class CategoryController extends Controller
         $category->status = $validated['category_status'] === 'published';
         $category->save();
 
-        return redirect()->route('categories')->with('success', 'Categoría actualizada correctamente.');
+        return redirect()->route('admin.categories')->with('success', 'Categoría actualizada correctamente.');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
 
-        return redirect()->route('categories')->with('success', 'Categoría eliminada correctamente.');
+        return back()->with('success', 'Categoría eliminada correctamente.');
     }
 }

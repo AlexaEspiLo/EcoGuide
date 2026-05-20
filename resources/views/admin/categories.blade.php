@@ -39,7 +39,7 @@
                 </button>
                 <h2 class="modal-title">Create New Category</h2>
 
-                <form id="categoryForm" class="create-category-form" action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+                <form id="categoryForm" class="create-category-form" action="{{ route('admin.categories.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="_method" value="POST" id="categoryFormMethod">
 
@@ -98,7 +98,7 @@
                                     </div>
                                 </td>
                                 <td class="center-text">{{ $category->tips()->count() }}</td>
-                                <td>{{ $category->created_at->format('M d, Y') }}</td>
+                                <td>{{ $category->created_at?->format('M d, Y') ?? 'Sin fecha' }}</td>
                                 <td class="{{ $category->status ? 'admin-status-published' : 'admin-status-suspended' }}">
                                     {{ $category->status ? 'Published' : 'Suspended' }}
                                 </td>
@@ -108,10 +108,10 @@
                                             data-id="{{ $category->id }}"
                                             data-name="{{ $category->category_name }}"
                                             data-status="{{ $category->status ? 'published' : 'suspended' }}"
-                                            data-update-route="{{ route('categories.update', $category) }}"
+                                            data-update-route="{{ route('admin.categories.update', $category) }}"
                                         >✎ Edit</button>
                                         <button class="btn-delete delete-category-button" type="button"
-                                            data-delete-route="{{ route('categories.destroy', $category) }}"
+                                            data-delete-route="{{ route('admin.categories.destroy', $category) }}"
                                         ><span class="trash-icon">🗑</span> Delete</button>
                                     </div>
                                 </td>

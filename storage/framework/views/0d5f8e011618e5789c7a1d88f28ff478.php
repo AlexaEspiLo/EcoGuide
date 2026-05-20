@@ -1,6 +1,6 @@
 <?php $__env->startSection('title', $tip->title . ' - Tip'); ?>
 <?php $__env->startSection('content'); ?>
-    <div class="tip-detail-container" style="background-image: url('/images/bg-home.jpeg')">
+    <div class="tip-detail-container" style="background-image: url('/images/imagen2.jpg')">
 
         <a href="<?php echo e(url()->previous() ?: route('home')); ?>" class="back-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" viewBox="0 0 16 16">

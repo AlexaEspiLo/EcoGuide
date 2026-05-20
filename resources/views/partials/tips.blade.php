@@ -3,7 +3,7 @@
         <div class="cards">
             <div class="header-card">
                 <h3 class="title-card">{{ $tip->title }}</h3>
-                <img src="{{ asset('images/category-image.png') }}" class="category-img" alt="category">
+                <img src="{{ asset($tip->category->image) }}" class="category-img" alt="category">
             </div>
 
             <div class="card-author">

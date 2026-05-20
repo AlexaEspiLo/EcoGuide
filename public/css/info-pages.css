@@ -1,31 +1,79 @@
 .about-container {
-    height: 100vh; /* Ocupa toda la pantalla */
+    min-height: 100vh;
     background-size: cover;
     background-position: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     position: relative;
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+}
+
+.about-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
 }
 
 .about-overlay {
-    max-width: 800px;
-    color: #fff;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 900px;
+}
+
+.about-card {
+    padding: 50px;
+    border-radius: 20px;
 }
 
 .about-title {
-    font-size: 3rem;
-    font-weight: bold;
-    letter-spacing: 5px;
+    text-align: center;
     text-transform: uppercase;
+    color: var(--bg-cream);
+    font-size: 3rem;
+    font-weight: 700;
     margin-bottom: 30px;
+    position: relative;
+}
+
+.about-title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--tan);
+    margin: 15px auto 0;
+    border-radius: 20px;
+}
+
+.about-content {
+    color: #000000;
+    font-size: 1.15rem;
+    line-height: 1.9;
+    text-align: justify;
 }
 
 .about-content p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    color: black;
+    margin-bottom: 18px;
+}
+
+.about-content strong {
+    color: var(--lg-green);
+}
+
+@media (max-width: 768px) {
+    .about-card {
+        padding: 30px;
+    }
+
+    .about-title {
+        font-size: 2rem;
+    }
+
+    .about-content {
+        font-size: 1rem;
+    }
 }

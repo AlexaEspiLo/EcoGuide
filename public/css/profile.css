@@ -83,12 +83,9 @@
     margin: 0;
 }
 
-.edit-icon {
-    width: 20px;
-    height: 20px;
+.user-icon {
     stroke: var(--dk-green);
     fill: none;
-    stroke-width: 2;
 }
 
 /* Contenedor: quitamos bordes y fondo */

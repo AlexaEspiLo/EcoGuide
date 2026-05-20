@@ -43,12 +43,17 @@
 
 /* Filtros */
 .filters-home {
-    height: 38px;
+    height: 55px;
     margin-top: 15%;
     margin: 15% 2% 5% 2%;
     display: flex;
     align-items: center;
     gap: 10px;
+    overflow-x: auto;          /* Activa el scroll horizontal */
+    white-space: nowrap;       /* Evita que las categorías bajen a otra línea */
+    padding-bottom: 5px;       /* Espacio para que la barra de scroll no tape el diseño */
+    scrollbar-width: none;     /* Oculta la barra en Firefox */
+    -ms-overflow-style: none;  /* Oculta la barra en IE/Edge */
 }
 
 .category {
@@ -505,7 +510,7 @@ input::placeholder {
 
 .tip-description {
     flex: 1;
-    font-size: 1.5rem;
+    font-size: 1.05rem;
     line-height: 1.6;
     margin-bottom: 60px;
     color: black;

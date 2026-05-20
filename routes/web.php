@@ -119,11 +119,6 @@ Route::get('/account', [ProfileController::class, 'account'])
     ->name('account');
 
 
-Route::get('/account', function () {
-    return view('admin.account');
-})->name('account');
-
-
 // ACTUALIZAR
 Route::patch('/account/update', [ProfileController::class, 'updateAccount'])
     ->middleware('auth')
@@ -147,18 +142,14 @@ Route::get('/page/{slug}', function ($slug) {
 
 // --- ADMIN  ---
 Route::prefix('admin')
-    ->middleware(['auth'])
+    ->middleware(['auth', 'admin'])
     ->name('admin.')
     ->group(function () {
 
-        Route::get('/categories', function () {
-            return view('admin.categories');
-        })->name('categories');
+        Route::get('/account', function () {return view('admin.account'); })->name('account-admin');
 
-        Route::get('/account', function () {
-            return view('admin.account');
-        })->name('account');
         Route::get('/tips', [TipController::class, 'index'])->name('tips');
+        
         Route::get('/users', [AdminUserController::class, 'index'])->name('users');
         Route::get('/pages', [PageController::class, 'index'])->name('pages');
         Route::get('/pages/{slug}', [PageController::class, 'edit'])->name('pages.edit');
@@ -182,3 +173,7 @@ Route::post('/tips', [TipController::class, 'store'])->name('tips.store');
 Route::get('/tips/{id}/edit', [TipController::class, 'edit'])->name('tips.edit')->middleware('auth');
 Route::patch('/tips/{id}', [TipController::class, 'update'])->name('tips.update')->middleware('auth');
 Route::delete('/tips/{id}', [TipController::class, 'destroy'])->middleware('auth')->name('tips.destroy');
+
+Route::get('/test-404', function () {
+    return view('errors.404');
+});

@@ -1,0 +1,139 @@
+
+    /* Reinicio básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Comfortaa', sans-serif;
+    background-color: #ffffff;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.error-container {
+    max-width: 600px;
+    padding: 20px;
+}
+
+/* Contenedor del número */
+.error-number {
+    font-size: 15rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 20px;
+    letter-spacing: -5px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Estilo para cada número individual */
+.char {
+    display: inline-block;
+    background-image: url('/images/error-bg.jpg');
+    background-size: 200% 200%; /* Hacemos el fondo más grande para poder moverlo */
+    background-position: center;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+    
+    /* Animación del fondo (simula viento en las hojas) */
+    animation: jungle-move 12s ease-in-out infinite alternate;
+}
+
+/* Mensaje de texto con aparición elástica */
+.error-message {
+    font-size: 1.8rem;
+    color: var(--kombu-green);
+    line-height: 1.4;
+    margin-bottom: 40px;
+    font-weight: 400;
+    opacity: 0;
+}
+
+/* Botón con micro-interacciones */
+.btn-back {
+    display: inline-block;
+    background-color: var(--moss-green);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px 35px;
+    font-size: 1.3rem;
+    border-radius: 8px;
+    opacity: 0;
+    box-shadow: 0 4px 10px rgba(76, 51, 132, 0.15);
+    transition: background-color 0.3s ease, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+}
+
+/* ==========================================================================
+   ANIMACIONES MEJORADAS
+   ========================================================================== */
+
+/* 1. Movimiento del follaje de fondo (Efecto brisa) */
+@keyframes jungle-move {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 50% 100%; }
+}
+
+/* 2. Tres ritmos de flotación independientes (Desfase orgánico) */
+.animate-float-1 { animation: float-1 5s ease-in-out infinite, jungle-move 12s ease-in-out infinite alternate; }
+.animate-float-2 { animation: float-2 6s ease-in-out infinite, jungle-move 14s ease-in-out infinite alternate; }
+.animate-float-3 { animation: float-3 5.5s ease-in-out infinite, jungle-move 10s ease-in-out infinite alternate; }
+
+@keyframes float-1 {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(-1.5deg); }
+}
+
+@keyframes float-2 {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-18px) rotate(1deg); } /* Sube un poco más */
+}
+
+@keyframes float-3 {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(-1deg); }
+}
+
+/* 3. Entrada suave con efecto "pop" (Cubic-bezier) */
+.animate-fade-in {
+    animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+.error-message.animate-fade-in { animation-delay: 0.4s; }
+.btn-back.animate-fade-in { animation-delay: 0.7s; }
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 4. Hover interactivo del botón */
+.btn-back:hover {
+    background-color: var(--dk-green);
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 12px 24px rgba(76, 51, 132, 0.3);
+}
+.btn-back:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+    .error-number { font-size: 8rem; letter-spacing: -2px; }
+    .error-message { font-size: 1.3rem; }
+    .btn-back { font-size: 1.1rem; padding: 10px 25px; }
+}

@@ -15,7 +15,6 @@
                 <button class="btn-create active">All</button>
                 <button class="btn-create">Published</button>
                 <button class="btn-create">Suspended</button>
-                <button class="btn-create">Deleted</button>
             </section>
 
             <div class="admin-card">
@@ -36,7 +35,7 @@
                                 <tr>
                                     <td>{{ $tip->title }}</td>
                                     <td>{{ $tip->user->name ?? 'Unknown' }}</td>
-                                    <td>#{{ $tip->categories->name ?? 'General' }}</td>
+                                    <td>#{{ $tip->category->category_name ?? 'General' }}</td>
                                     <td>{{ $tip->created_at?->format('M d, Y') ?? 'Sin fecha' }}</td>
                                     <td class="admin-status-{{ strtolower($tip->status ?? 'published') }}">
                                         {{ ucfirst($tip->status ?? 'Published') }}
@@ -57,7 +56,7 @@
                 </div>
 
                 <footer class="table-footer">
-                    <div class="pagination-wrapper">
+                    <div class="">
                         {{ $tips->links() }}
                     </div>
                 </footer>

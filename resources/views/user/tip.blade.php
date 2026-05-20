@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', $tip->title . ' - Tip')
 @section('content')
-    <div class="tip-detail-container" style="background-image: url('/images/category-image.png')">
+    <div class="tip-detail-container" style="background-image: url('/images/imagen2.jpg')">
 
         <a href="{{ url()->previous() ?: route('home') }}" class="back-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" viewBox="0 0 16 16">

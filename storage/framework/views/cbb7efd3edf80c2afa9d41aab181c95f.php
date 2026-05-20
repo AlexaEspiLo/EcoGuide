@@ -16,10 +16,13 @@
         </div>
 
         <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <div class="category" data-id="<?php echo e($category->id); ?>">
-                #<?php echo e(str_replace(' ', '', Str::title($category->category_name))); ?>
+            
+            <?php if($category->status == 1): ?>
+                <div class="category" data-id="<?php echo e($category->id); ?>">
+                    #<?php echo e(str_replace(' ', '', Str::title($category->category_name))); ?>
 
-            </div>
+                </div>
+            <?php endif; ?>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 
@@ -28,7 +31,7 @@
     </div>
 
     <div class="fixed-add-button-container">
-        <a href="<?php echo e(route('tips.create')); ?>"" class="fixed-add-button">
+        <a href="<?php echo e(route('tips.create')); ?>"" class=" fixed-add-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" fill="currentColor" class="bi bi-plus"
                 viewBox="0 0 16 16">
                 <path
