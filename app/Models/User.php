@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\EcoGuideResetPassword;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,5 +60,10 @@ class User extends Authenticatable
     public function likedTips()
     {
         return $this->belongsToMany(Tip::class, 'likes', 'user_id', 'tip_id');
+    }
+
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new EcoGuideResetPassword($token));
     }
 }

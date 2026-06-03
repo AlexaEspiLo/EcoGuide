@@ -15,9 +15,13 @@ class SearchController extends Controller
 
         // Si el usuario tecleó algo, buscamos. Si no, mandamos colecciones vacías.
         if ($query) {
-            $tips = Tip::where('title', 'LIKE', "%{$query}%")
-           ->orWhere('description', 'LIKE', "%{$query}%") 
-           ->get();
+            $tips = Tip::with(['user', 'category', 'likes'])
+                ->where('title', 'LIKE', "%{$query}%")
+                ->orWhere('description', 'LIKE', "%{$query}%")
+                ->orWhereHas('user', function ($q) use ($query) {
+                    $q->where('name', 'LIKE', "%{$query}%");
+                })
+                ->get();
 
             $users = User::where('name', 'LIKE', "%{$query}%")->get();
         } else {
@@ -25,7 +29,6 @@ class SearchController extends Controller
             $users = collect();
         }
 
-        // Retornamos la vista enviando los resultados y la palabra buscada
         return view('search_results', compact('tips', 'users', 'query'));
     }
 }

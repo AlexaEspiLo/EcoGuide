@@ -7,28 +7,84 @@
     <div class="hero-content">
         <h1 class="title">Sustainable Tips</h1>
         <h2 class="subtitle">For Everyday Life</h2>
-        <p class="phrase">Small actions can create a big impact</p>
     </div>
 
-    <div class="filters-home">
-        <div class="category active" data-id="all">
-            All
-        </div>
+    <div class="categories-wrapper">
 
-        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            
-            <?php if($category->status == 1): ?>
+        <button class="scroll-btn left" id="scrollLeft">
+            ❮
+        </button>
+
+        <div class="filters-home" id="categoriesContainer">
+
+            <div class="category active" data-id="all">
+                All
+            </div>
+
+            <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="category" data-id="<?php echo e($category->id); ?>">
                     #<?php echo e(str_replace(' ', '', Str::title($category->category_name))); ?>
 
                 </div>
-            <?php endif; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+        </div>
+
+        <button class="scroll-btn right" id="scrollRight">
+            ❯
+        </button>
+
+    </div>
+
+    <div class="sort-container">
+
+        <div class="custom-select" id="sortSelect">
+
+            <div class="selected-option">
+                🌿 Sort Tips
+            </div>
+
+            <div class="options-container">
+
+                <div class="option" data-value="">
+                    Default
+                </div>
+
+                <div class="option" data-value="newest">
+                    Newest
+                </div>
+
+                <div class="option" data-value="oldest">
+                    Oldest
+                </div>
+
+                <div class="option" data-value="most_liked">
+                    Most Liked
+                </div>
+
+                <div class="option" data-value="title">
+                    A-Z
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="tips-container" class="grid-container">
+        <?php $__currentLoopData = $tips; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tip): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php echo $__env->make('partials.tip', ['tip' => $tip], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
 
-    <div id="tips-container">
-        <?php echo $__env->make('partials.tips', ['tips' => $tips], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-    </div>
+    <?php if($tips->hasMorePages()): ?>
+        <div class="load-more-container">
+            <button id="load-more-btn" data-page="2">
+                Load More Tips
+            </button>
+        </div>
+    <?php endif; ?>
 
     <div class="fixed-add-button-container">
         <a href="<?php echo e(route('tips.create')); ?>"" class=" fixed-add-button">

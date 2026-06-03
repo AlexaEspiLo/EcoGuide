@@ -99,29 +99,6 @@
     color: #202b1f;
 }
 
-.logout-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 146px;
-    padding: 0.95rem 1.9rem;
-    border-radius: 999px;
-    border: 1px solid rgba(133, 145, 109, 0.42);
-    background: rgba(165, 180, 133, 0.9);
-    color: #000000;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: capitalize;
-    cursor: pointer;
-    box-shadow: 0 14px 28px rgba(13, 29, 13, 0.2);
-    transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.logout-btn:hover {
-    transform: translateY(-1px);
-    background: #94b47e;
-}
-
 .account-form-card {
     width: 100%;
     padding: 2rem;
@@ -183,7 +160,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.12) 35%, rgba(255,255,255,0.26) 62%, rgba(255,255,255,0.34) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.12) 35%, rgba(255, 255, 255, 0.26) 62%, rgba(255, 255, 255, 0.34) 100%);
     pointer-events: none;
 }
 
@@ -282,6 +259,20 @@
     background-color: #2a331d;
 }
 
+.back-btn {
+    background-color: #ac3528a9;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #ac3528;
+}
+
 .success-message {
     background: #354024;
     color: #fff;
@@ -289,8 +280,113 @@
     border-radius: 999px;
     width: fit-content;
     margin: 0 auto 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     animation: popIn 0.4s ease;
+}
+
+/* Overlay */
+.delete-modal {
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, .45);
+
+    backdrop-filter: blur(4px);
+
+    z-index: 9999;
+
+    justify-content: center;
+    align-items: center;
+}
+
+/* Caja */
+.delete-modal-content {
+
+    width: 90%;
+    max-width: 420px;
+
+    background: white;
+
+    border-radius: 30px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .25);
+
+    animation: modalPop .25s ease;
+}
+
+.delete-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.delete-modal-content h3 {
+    color: var(--kombu-green);
+    margin-bottom: 10px;
+}
+
+.delete-modal-content p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.delete-modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.cancel-delete-btn,
+.confirm-delete-btn {
+
+    border: none;
+
+    border-radius: 25px;
+
+    padding: 12px 24px;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.cancel-delete-btn {
+
+    background: #ececec;
+}
+
+.cancel-delete-btn:hover {
+
+    background: #d8d8d8;
+}
+
+.confirm-delete-btn {
+
+    background: #b64545;
+    color: white;
+}
+
+.confirm-delete-btn:hover {
+
+    background: #993838;
+}
+
+@keyframes modalPop {
+
+    from {
+        opacity: 0;
+        transform: scale(.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes popIn {
@@ -298,6 +394,7 @@
         opacity: 0;
         transform: scale(0.8);
     }
+
     100% {
         opacity: 1;
         transform: scale(1);
@@ -320,10 +417,6 @@
         width: 100%;
     }
 
-    .logout-btn {
-        width: 100%;
-        justify-content: center;
-    }
 }
 
 @media (max-width: 720px) {
@@ -348,4 +441,3 @@
         padding: 1.5rem;
     }
 }
-

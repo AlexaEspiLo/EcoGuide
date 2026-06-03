@@ -34,6 +34,22 @@
     transform: scale(1.05);
 }
 
+.cancel-button {
+    background: #f0352ba3;
+    color: #fff;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cancel-button:hover {
+    background: #f0352b;
+    transform: scale(1.05);
+}
+
 /* GRID */
 .form-grid {
     display: grid;
@@ -62,6 +78,10 @@
     padding: 18px;
     font-size: 1rem;
     color: #2f3e2c;
+}
+
+.form-input::placeholder {
+    color: rgb(89, 78, 78);
 }
 
 /* TEXTAREA */
@@ -215,4 +235,31 @@
     background: var(--kombu-green);
     color: white;
     transform: scale(1.1);
+}
+
+.error-message {
+    display: block;
+    margin-top: 6px;
+
+    color: #d9534f;
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    animation: fadeInError .3s ease;
+}
+
+.input-error {
+    border: 2px solid #d9534f !important;
+    background-color: rgba(217, 83, 79, 0.05);
+}
+
+@keyframes fadeInError {
+    from {
+        opacity: 0;
+        transform: translateY(-3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

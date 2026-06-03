@@ -8,7 +8,10 @@
 
             <div class="header-container">
                 <h1 class="main-title">Edit tip</h1>
-                <button type="submit" class="post-button">Update</button>
+                <div style="display:flex; gap: 20px;">
+                    <button type="submit" class="post-button">Update</button>
+                    <button type="button" class="cancel-button" onclick="window.location.href='/'">Cancel</button>
+                </div>
             </div>
 
             <div class="form-grid">
@@ -18,20 +21,24 @@
                         <label class="field-label">Title:</label>
                         <input type="text" name="title" id="title" class="form-input"
                             value="{{ old('title', $tip->title ?? '') }}">
-                        <span class="error-message" id="error-title"></span>
+                        @error('title')
+                            <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group-tip">
                         <label class="field-label">Description:</label>
                         <textarea name="description" id="description"
                             class="form-input description-input">{{old('description', $tip->description ?? '')}}</textarea>
-                        <span class="error-message" id="error-description"></span>
+                        @error('description')
+                            <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="right-column">
                     <div class="form-group-tip">
-                        <label class="field-label">Select a category:</label>
+                        <label class="field-label">The sustainability topic that best matches your tip:</label>
 
                         <div class="select-wrapper">
                             <select name="category_id" class="form-input select-input">
@@ -44,12 +51,13 @@
                                 @endforeach
                             </select>
                         </div>
-
-                        <span class="error-message" id="error-category_id"></span>
+                        @error('category_id')
+                            <span class="error-message">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="form-group-tip">
-                        <label class="field-label">Image:</label>
+                        <label class="field-label">The image that represents your tip:</label>
 
                         <label for="image-upload" class="image-upload-container" id="image-label">
 
@@ -58,7 +66,11 @@
                             @else
                                 <div class="upload-content" id="upload-placeholder">
                                     <i class="fas fa-cloud-upload-alt"></i>
-                                    <p class="upload-text">Click to Upload Image</p>
+                                    <p class="upload-text" id="file-name">Click to Upload Image <br>
+                                        <small class="text-muted">
+                                            Formats allowed are jpeg, png, jpg with a max size of 2MB (2048 KB)
+                                        </small>
+                                    </p>
                                 </div>
                             @endif
 
@@ -71,7 +83,6 @@
 
                         <input type="file" id="image-upload" name="image" accept="image/*" hidden>
 
-                        <span class="error-message" id="error-image-upload"></span>
                     </div>
                 </div>
 

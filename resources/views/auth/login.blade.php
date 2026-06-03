@@ -1,54 +1,66 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="auth-container">
-    <div class="auth-box">
-        <img src="{{ asset('images/logo_ecoguide.png') }}" alt="EcoGuide Logo" class="logo">
-        <h1 class="auth-title">Explore new ways to care for the planet</h1>
-        
-        @if ($errors->any())
-            <div style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 0.8rem; text-align: center;">
-                {{ $errors->first() }}
-            </div>
-        @endif
+    <div class="auth-container">
+        <div class="auth-box">
+            <img src="{{ asset('images/logo_ecoguide.png') }}" alt="EcoGuide Logo" class="logo">
+            <h1 class="auth-title">Explore new ways to care for the planet</h1>
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="example@urbangreen.es" value="{{ old('email') }}" required>
-            </div>
-
-            <div class="input-group">
-                 <div class="password-wrapper" style="position: relative;">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" placeholder="********" required style="width: 100%;">
-                    <img src="{{ asset('icons/eye-hidden-icon.png') }}" class="password-toggle-icon" onclick="toggleInput('password')" alt="Toggle Password" style="position: absolute; right: 10px; top: 35px; cursor: pointer; width: 20px;">
+            @if ($errors->any())
+                <div
+                    style="color: #721c24; background: #f8d7da; padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 0.8rem; text-align: center;">
+                    {{ $errors->first() }}
                 </div>
-            </div>
+            @endif
 
-            <button type="submit" class="btn-primary">Sign In</button>
-        </form>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="example@urbangreen.es"
+                        value="{{ old('email') }}" required>
+                </div>
 
-        <div class="auth-options">
-            <a href="{{ url('/auth/google') }}" class="btn-google" style="text-decoration: none; display: flex; align-items: center; justify-content: center; margin-top: 20px; border: 1px solid #354024; border-radius: 20px; padding: 10px; color: #354024;">
-                <img src="{{ asset('icons/google-icon.png') }}" alt="" style="margin-right: 10px; width: 20px;"> 
-                Enter with a Google account
-            </a>
-            
-            <div style="margin-top: 15px;">
-                <a href="{{ route('register') }}" class="btn-outline">Create new Account</a>
+                <div class="input-group">
+                    <div class="password-wrapper">
+                        <label>Password</label>
+                        @error('password')
+                            <div class="text-danger mt-1" style="color: red">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        <div class="password-field">
+                            <input type="password" name="password" id="password" placeholder="********" required>
+
+                            <img src="{{ asset('icons/eye-hidden-icon.png') }}" class="password-toggle-icon"
+                                onclick="toggleInput('password', this)">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Sign In</button>
+            </form>
+
+            <div class="auth-options">
+                <a href="{{ url('/auth/google') }}" class="btn-google"
+                    style="text-decoration: none; display: flex; align-items: center; justify-content: center; margin-top: 20px; border: 1px solid #354024; border-radius: 20px; padding: 10px; color: #354024;">
+                    <img src="{{ asset('icons/google-icon.png') }}" alt="" style="margin-right: 10px; width: 20px;">
+                    Enter with a Google account
+                </a>
+
+                <div style="margin-top: 15px;">
+                    <a href="{{ route('register') }}" class="btn-outline">Create new Account</a>
+                </div>
+
+                <a href="{{ route('password.request') }}" class="forgot-link">Forgot password?</a>
             </div>
-            
-            <a href="{{ route('password.request') }}" class="forgot-link">Forgot password?</a>
         </div>
     </div>
-</div>
 
-<script>
-    function toggleInput(id) {
-        const input = document.getElementById(id);
-        input.type = input.type === "password" ? "text" : "password";
-    }
-</script>
+    <script>
+        function toggleInput(id) {
+            const input = document.getElementById(id);
+            input.type = input.type === "password" ? "text" : "password";
+        }
+    </script>
 @endsection

@@ -53,15 +53,21 @@
                 {{-- 📌 TIPS --}}
                 <h3 class="search-title">Results</h3>
 
-                <div class="tips-grid">
-                    @forelse($tips as $tip)
-                        @include('partials.tips', ['tip' => $tip])
-                    @empty
-                        <div class="empty-state">
-                            No results found
-                        </div>
-                    @endforelse
-                </div>
+                @if($tips->isNotEmpty())
+
+                    <div id="tips-container" class="grid-container">
+                        @foreach($tips as $tip)
+                            @include('partials.tip', ['tip' => $tip])
+                        @endforeach
+                    </div>
+
+                @else
+
+                    <div class="empty-state">
+                        No results found
+                    </div>
+
+                @endif
 
             @else
                 <div class="empty-state">

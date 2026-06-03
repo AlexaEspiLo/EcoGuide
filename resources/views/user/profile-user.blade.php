@@ -34,9 +34,14 @@
                         </p>
 
                         <div class="footer-card">
-                            <a href="{{ route('tip.show', $tip->id) }}" class="more">
+                            <button type="button" class="more open-tip-modal" data-title="{{ $tip->title }}"
+                                data-author-url="{{ route('users.show', $tip->user->id) }}"
+                                data-description="{{ $tip->description }}" data-author="{{ $tip->user->name }}"
+                                data-avatar="{{ $tip->user->avatar ? asset('storage/' . $tip->user->avatar) : asset('images/placeholder_user.png') }}"
+                                data-image="{{ $tip->image ? asset('storage/' . $tip->image) : '' }}"
+                                data-likes="{{ number_format($tip->likes->count()) }}">
                                 See Tip
-                            </a>
+                            </button>
 
                             <div class="tipss like-section" id="{{$tip->id}}" style="cursor: pointer;">
                                 <span id="count{{$tip->id}}" class="likes-count">

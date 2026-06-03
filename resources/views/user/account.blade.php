@@ -6,7 +6,8 @@
             <div class="account-top">
                 <div class="account-profile">
                     <div class="account-avatar">
-                        <img src="{{ auth()->user()->avatar? asset('storage/' . auth()->user()->avatar): asset('images/placeholder_user.png') }}">
+                        <img
+                            src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/placeholder_user.png') }}">
                         <button type="button" class="avatar-edit" id="openAvatarModal">
                             <img src="{{ asset('icons/edit2-icon.png') }}" alt="Edit avatar">
                         </button>
@@ -16,11 +17,6 @@
                         <p class="account-user-email">{{ auth()->user()->email ?? 'Correo' }}</p>
                     </div>
                 </div>
-
-                <form action="{{ route('logout') }}" method="POST" class="logout-form">
-                    @csrf
-                    <button type="submit" class="logout-btn">Log Out</button>
-                </form>
             </div>
 
             <div class="account-form-card">
@@ -50,6 +46,7 @@
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="save-btn">Save Changes</button>
+                        <button type="button" class="back-btn" onclick="window.location.href='/profile'">Back</button>
                     </div>
                 </form>
 
@@ -65,13 +62,15 @@
                     <img src="{{ asset('icons/x-icon.png') }}" alt="Close modal">
                 </button>
 
-                <!-- 🔥 FORM AQUÍ -->
                 <form action="{{ route('account.avatar') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <label for="avatarUploadInput" class="upload-dropzone">
                         <img src="{{ asset('icons/load-file-icon.png') }}" alt="Upload icon">
                         <span>Click to Upload Image</span>
+                        <small class="text-muted">
+                            Formats allowed are jpeg, png, jpg with a max size of 2MB (2048 KB)
+                        </small>
                     </label>
 
                     <input id="avatarUploadInput" type="file" name="avatar" accept="image/*" class="upload-file-input"

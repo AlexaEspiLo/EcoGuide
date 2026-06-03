@@ -9,16 +9,23 @@
             <div class="card-author">
                 <img src="{{ $tip->user->avatar
             ? asset('storage/' . $tip->user->avatar)
-            : asset('images/placeholder_user.png') }}" class="author-img" alt="Avatar Usuario"> <span <a
-                    href="{{ route('users.show', $tip->user->id) }}" class="author-name">
+            : asset('images/placeholder_user.png') }}" class="author-img" alt="Avatar Usuario">
+                <a href="{{ route('users.show', $tip->user->id) }}" class="author-name">
                     {{ $tip->user->name }}
-                    </a>
+                </a>
             </div>
 
             <p class="card-description">{{ Str::limit($tip->description, 80) }}</p>
 
             <div class="footer-card">
-                <a class="more" href="{{ route('tip.show', $tip->id) }}">See Tip</a>
+                <button type="button" class="more open-tip-modal" data-title="{{ $tip->title }}"
+                    data-author-url="{{ route('users.show', $tip->user->id) }}" data-description="{{ $tip->description }}"
+                    data-author="{{ $tip->user->name }}"
+                    data-avatar="{{ $tip->user->avatar ? asset('storage/' . $tip->user->avatar) : asset('images/placeholder_user.png') }}"
+                    data-image="{{ $tip->image ? asset('storage/' . $tip->image) : '' }}"
+                    data-likes="{{ number_format($tip->likes->count()) }}">
+                    See Tip
+                </button>
 
                 <div class="tipss like-section" id="{{$tip->id}}" style="cursor: pointer;">
                     <span id="count{{$tip->id}}" class="likes-count">

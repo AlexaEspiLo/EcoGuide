@@ -23,25 +23,10 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const togglePassword = document.querySelector('#togglePassword');
-            const passwordInput = document.querySelector('#password');
-
-            if (togglePassword && passwordInput) {
-                togglePassword.addEventListener('click', function (e) {
-                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                    passwordInput.setAttribute('type', type);
-
-                    if (type === 'text') {
-                        this.src = '{{ asset("icons/eye-visible-icon.png") }}';
-                    } else {
-                        this.src = '{{ asset("icons/eye-hidden-icon.png") }}';
-                    }
-                });
-            }
-        });
         function toggleInput(inputId, iconElement) {
+
             const input = document.getElementById(inputId);
+
             const eyeVisible = "{{ asset('icons/eye-visible-icon.png') }}";
             const eyeHidden = "{{ asset('icons/eye-hidden-icon.png') }}";
 

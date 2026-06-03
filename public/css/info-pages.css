@@ -14,14 +14,13 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, 0.20);
 }
 
 .about-overlay {
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 900px;
 }
 
 .about-card {
@@ -61,7 +60,370 @@
 }
 
 .about-content strong {
-    color: var(--lg-green);
+    color: var(--cafe-noir);
+}
+
+.hero {
+    position: relative;
+    background-color: var(--kombu-green);
+    color: var(--bg-cream);
+    text-align: center;
+    padding: 60px 20px 80px 20px;
+}
+
+.hero-tag {
+    display: inline-block;
+    border: 1px solid var(--moss-green);
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 10rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    color: var(--botones);
+    font-size: 13px;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin: 0 0 15px 0;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.hero p {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 1.4;
+    color: var(--bg-green);
+}
+
+/* Forma decorativa inferior (Efecto "Torn Paper" de la plantilla) */
+.hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    background-color: var(--bg-cream);
+    clip-path: polygon(0% 100%, 100% 100%, 100% 0%, 85% 70%, 70% 20%, 55% 80%, 40% 30%, 25% 75%, 10% 40%, 0% 90%);
+}
+
+/* Contenedor Principal */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Sección de 3 Tarjetas Superiores */
+.info-cards-table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 20px 0;
+    margin-bottom: 50px;
+}
+
+.info-card-cell {
+    display: table-cell;
+    background-color: var(--bone);
+    border: 1px dashed var(--tan);
+    border-radius: 12px;
+    padding: 30px 20px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.info-card-cell.featured {
+    background-color: var(--dk-green);
+    border: none;
+    color: var(--bg-cream);
+}
+
+.card-icon {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.info-card-cell.featured .card-icon {
+    color: var(--botones);
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info-card-cell.featured .card-title {
+    color: #ffffff;
+}
+
+.card-desc {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    color: var(--cafe-noir);
+}
+
+.info-card-cell.featured .card-desc {
+    color: var(--bg-green);
+}
+
+.card-link {
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--kombu-green);
+}
+
+.info-card-cell.featured .card-link {
+    color: var(--botones);
+}
+
+/* Estructura de Dos Columnas (Contenido Principal) */
+.main-layout-table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 30px 0;
+}
+
+.layout-column {
+    display: table-cell;
+    vertical-align: top;
+}
+
+/* Columna Izquierda: Directorio del Equipo de Desarrollo */
+.team-section h3 {
+    font-size: 20px;
+    color: var(--kombu-green);
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--moss-green);
+    padding-bottom: 5px;
+}
+
+.member-card {
+    background-color: rgba(147, 162, 103, 0.15);
+    border-left: 4px solid var(--moss-green);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 0 8px 8px 0;
+}
+
+.member-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--kombu-green);
+    margin-bottom: 5px;
+}
+
+.member-info {
+    font-size: 13px;
+    color: var(--cafe-noir);
+    margin-bottom: 5px;
+}
+
+.member-email {
+    font-size: 13px;
+    color: var(--dk-green);
+    font-weight: bold;
+}
+
+/* Contenedor del Mapa */
+.map-box {
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    height: 100%;
+    /* Permite que se alinee a la altura de la otra columna */
+}
+
+/* Estilo para que el iframe sea completamente responsivo dentro de su caja */
+.map-container {
+    width: 100%;
+    height: 450px;
+    /* Altura ideal para nivelarse con el bloque de alumnos de la izquierda */
+    border-radius: 12px;
+    overflow: hidden;
+    /* Asegura que las esquinas del mapa se redondeen */
+    border: 1px dashed var(--tan);
+    /* Mantiene la estética de la plantilla */
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.form-badge {
+    display: inline-block;
+    background-color: rgba(147, 162, 103, 0.2);
+    color: var(--kombu-green);
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form-box h3 {
+    font-size: 24px;
+    margin: 0 0 25px 0;
+    color: var(--kombu-green);
+}
+
+.form-control {
+    width: 100%;
+    background-color: var(--bone);
+    border: 1px dashed var(--tan);
+    border-radius: 20px;
+    padding: 12px 15px;
+    font-size: 14px;
+    color: var(--cafe-noir);
+}
+
+.form-control-textarea {
+    width: 100%;
+    background-color: var(--bone);
+    border: 1px dashed var(--tan);
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 14px;
+    color: var(--cafe-noir);
+    height: 110px;
+}
+
+.submit-btn {
+    background-color: var(--botones);
+    color: var(--kombu-green);
+    border: none;
+    padding: 14px 25px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.policy-box {
+    background-color: #ffffff73;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    margin-bottom: 40px;
+}
+
+/* Estilos de las Secciones */
+.policy-section {
+    margin-bottom: 30px;
+    border-bottom: 1px dashed var(--bone);
+    padding-bottom: 25px;
+}
+
+.policy-section:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.policy-section h2 {
+    font-size: 18px;
+    color: var(--kombu-green);
+    margin-top: 0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.policy-section p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--cafe-noir);
+    margin: 0 0 12px 0;
+}
+
+.policy-section p:last-child {
+    margin-bottom: 0;
+}
+
+/* Listas Estilizadas */
+.policy-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.policy-list li {
+    font-size: 14px;
+    color: var(--cafe-noir);
+    margin-bottom: 10px;
+    padding-left: 25px;
+    position: relative;
+    line-height: 1.5;
+}
+
+.policy-list li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--moss-green);
+    font-weight: bold;
+}
+
+/* Bloques de Derechos ARCO */
+.arco-block {
+    background-color: rgba(147, 162, 103, 0.1);
+    border-left: 4px solid var(--moss-green);
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border-radius: 0 8px 8px 0;
+}
+
+.arco-title {
+    font-weight: bold;
+    color: var(--kombu-green);
+    font-size: 14.5px;
+    margin-bottom: 4px;
+}
+
+.arco-desc {
+    font-size: 13.5px;
+    color: var(--cafe-noir);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Alerta Informativa de Proyecto Académico */
+.academic-alert {
+    background-color: var(--bone);
+    border: 1px dashed var(--tan);
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-top: 15px;
+    font-size: 13.5px;
+    color: var(--cafe-noir);
+    line-height: 1.5;
+}
+
+.last-updated {
+    text-align: center;
+    font-size: 13px;
+    color: var(--moss-green);
+    font-style: italic;
+    margin-top: 20px;
 }
 
 @media (max-width: 768px) {
@@ -76,4 +438,136 @@
     .about-content {
         font-size: 1rem;
     }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes pulseHeart {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+.hero {
+    position: relative;
+    background-color: var(--kombu-green);
+    color: var(--bg-cream);
+    text-align: center;
+    padding: 70px 20px 90px 20px;
+}
+
+.hero-tag {
+    display: inline-block;
+    border: 1px solid var(--moss-green);
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 15px;
+    color: var(--botones);
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin: 0 0 15px 0;
+    font-weight: bold;
+    color: #ffffff;
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+
+.intro-text {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--cafe-noir);
+    margin-bottom: 30px;
+}
+
+.highlight-text {
+    border-left: 4px solid var(--moss-green);
+    padding-left: 20px;
+    font-style: italic;
+    background-color: rgba(147, 162, 103, 0.08);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 0 12px 12px 0;
+}
+
+.mission-title {
+    font-size: 24px;
+    color: var(--kombu-green);
+    margin: 40px 0 20px 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.mission-grid {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 15px 0;
+    margin-bottom: 40px;
+}
+
+.mission-item {
+    display: table-cell;
+    background-color: var(--bone);
+    border: 1px dashed var(--tan);
+    border-radius: 14px;
+    padding: 25px 20px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--kombu-green);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mission-item:hover {
+    background-color: var(--dk-green);
+    color: #ffffff;
+    border-color: transparent;
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(53, 64, 36, 0.15);
+}
+
+.mission-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.cta-box {
+    background-color: var(--bg-green);
+    border-radius: 14px;
+    padding: 25px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--kombu-green);
+    margin-top: 40px;
+    border: 1px solid rgba(136, 144, 100, 0.3);
+}
+
+.cta-box span {
+    display: inline-block;
+    animation: pulseHeart 1.5s infinite ease-in-out;
 }

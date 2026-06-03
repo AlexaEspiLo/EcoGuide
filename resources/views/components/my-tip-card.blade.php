@@ -6,16 +6,17 @@
                 <img src="{{ asset($tip->category->image) }}" class="category-img" alt="category">
             </div>
 
-            <div class="card-author">
-                <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('images/placeholder_user.png') }}"
-                    class="author-img" alt="Avatar Usuario">
-                <span class="author-name">{{ $tip->user->name }}</span>
-            </div>
-
             <p class="card-description">{{ Str::limit($tip->description, 80) }}</p>
 
             <div class="footer-card">
-                <a class="more" href="{{ route('tip.show', $tip->id) }}">See Tip</a>
+                <button type="button" class="more open-tip-modal" data-title="{{ $tip->title }}"
+                    data-author-url="{{ route('users.show', $tip->user->id) }}" data-description="{{ $tip->description }}"
+                    data-author="{{ $tip->user->name }}"
+                    data-avatar="{{ $tip->user->avatar ? asset('storage/' . $tip->user->avatar) : asset('images/placeholder_user.png') }}"
+                    data-image="{{ $tip->image ? asset('storage/' . $tip->image) : '' }}"
+                    data-likes="{{ number_format($tip->likes->count()) }}">
+                    See Tip
+                </button>
 
                 <div class="tipss like-section" id="{{$tip->id}}" style="cursor: pointer;">
                     <span id="count{{$tip->id}}" class="likes-count">
@@ -39,8 +40,8 @@
                         </svg>
                     </a>
                     @if(auth()->id() === $tip->user_id)
-                        <form action="{{ route('tips.destroy', $tip->id) }}" method="POST"
-                            onsubmit="return confirm('Are you sure you want to delete this tip?')" style="display:inline;">
+                        <form action="{{ route('tips.destroy', $tip->id) }}" method="POST" class="delete-form"
+                            style="display:inline;">
                             @csrf
                             @method('DELETE')
 
@@ -66,4 +67,34 @@
             You haven't created any tips yet.
         </div>
     @endforelse
+</div>
+<div id="deleteModal" class="delete-modal">
+
+    <div class="delete-modal-content">
+
+        <div class="delete-icon">
+            🗑️
+        </div>
+
+        <h3>Delete Tip?</h3>
+
+        <p>
+            This action cannot be undone.
+            The tip will be permanently removed.
+        </p>
+
+        <div class="delete-modal-buttons">
+
+            <button id="cancelDelete" class="cancel-delete-btn">
+                Cancel
+            </button>
+
+            <button id="confirmDelete" class="confirm-delete-btn">
+                Delete
+            </button>
+
+        </div>
+
+    </div>
+
 </div>

@@ -71,17 +71,23 @@ class TipController extends Controller
             'title' => 'required|string|max:50',
             'description' => 'required|string|max:500',
             'category_id' => 'required|exists:categories,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Máximo 2MB
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ], [
+            'title.required' => 'Please enter a title.',
+            'description.required' => 'Please enter a description.',
             'title.max' => 'The title is very long (maximum 50 characters).',
+            'category_id.required' => 'Please select a category.',
             'description.max' => 'The description cannot exceed 500 characters.',
-            'image.required' => 'Please upload an image for your Tip',
         ]);
 
-        $imagePath = $request->file('image')->store('tips', 'public');
+        $imagePath = null;
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('tips', 'public');
+        }
 
 
-        Tip::create([
+        $tip = Tip::create([
             'title' => $request->title,
             'description' => $request->description,
             'category_id' => $request->category_id,
@@ -89,7 +95,9 @@ class TipController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('home')->with('success', 'Tip shared successfully!');
+        return redirect()
+            ->route('tip.show', $tip->id)
+            ->with('success', 'Tip shared successfully!');
     }
 
     public function update(Request $request, $id)
