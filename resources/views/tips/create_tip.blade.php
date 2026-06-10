@@ -6,10 +6,10 @@
             @csrf
 
             <div class="header-container">
-                <h1 class="main-title">Create new tip</h1>
+                <h1 class="main-title">{{ __('messages.create-tip') }}</h1>
                 <div style="display:flex; gap: 20px;">
-                    <button type="submit" class="post-button">Post</button>
-                    <button type="button" class="cancel-button" onclick="window.location.href='/'">Cancel</button>
+                    <button type="submit" class="post-button">{{ __('messages.post') }}</button>
+                    <button type="button" class="cancel-button" onclick="window.location.href='/'">{{ __('messages.cancel') }}</button>
                 </div>
             </div>
 
@@ -17,16 +17,16 @@
                 
                 <div class="left-column">
                     <div class="form-group-tip">
-                        <label class="field-label">Title:</label>
-                        <input type="text" name="title" id="title" class="form-input @error('title') input-error @enderror" value="{{ old('title') }}" placeholder="e.g. Bring Your Own Reusable Bottle"> 
+                        <label class="field-label">{{ __('messages.title') }}:</label>
+                        <input type="text" name="title" id="title" class="form-input @error('title') input-error @enderror" value="{{ old('title') }}" placeholder="{{ __('messages.ex-title') }}"> 
                         @error('title')
                             <span class="error-message">{{ $message }}</span>
                         @enderror
                     </div>
 
                     <div class="form-group-tip">
-                        <label class="field-label">Description:</label>
-                        <textarea name="description" id="description" placeholder="e.g. Carry a reusable water bottle to reduce single-use plastic waste and save money over time." class="form-input description-input @error('description') input-error @enderror">{{ old('description') }}</textarea> 
+                        <label class="field-label">{{ __('messages.description') }}:</label>
+                        <textarea name="description" id="description" placeholder="{{ __('messages.ex-description') }}" class="form-input description-input @error('description') input-error @enderror">{{ old('description') }}</textarea> 
                         @error('description')
                             <span class="error-message">{{ $message }}</span>
                         @enderror
@@ -35,12 +35,12 @@
 
                 <div class="right-column">
                     <div class="form-group-tip">
-                        <label class="field-label">Select the sustainability topic that best matches your tip:</label>
+                        <label class="field-label">{{ __('messages.category') }}:</label>
 
                         <div class="select-wrapper">
                             <select name="category_id" class="form-input select-input @error('category_id') input-error @enderror">
                                 <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>
-                                    Select a category
+                                    {{ __('messages.select-category') }}
                                 </option>
 
                                 @foreach($categories as $category)
@@ -60,13 +60,13 @@
                     </div>
 
                     <div class="form-group-tip">
-                        <label class="field-label">Upload an image that represents your tip:</label>
+                        <label class="field-label">{{ __('messages.upload-image-tip') }}:</label>
                         <label for="image-upload" class="image-upload-container" id="image-label">
                             <div class="upload-content">
                                 <i class="fas fa-cloud-upload-alt"></i>
-                                <p class="upload-text" id="file-name">Click to Upload Image <br>
+                                <p class="upload-text" id="file-name">{{ __('messages.upload-image') }}<br>
                                     <small class="text-muted">
-                                        Formats allowed are jpeg, png, jpg with a max size of 2MB (2048 KB)
+                                        {{ __('messages.formats-allowed') }}
                                     </small>
                                 </p>
                             </div>

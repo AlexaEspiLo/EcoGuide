@@ -1,3 +1,48 @@
+window.addEventListener('load', () => {
+    const heroImage = document.getElementById('hero-home');
+    const heroContent = document.getElementById('hero-content');
+    const tipsSection = document.getElementById('tipsSection');
+
+    if (!heroImage || !heroContent || !tipsSection) return;
+
+    if (sessionStorage.getItem('homeHeroSeen') === 'true') {
+        heroImage.style.display = 'none';
+        heroContent.style.display = 'none';
+
+        window.scrollTo({
+            top: tipsSection.offsetTop - 90,
+            behavior: 'auto'
+        });
+
+        return;
+    }
+
+    setTimeout(() => {
+        heroImage.classList.add('hero-fade-out');
+        heroContent.classList.add('hero-fade-out');
+
+        setTimeout(() => {
+            heroImage.style.display = 'none';
+            heroContent.style.display = 'none';
+
+            sessionStorage.setItem('homeHeroSeen', 'true');
+
+            window.scrollTo({
+                top: tipsSection.offsetTop - 90,
+                behavior: 'smooth'
+            });
+        }, 800);
+
+    }, 1800);
+});
+
+const logoutForm = document.getElementById('logoutForm');
+
+if (logoutForm) {
+    logoutForm.addEventListener('submit', () => {
+        sessionStorage.removeItem('homeHeroSeen');
+    });
+}
 document.addEventListener('DOMContentLoaded', () => {
     const tokenMeta = document.querySelector('meta[name="csrf-token"]');
     const token = tokenMeta ? tokenMeta.getAttribute('content') : '';
@@ -344,3 +389,4 @@ document
         });
 
     });
+

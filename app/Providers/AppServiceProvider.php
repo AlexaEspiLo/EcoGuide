@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('*', function ($view) {
-            $view->with('pages', Page::select('title','slug')->get());
+            $view->with('pages', Page::select('title','slug', 'title_en')->get());
         });
     }
 }

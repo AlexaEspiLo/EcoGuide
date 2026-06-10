@@ -30,7 +30,7 @@
             @if(isset($query) && $query != '')
 
                 @if(isset($users) && $users->isNotEmpty())
-                    <h3 class="search-title">Users</h3>
+                    <h3 class="search-title">{{ __('messages.users') }}</h3>
 
                     <div class="users-grid">
                         @foreach($users as $user)
@@ -51,7 +51,7 @@
 
 
                 {{-- 📌 TIPS --}}
-                <h3 class="search-title">Results</h3>
+                <h3 class="search-title">{{ __('messages.results') }}</h3>
 
                 @if($tips->isNotEmpty())
 
@@ -64,7 +64,7 @@
                 @else
 
                     <div class="empty-state">
-                        No results found
+                        {{ __('messages.no-results') }}
                     </div>
 
                 @endif

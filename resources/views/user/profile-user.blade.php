@@ -40,7 +40,7 @@
                                 data-avatar="{{ $tip->user->avatar ? asset('storage/' . $tip->user->avatar) : asset('images/placeholder_user.png') }}"
                                 data-image="{{ $tip->image ? asset('storage/' . $tip->image) : '' }}"
                                 data-likes="{{ number_format($tip->likes->count()) }}">
-                                See Tip
+                                {{ __('messages.see-tip') }}
                             </button>
 
                             <div class="tipss like-section" id="{{$tip->id}}" style="cursor: pointer;">

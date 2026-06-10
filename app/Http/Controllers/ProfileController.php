@@ -32,7 +32,7 @@ class ProfileController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|min:8',
+            'password' => 'nullable|min:12',
         ]);
 
         $user->name = $request->name;
@@ -45,28 +45,28 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return back()->with('success', 'Profile updated successfully');
+        return back()->with('success', __('messages.updated-profile'));
     }
 
     public function updateAvatar(Request $request)
-{
-    $request->validate([
-        'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048'
-    ]);
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+        ]);
 
-    $user = auth()->user();
+        $user = auth()->user();
 
-    // borrar anterior (opcional)
-    if ($user->avatar) {
-        Storage::disk('public')->delete($user->avatar);
+        // borrar anterior (opcional)
+        if ($user->avatar) {
+            Storage::disk('public')->delete($user->avatar);
+        }
+
+        // guardar nueva
+        $path = $request->file('avatar')->store('avatars', 'public');
+
+        $user->avatar = $path;
+        $user->save();
+
+        return back()->with('success', __('messages.updated-photo'));
     }
-
-    // guardar nueva
-    $path = $request->file('avatar')->store('avatars', 'public');
-
-    $user->avatar = $path;
-    $user->save();
-
-    return back()->with('success', 'Updated profile photo');
-}
 }

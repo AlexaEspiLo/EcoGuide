@@ -53,7 +53,7 @@
 }
 
 .logo img {
-    height: clamp(35px, 6vw, 65px);
+    height: clamp(40px, 6vw, 65px);
     width: auto;
     display: block;
 }
@@ -173,6 +173,231 @@
     .nav-center li a {
         width: 100%;
     }
+
+    /* El dropdown deja de ser flotante */
+    .account-dropdown {
+        width: 100%;
+    }
+
+    .account-menu {
+        position: static;
+
+        opacity: 1 !important;
+        visibility: visible !important;
+
+        transform: none !important;
+
+        box-shadow: none;
+        background: transparent;
+
+        display: block;
+
+        margin-top: 5px;
+        padding: 0 0 0 35px;
+
+        min-width: auto;
+    }
+
+    /* Ocultamos la flechita del hover */
+    .account-menu::before {
+        display: none;
+    }
+
+    /* Opciones secundarias */
+    .account-menu a,
+    .account-menu button {
+
+        padding: 8px 0;
+
+        font-size: 0.95rem;
+
+        color: #666;
+
+        border-radius: 0;
+
+        background: transparent;
+    }
+
+
+
+    /* Hover */
+    .account-menu a:hover,
+    .account-menu button:hover {
+
+        background: transparent;
+
+        color: var(--kombu-green);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .nav-center .account-dropdown {
+        width: 100%;
+    }
+
+    .nav-center .account-dropdown .account-menu {
+        position: static !important;
+
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+
+        transform: none !important;
+
+        display: block !important;
+
+        width: 100%;
+        min-width: 0;
+
+        margin: 4px 0 0 0;
+        padding: 0 0 0 38px;
+
+        background: transparent !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+    }
+
+    .nav-center .account-dropdown:hover .account-menu {
+        transform: none !important;
+    }
+
+    .nav-center .account-menu::before {
+        display: none !important;
+    }
+
+    .nav-center .account-menu a,
+    .nav-center .account-menu button {
+        padding: 7px 0;
+        font-size: 0.95rem;
+        color: #666;
+        background: transparent;
+    }
+}
+
+.nav-search-item {
+    position: relative;
+}
+
+.nav-search-btn {
+    border: none;
+    background: transparent;
+    color: #333;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 8px 14px;
+    border-radius: 20px;
+
+    font-family: inherit;
+    font-size: inherit;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-search-btn:hover {
+    background-color: var(--botones);
+}
+
+.nav-search-form {
+    position: absolute;
+    top: 50%;
+
+    transform: translateY(-50%) scaleX(0);
+    transform-origin: right;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: 0.3s ease;
+}
+
+.nav-search-form.show {
+    transform: translateY(-50%) scaleX(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.nav-search-input {
+    width: 230px;
+
+    padding: 9px 16px;
+
+    border: 2px solid var(--moss-green);
+    border-radius: 25px;
+
+    outline: none;
+
+    color: var(--kombu-green);
+    background: rgba(255, 255, 255, .95);
+}
+
+.nav-search-input::placeholder {
+    color: rgba(53, 64, 36, .6);
+}
+
+.account-dropdown {
+    position: relative;
+}
+
+.account-btn {
+    border: none;
+    background: transparent;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.account-btn:hover {
+    background-color: var(--botones);
+}
+
+.account-menu {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 190px;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 22px;
+    padding: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+    display: none;
+    z-index: 1000;
+}
+
+.account-menu.show {
+    display: block;
+}
+
+.account-menu a,
+.account-menu button {
+    width: 100%;
+    border: none;
+    background: transparent;
+    text-align: left;
+    padding: 10px 14px;
+    border-radius: 14px;
+    color: #333;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+}
+
+.account-menu a:hover,
+.account-menu button:hover {
+    background-color: var(--botones);
 }
 
 /* Footer */

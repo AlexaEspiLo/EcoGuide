@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 use App\Models\User;
 use App\Models\Page;
@@ -59,12 +61,20 @@ Route::post('/login', function (Request $request) {
     ]);
 
     if (Auth::attempt($credentials)) {
+        if (!$request->user()->hasVerifiedEmail()) {
+
+            Auth::logout();
+
+            return back()->withErrors([
+                'email' => __('auth.verify_email_error')
+            ]);
+        }
         $request->session()->regenerate();
         return redirect()->intended('home');
     }
 
     return back()->withErrors([
-        'email' => 'The credentials do not match.',
+        'email' => __('auth.failed'),
     ]);
 
 })->name('login.post');
@@ -92,10 +102,10 @@ Route::post('/register', function (Request $request) {
         ],
         'privacy_accepted' => 'accepted',
     ], [
-        'email.unique' => 'This email address is already registered.',
-        'password.min' => 'The password must be at least 12 characters long.',
-        'email.email' => 'Enter a valid email address.',
-        'privacy_accepted.accepted' => 'You must accept the Privacy Police.',
+        'email.unique' => __('validation.unique_email'),
+        'password.min' => __('validation.password_min'),
+        'email.email' => __('validation.valid_email'),
+        'privacy_accepted.accepted' => __('validation.privacy_accepted'),
     ]);
 
     $user = User::create([
@@ -106,9 +116,39 @@ Route::post('/register', function (Request $request) {
     ]);
 
     Auth::login($user);
+    $user->sendEmailVerificationNotification();
+
+    return redirect()->route('verification.notice');
+})->name('register.post');
+
+/*
+|--------------------------------------------------------------------------
+| EMAIL VERIFICATION
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+
+    $request->fulfill();
 
     return redirect()->route('home');
-})->name('register.post');
+
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with(
+        'status',
+        'verification-link-sent'
+    );
+
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 /*
 |--------------------------------------------------------------------------
@@ -144,11 +184,19 @@ Route::get('/page/{slug}', function ($slug) {
 | AUTHENTICATED ROUTES
 |--------------------------------------------------------------------------
 */
+Route::get('/home', [HomeController::class, 'index'])
+    ->middleware('verified')
+    ->name('home');
+
+Route::get('/tips/create', [TipController::class, 'create'])
+    ->middleware('verified')
+    ->name('tips.create');
+
+Route::post('/tips', [TipController::class, 'store'])
+    ->middleware('verified')
+    ->name('tips.store');
 
 Route::middleware('auth')->group(function () {
-
-    Route::get('/home', [HomeController::class, 'index'])
-        ->name('home');
 
     Route::post('/like', [TipController::class, 'like']);
 
@@ -174,9 +222,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/tip/{id}/edit', [TipController::class, 'edit'])
         ->name('tip.edit');
-
-    Route::get('/tips/create', [TipController::class, 'create'])
-        ->name('tips.create');
 
     Route::post('/tips', [TipController::class, 'store'])
         ->name('tips.store');
@@ -205,6 +250,22 @@ Route::middleware('auth')->group(function () {
 
     })->name('logout');
 });
+
+/*
+|--------------------------------------------------------------------------
+| LANGUAGE
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/lang/{locale}', function ($locale) {
+    if (!in_array($locale, ['en', 'es'])) {
+        abort(400);
+    }
+
+    session(['locale' => $locale]);
+
+    return back();
+})->name('lang.change');
 
 /*
 |--------------------------------------------------------------------------

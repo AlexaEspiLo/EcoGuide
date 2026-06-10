@@ -30,6 +30,8 @@ class PageController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
+            'title_en' => 'nullable|string|max:255',
+            'content_en' => 'nullable|string',
         ]);
 
         $page = Page::findOrFail($id);
@@ -37,6 +39,8 @@ class PageController extends Controller
         $page->update([
             'title' => $request->title,
             'content' => $request->content,
+            'title_en' => $request->title_en,
+            'content_en' => $request->content_en,
         ]);
 
         return back()->with('success', 'Page updated successfully');

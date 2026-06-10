@@ -37,12 +37,23 @@
                             <label class="info-pages-label">Title</label>
                             <input type="text" name="title" value="{{ old('title', $page->title) }}"
                                 class="info-pages-input">
+                            <label class="info-pages-label">English Title</label>
+                            <input type="text" name="title_en" value="{{ old('title_en', $page->title_en) }}"
+                                class="info-pages-input">
+                            
                         </div>
 
                         <div class="info-pages-row">
                             <label class="info-pages-label">Content</label>
                             <textarea name="content" class="info-pages-textarea">
                             {{ old('content', $page->content) }}
+                                    </textarea>
+                        </div>
+
+                        <div class="info-pages-row">
+                            <label class="info-pages-label">English Content</label>
+                            <textarea name="content_en" class="info-pages-textarea">
+                            {{ old('content_en', $page->content_en) }}
                                     </textarea>
                         </div>
 

@@ -1,13 +1,15 @@
 <footer class="footer">
     <ul class="footer-links">
         @foreach($pages as $page)
-            @if(Route::has('page.show'))
-                <li>
-                    <a href="{{ route('page.show', $page->slug) }}">
+            <li>
+                <a href="{{ route('page.show', $page->slug) }}">
+                    @if(app()->getLocale() === 'es')
                         {{ $page->title }}
-                    </a>
-                </li>
-            @endif
+                    @else
+                        {{ $page->title_en ?: $page->title }}
+                    @endif
+                </a>
+            </li>
         @endforeach
     </ul>
 </footer>

@@ -30,23 +30,23 @@
                     @method('PATCH')
 
                     <div class="form-group">
-                        <label for="name">Name</label>
+                        <label for="name">{{ __('messages.name') }}</label>
                         <input type="text" id="name" name="name" value="{{ auth()->user()->name ?? 'Usuario' }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">{{ __('messages.email') }}</label>
                         <input type="email" id="email" name="email" value="{{ auth()->user()->email ?? 'Correo' }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <span class="label-instruction">Enter your new password to change it</span>
+                        <label for="password">{{ __('messages.password') }}</label>
+                        <span class="label-instruction">{{ __('messages.new-password') }}</span>
                         <input type="password" id="password" name="password" placeholder="••••••••">
                     </div>
                     <div class="form-actions">
-                        <button type="submit" class="save-btn">Save Changes</button>
-                        <button type="button" class="back-btn" onclick="window.location.href='/profile'">Back</button>
+                        <button type="submit" class="save-btn">{{ __('messages.save-changes') }}</button>
+                        <button type="button" class="back-btn" onclick="window.location.href='/profile'">{{ __('messages.back') }}</button>
                     </div>
                 </form>
 
@@ -67,9 +67,9 @@
 
                     <label for="avatarUploadInput" class="upload-dropzone">
                         <img src="{{ asset('icons/load-file-icon.png') }}" alt="Upload icon">
-                        <span>Click to Upload Image</span>
+                        <span>{{ __('messages.upload-image') }}</span>
                         <small class="text-muted">
-                            Formats allowed are jpeg, png, jpg with a max size of 2MB (2048 KB)
+                            {{ __('messages.formats-allowed') }}
                         </small>
                     </label>
 
