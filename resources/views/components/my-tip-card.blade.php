@@ -64,7 +64,7 @@
 
     @empty
         <div class="empty-message">
-            You haven't created any tips yet.
+            {{ __('messages.no-tips-created') }}
         </div>
     @endforelse
 </div>
@@ -76,21 +76,20 @@
             🗑️
         </div>
 
-        <h3>Delete Tip?</h3>
+        <h3>{{ __('messages.delete-tip') }}</h3>
 
         <p>
-            This action cannot be undone.
-            The tip will be permanently removed.
+            {{ __('messages.delete-warning') }}
         </p>
 
         <div class="delete-modal-buttons">
 
             <button id="cancelDelete" class="cancel-delete-btn">
-                Cancel
+                {{ __('messages.cancel') }}
             </button>
 
             <button id="confirmDelete" class="confirm-delete-btn">
-                Delete
+                {{ __('messages.delete') }}
             </button>
 
         </div>

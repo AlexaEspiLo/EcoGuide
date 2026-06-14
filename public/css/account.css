@@ -426,6 +426,7 @@
 
     .account-shell {
         gap: 1.5rem;
+        margin-top: 60px;
     }
 
     .account-avatar {

@@ -1,4 +1,3 @@
-
 <div class="cards">
     <div class="header-card">
         <h3 class="title-card">{{ $tip->title }}</h3>

@@ -157,8 +157,18 @@ Route::post('/email/verification-notification', function (Request $request) {
 */
 
 Route::get('/', function () {
-    return redirect()->route('home');
-});
+
+    if (Auth::check()) {
+
+        if (!auth()->user()->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
+        }
+
+        return redirect()->route('home');
+    }
+
+    return view('welcome');
+})->name('welcome');;
 
 Route::get('/tips/load', [HomeController::class, 'loadMore']);
 
@@ -246,7 +256,7 @@ Route::middleware('auth')->group(function () {
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/');
 
     })->name('logout');
 });

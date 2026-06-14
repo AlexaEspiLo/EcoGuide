@@ -25,11 +25,11 @@ http_response_code(404);
         </h1>
 
         <p class="error-message animate-fade-in">
-            sorry,<br>
-            we cant find a page you’re looking for.
+            {{ __('messages.sorry') }},<br>
+            {{ __('messages.no-find-page') }}
         </p>
 
-        <a href="/" class="btn-back animate-fade-in">back home</a>
+        <a href="/" class="btn-back animate-fade-in">{{ __('messages.back') }}</a>
     </div>
 
 </body>

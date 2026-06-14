@@ -9,7 +9,7 @@ return [
     'change_language' => 'Cambiar idioma',
     'logout' => 'Cerrar sesión',
     'my-account' => 'Mi Cuenta',
-    'login' => 'Iniciar Sesión',
+    'login' => 'Acceder',
     'register' => 'Registrarse',
     'search-tip' => 'Buscar Tip',
 

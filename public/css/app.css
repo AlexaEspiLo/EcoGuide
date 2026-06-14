@@ -155,7 +155,9 @@
 
         opacity: 0;
         visibility: hidden;
-        pointer-events: none;
+        pointer-events: none !important;
+        transform: translateY(-15px);
+
 
         transition: .25s ease;
     }
@@ -164,6 +166,8 @@
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
+        transform: translateY(0);
+
     }
 
     .nav-center li {
@@ -228,15 +232,13 @@
 
         color: var(--kombu-green);
     }
-}
 
-@media (max-width: 768px) {
 
     .nav-center .account-dropdown {
         width: 100%;
     }
 
-    .nav-center .account-dropdown .account-menu {
+    .nav-center.show .account-dropdown .account-menu {
         position: static !important;
 
         opacity: 1 !important;
@@ -272,6 +274,33 @@
         font-size: 0.95rem;
         color: #666;
         background: transparent;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .nav-center:not(.show) {
+        opacity: 0 !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .nav-center:not(.show) * {
+        pointer-events: none !important;
+    }
+
+    .nav-center.show {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    .nav-center.show * {
+        pointer-events: auto !important;
     }
 }
 

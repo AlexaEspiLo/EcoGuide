@@ -1,10 +1,12 @@
 @extends('layouts.auth')
-
+@section('title', 'Login')
 @section('content')
     <div class="auth-container">
         <div class="auth-box">
             @include('components.language-switcher')
-            <img src="{{ asset('images/logo_ecoguide.png') }}" alt="EcoGuide Logo" class="logo">
+            <a href="{{ route('welcome') }}">
+                <img src="{{ asset('images/logo_ecoguide.png') }}" alt="EcoGuide Logo" class="logo">
+            </a>
             <h1 class="auth-title">{{ __('messages.login-phrase') }}</h1>
 
             @if ($errors->any())

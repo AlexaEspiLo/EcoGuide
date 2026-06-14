@@ -1,6 +1,23 @@
 <?php
 
 return [
+    //App
+    'back' => 'Back',
+    'cancel' => 'Cancel',
+
+    //Welcome
+    'main-message' => 'Sustainable ideas for everyday life',
+    'paragraph' => 'Discover practical tips, share your own eco-friendly habits,and join a community focused on small actions with real impact.',
+    'join-ecoguide' => 'Join EcoGuide',
+    'featured-tip' => 'Featured Tip',
+    'title-tip' => 'Reduce single-use waste',
+    'welcome-tip' => 'Carry reusable items and avoid unnecessary disposable products.',
+    'category-welcome' => 'Water Saving',
+    'category-welcome-2' => 'Energy Habits',
+    'explore' => 'Explore Tips',
+    'save' => 'Save Favorites',
+    'share' => 'Share Ideas',
+
     //Navigation Bar
     'home' => 'Home',
     'search' => 'Search',
@@ -16,13 +33,19 @@ return [
     //Account 
     'favorites' => 'Favorites',
     'my-tips' => 'My Tips',
+    'no-tips' => 'There are no favorite tips yet.',
+    'no-tips-created' => 'You have not created any tips yet.',
+    'delete-tip' => 'Delete Tip?',
+    'delete-warning' => 'This action cannot be undone. The tip will be permanently removed.',
+    'delete' => 'Delete',
+    'user-no-tips' => 'This user has not posted any tips yet.',
+    
     //Profile
     'name' => 'Name',
     'email' => 'Email',
     'password' => 'Password',
     'new-password' => 'Enter your New Password to change it.',
     'save-changes' => 'Save Changes',
-    'back' => 'Back',
 
     //Modal Upload Image
     'upload-image' => 'Click to upload an image',
@@ -37,18 +60,22 @@ return [
     'newest' => 'Newest',
     'oldest' => 'Oldest',
     'most-liked' => 'Most Popular',
-    'load-more' => 'Load More',
+    'load-more' => 'Loads More',
+    'home-title' => 'Sustainable Tips',
+    'home-subtitle' => 'For Everyday Life',
+
 
     //Search
     'no-results' => 'No results match your search.',
     'results' => 'Results',
     'users' => 'Users',
+    'type-to-search' => 'Start typing to search',
 
     //Messages
     'updated-photo' => 'Photo Updated Successfully',
     'updated-profile' => 'Data Updated Successfully',
 
-    //Create Tip
+    //Create and Edit Tip
     'ex-title' => 'E.g., Bring your own reusable bottle.',
     'upload-image-tip' => 'Upload an image that represents your tip',
     'select-category' => 'Select a category',
@@ -58,7 +85,9 @@ return [
     'ex-description' => 'E.g., Carry a reusable water bottle with you to reduce single-use plastic waste and save money in the long run.',
     'create-tip' => 'Create Tip',
     'post' => 'Post',
-    'cancel' => 'Cancel',
+    'edit-tip' => 'Edit Tip',
+    'update-tip' => 'Update',
+    'click-change' => 'Click to change',
 
     //Login
     'login-phrase' => 'Explore new ways to take care of the planet.',
@@ -86,5 +115,17 @@ return [
     'send-reset' => 'Send Link',
     'back-login' => 'Go Back',
 
+    //Site
     'sustainable-platform' => 'Sustainable Tips Platform',
+
+    //Verify Email
+    'verify-email' => 'Verify your email',
+    'message-sent' => 'We sent a verification link to your email address.Please check your inbox before continuing.',
+    'verification-sent' => 'A new verification link has been sent.',
+    'resend-email' => 'Resend Verification Email',
+
+    //404 Error
+    'sorry' => 'Sorry',
+    'no-find-page' => 'we cant find a page you’re looking for.',
+
 ];

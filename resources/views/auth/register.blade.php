@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-
+@section('title', 'Register')
 @section('content')
     <div class="auth-container">
         <div class="auth-box">

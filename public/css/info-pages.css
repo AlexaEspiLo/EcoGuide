@@ -6,8 +6,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
-    padding: 40px 20px;
 }
 
 .about-container::before {
@@ -445,6 +443,7 @@
         opacity: 0;
         transform: translateY(30px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -452,15 +451,31 @@
 }
 
 @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-6px); }
-    100% { transform: translateY(0px); }
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 @keyframes pulseHeart {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .hero {
@@ -570,4 +585,206 @@
 .cta-box span {
     display: inline-block;
     animation: pulseHeart 1.5s infinite ease-in-out;
+}
+
+@media (max-width: 768px) {
+
+    .about-container {
+        min-height: auto;
+        display: block;
+        padding: 90px 0 35px;
+    }
+
+    .about-overlay {
+        width: 100%;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px 14px;
+        box-sizing: border-box;
+    }
+
+    .about-card {
+        width: 100%;
+        padding: 24px 18px;
+        border-radius: 18px;
+        box-sizing: border-box;
+    }
+
+    .about-content {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        text-align: left;
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+
+    .intro-text {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        margin-bottom: 22px;
+        text-align: left;
+    }
+
+    .highlight-text {
+        padding: 14px 14px 14px 16px;
+        border-left: 4px solid var(--moss-green);
+        border-radius: 0 12px 12px 0;
+    }
+
+    .mission-title {
+        font-size: 1.35rem;
+        margin: 30px 0 16px;
+    }
+
+    .mission-grid {
+        display: flex !important;
+        flex-direction: column;
+        gap: 14px;
+        width: 100%;
+        border-spacing: 0;
+        margin-bottom: 28px;
+    }
+
+    .mission-item {
+        display: flex !important;
+        width: 100%;
+        min-height: auto;
+        box-sizing: border-box;
+
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        padding: 18px 14px;
+        border-radius: 14px;
+
+        font-size: 0.95rem;
+        line-height: 1.35;
+    }
+
+    .mission-icon {
+        margin-bottom: 0;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+    }
+
+    .cta-box {
+        margin-top: 28px;
+        padding: 18px 16px;
+        border-radius: 14px;
+        font-size: 0.95rem;
+        line-height: 1.45;
+    }
+
+    .info-cards-table {
+        display: flex !important;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        border-spacing: 0;
+        margin-bottom: 30px;
+    }
+
+    .info-card-cell {
+        display: block !important;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 22px 16px;
+    }
+
+    .main-layout-table {
+        display: flex !important;
+        flex-direction: column;
+        gap: 25px;
+        width: 100%;
+        border-spacing: 0;
+    }
+
+    .layout-column {
+        display: block !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .team-section h3 {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+
+    .member-card {
+        width: 100%;
+        box-sizing: border-box;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    .member-name {
+        font-size: 0.95rem;
+    }
+
+    .member-info,
+    .member-email {
+        font-size: 0.82rem;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+
+    .map-box {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 16px;
+    }
+
+    .map-box h3 {
+        text-align: center;
+        font-size: 1.4rem !important;
+    }
+
+    .map-container {
+        height: 320px;
+    }
+
+}
+
+@media (max-width: 420px) {
+    .about-card {
+        padding: 22px 14px;
+    }
+
+    .intro-text {
+        font-size: 0.9rem;
+    }
+
+    .mission-item {
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .cta-box {
+        font-size: 0.9rem;
+    }
+
+    .info-card-cell {
+        padding: 20px 14px;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+
+    .card-desc {
+        font-size: 0.85rem;
+    }
+
+    .card-link {
+        font-size: 0.82rem;
+        overflow-wrap: anywhere;
+    }
+
+    .map-container {
+        height: 280px;
+    }
 }

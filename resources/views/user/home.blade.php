@@ -6,8 +6,8 @@
     </section>
 
     <section id="hero-content" class="hero-content">
-        <h1 class="title">Sustainable Tips</h1>
-        <h2 class="subtitle">For Everyday Life</h2>
+        <h1 class="title">{{ __('messages.home-title') }}</h1>
+        <h2 class="subtitle">{{ __('messages.home-subtitle') }}</h2>
     </section>
 
     <section id="tipsSection" class="tips-section">

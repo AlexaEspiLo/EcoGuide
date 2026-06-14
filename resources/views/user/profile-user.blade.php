@@ -72,7 +72,7 @@
 
                 @empty
                     <div class="empty-message">
-                        This user hasn't posted any tips yet.
+                        {{ __('messages.user-no-tips') }}
                     </div>
                 @endforelse
 

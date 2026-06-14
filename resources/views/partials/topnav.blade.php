@@ -15,7 +15,7 @@
                 <li><a href="{{ route('login') }}"><img src="{{ asset('icons/login-icon.png') }}"
                             class="nav-icon">{{ __('messages.login') }}</a>
                 </li>
-                <li><a href="" class="active"><img src="{{ asset('icons/home-icon.png') }}"
+                <li><a href="{{ route('welcome') }}" class="active"><img src="{{ asset('icons/home-icon.png') }}"
                             class="nav-icon">{{ __('messages.home') }}</a></li>
                 <li><a href="{{ route('register') }}"><img src="{{ asset('icons/register-icon.png') }}" class="nav-icon">
                         {{ __('messages.register') }}</a></li>

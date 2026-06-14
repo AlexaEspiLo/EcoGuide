@@ -6,7 +6,6 @@
 
     <div class="search-page">
 
-        <!-- 🔍 HEADER -->
         <div class="search-header">
             <form action="{{ route('search') }}" method="GET" class="search-form">
 
@@ -71,7 +70,7 @@
 
             @else
                 <div class="empty-state">
-                    Start typing to search
+                    {{ __('messages.type-to-search') }}
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
                         viewBox="0 0 16 16">
                         <path

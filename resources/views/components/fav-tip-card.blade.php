@@ -45,7 +45,7 @@
 
     @empty
         <div class="empty-message">
-            There are no favorite tips yet.
+            {{ __('messages.no-tips') }}
         </div>
     @endforelse
 </div>

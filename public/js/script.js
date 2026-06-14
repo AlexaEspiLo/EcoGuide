@@ -33,7 +33,7 @@ window.addEventListener('load', () => {
             });
         }, 800);
 
-    }, 1800);
+    }, 2000);
 });
 
 const logoutForm = document.getElementById('logoutForm');

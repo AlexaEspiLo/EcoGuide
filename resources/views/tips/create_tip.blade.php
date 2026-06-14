@@ -7,7 +7,7 @@
 
             <div class="header-container">
                 <h1 class="main-title">{{ __('messages.create-tip') }}</h1>
-                <div style="display:flex; gap: 20px;">
+                <div class="action-btn">
                     <button type="submit" class="post-button">{{ __('messages.post') }}</button>
                     <button type="button" class="cancel-button" onclick="window.location.href='/'">{{ __('messages.cancel') }}</button>
                 </div>
