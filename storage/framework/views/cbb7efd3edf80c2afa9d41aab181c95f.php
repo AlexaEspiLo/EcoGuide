@@ -1,12 +1,19 @@
 <?php $__env->startSection('title', 'Home'); ?>
 <?php $__env->startSection('content'); ?>
 
-    <section class="hero-home" id="hero-home">
-    </section>
+    <section class="hero-home">
+        <div id="hero-content" class="hero-content">
+            <h1 class="title"><?php echo e(__('messages.home-title')); ?></h1>
+            <h2 class="subtitle"><?php echo e(__('messages.home-subtitle')); ?></h2>
+            <h3 class="text-home"><?php echo e(__('messages.home-text')); ?></h3>
+            <a href="#tipsSection" class="hero-content-btn">
+                <?php echo e(__('messages.explore')); ?>
 
-    <section id="hero-content" class="hero-content">
-        <h1 class="title"><?php echo e(__('messages.home-title')); ?></h1>
-        <h2 class="subtitle"><?php echo e(__('messages.home-subtitle')); ?></h2>
+            </a>
+        </div>
+        <div class="hero-image" id="hero-home">
+
+        </div>
     </section>
 
     <section id="tipsSection" class="tips-section">

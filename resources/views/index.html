@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoGuide - Inicio</title>
+    <link rel="stylesheet" href="{{ asset('style.css?v=' . time()) }}">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,400;1,700&family=Playfair+Display:ital@1&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+    <div class="main-interface">
+        <header class="header">
+            <img src="{{ asset('images/logo_ecoguide.jpeg') }}" alt="Logo EcoGuide" class="logo">
+        </header>
+
+        <main class="login-container">
+            <div class="glass-panel">
+                <h1 class="welcome-title">Welcome</h1>
+                <p class="subtitle">Explore new ways to care for the planet</p>
+
+                <div class="social-login">
+                    <p>Or enter with:</p>
+                    <button class="google-btn" type="button" style="background:none; border:none; cursor:pointer;">
+                        <img src="{{ asset('images/google_icon.jpeg') }}" alt="Google Logo" class="google-icon">
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

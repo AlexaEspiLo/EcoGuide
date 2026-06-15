@@ -18,5 +18,34 @@
                 </a>
             </div>
         </div>
+        <div class="comments-section">
+
+    <h3>Comments</h3>
+
+    <div id="modalComments" class="comments-list"></div>
+
+    @auth
+        <form id="commentForm" class="comment-form">
+            @csrf
+
+            <textarea
+                name="content"
+                id="commentContent"
+                placeholder="Write a comment..."
+                maxlength="500"
+                required
+            ></textarea>
+
+            <button type="submit">
+                Comment
+            </button>
+        </form>
+    @else
+        <p class="login-comment-message">
+            Please log in to comment.
+        </p>
+    @endauth
+
+</div>
     </div>
 </div>

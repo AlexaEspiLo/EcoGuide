@@ -63,7 +63,7 @@ return [
     'load-more' => 'Loads More',
     'home-title' => 'Sustainable Tips',
     'home-subtitle' => 'For Everyday Life',
-
+    'home-text' => 'Small actions can create a big impact on our planet',
 
     //Search
     'no-results' => 'No results match your search.',

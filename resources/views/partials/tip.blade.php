@@ -16,35 +16,37 @@
     <p class="card-description">{{ Str::limit($tip->description, 80) }}</p>
 
     <div class="footer-card">
-        <button type="button" class="more open-tip-modal" data-title="{{ $tip->title }}"
-                    data-author-url="{{ route('users.show', $tip->user->id) }}" data-description="{{ $tip->description }}"
-                    data-author="{{ $tip->user->name }}"
-                    data-avatar="{{ $tip->user->avatar ? asset('storage/' . $tip->user->avatar) : asset('images/placeholder_user.png') }}"
-                    data-image="{{ $tip->image ? asset('storage/' . $tip->image) : '' }}"
-                    data-likes="{{ number_format($tip->likes->count()) }}">
-                    {{ __('messages.see-tip') }}
-                </button>
-        <div class="tipss like-section" id="{{$tip->id}}" style="cursor: pointer;">
-            <span id="count{{$tip->id}}" class="likes-count">
-                {{ number_format($tip->likes->count()) }}
-            </span>
-
-            @auth
+        <button type="button" class="more open-tip-modal" data-tip-id="{{ $tip->id }}" data-title="{{ $tip->title }}"
+            data-author-url="{{ route('users.show', $tip->user->id) }}" data-description="{{ $tip->description }}"
+            data-author="{{ $tip->user->name }}"
+            data-avatar="{{ $tip->user->avatar ? asset('storage/' . $tip->user->avatar) : asset('images/placeholder_user.png') }}"
+            data-image="{{ $tip->image ? asset('storage/' . $tip->image) : '' }}"
+            data-likes="{{ number_format($tip->likes->count()) }}">
+            {{ __('messages.see-tip') }}
+        </button>
+        <div class="tipss">
+            <div class="like-section" id="{{$tip->id}}" style="cursor: pointer;">
+                <span id="count{{$tip->id}}" class="likes-count">
+                    {{ number_format($tip->likes->count()) }}
+                </span>
                 <span id="heart{{$tip->id}}" class="heart {{ $tip->isLikedByLoggedInUser() ? 'liked' : '' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                        viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
                     </svg>
                 </span>
-            @else
-                <a href="/login" style="color: var(--beige)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
-                        class="bi bi-heart-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
-                    </svg>
-                </a>
-            @endauth
+            </div>
+            <div class="share-section" data-title="{{ e($tip->title) }}"
+                data-description="{{ e(Str::limit($tip->description, 180)) }}"
+                data-url="{{ route('tip.show', $tip->id, absolute: true) }}" title="Share tip">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor"
+                    class="bi bi-share-fill" viewBox="0 0 16 16">
+                    <path
+                        d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5" />
+                </svg>
+            </div>
         </div>
+
     </div>
 </div>

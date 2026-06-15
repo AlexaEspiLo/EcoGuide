@@ -2,12 +2,18 @@
 @section('title', 'Home')
 @section('content')
 
-    <section class="hero-home" id="hero-home">
-    </section>
+    <section class="hero-home">
+        <div id="hero-content" class="hero-content">
+            <h1 class="title">{{ __('messages.home-title') }}</h1>
+            <h2 class="subtitle">{{ __('messages.home-subtitle') }}</h2>
+            <h3 class="text-home">{{ __('messages.home-text') }}</h3>
+            <a href="#tipsSection" class="hero-content-btn">
+                {{ __('messages.explore') }}
+            </a>
+        </div>
+        <div class="hero-image" id="hero-home">
 
-    <section id="hero-content" class="hero-content">
-        <h1 class="title">{{ __('messages.home-title') }}</h1>
-        <h2 class="subtitle">{{ __('messages.home-subtitle') }}</h2>
+        </div>
     </section>
 
     <section id="tipsSection" class="tips-section">

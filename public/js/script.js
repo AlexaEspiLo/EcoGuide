@@ -1,41 +1,3 @@
-window.addEventListener('load', () => {
-    const heroImage = document.getElementById('hero-home');
-    const heroContent = document.getElementById('hero-content');
-    const tipsSection = document.getElementById('tipsSection');
-
-    if (!heroImage || !heroContent || !tipsSection) return;
-
-    if (sessionStorage.getItem('homeHeroSeen') === 'true') {
-        heroImage.style.display = 'none';
-        heroContent.style.display = 'none';
-
-        window.scrollTo({
-            top: tipsSection.offsetTop - 90,
-            behavior: 'auto'
-        });
-
-        return;
-    }
-
-    setTimeout(() => {
-        heroImage.classList.add('hero-fade-out');
-        heroContent.classList.add('hero-fade-out');
-
-        setTimeout(() => {
-            heroImage.style.display = 'none';
-            heroContent.style.display = 'none';
-
-            sessionStorage.setItem('homeHeroSeen', 'true');
-
-            window.scrollTo({
-                top: tipsSection.offsetTop - 90,
-                behavior: 'smooth'
-            });
-        }, 800);
-
-    }, 2000);
-});
-
 const logoutForm = document.getElementById('logoutForm');
 
 if (logoutForm) {
@@ -71,46 +33,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* Likes */
-    document.addEventListener('click', function (e) {
-        const section = e.target.closest('.like-section');
+document.addEventListener('click', function (e) {
+    const section = e.target.closest('.like-section');
 
-        if (!section) return;
+    if (!section) return;
 
-        const tipId = section.id;
-        const heart = document.getElementById(`heart${tipId}`);
-        const countSpan = document.getElementById(`count${tipId}`);
+    const tipId = section.id;
+    const heart = document.getElementById(`heart${tipId}`);
+    const countSpan = document.getElementById(`count${tipId}`);
 
-        if (heart) {
-            heart.classList.add('animate');
+    fetch("/like", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': token
+        },
+        body: JSON.stringify({ id: tipId })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (countSpan) {
+                countSpan.innerText = data.count.toLocaleString();
 
-            setTimeout(() => {
+                countSpan.classList.remove('bump');
+                void countSpan.offsetWidth;
+                countSpan.classList.add('bump');
+            }
+
+            if (heart) {
+                heart.classList.toggle('liked', data.liked);
+
                 heart.classList.remove('animate');
-            }, 500);
-        }
+                void heart.offsetWidth;
+                heart.classList.add('animate');
 
-        fetch("/like", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': token
-            },
-            body: JSON.stringify({ id: tipId })
+                setTimeout(() => {
+                    heart.classList.remove('animate');
+                }, 550);
+            }
         })
-            .then(response => response.json())
-            .then(data => {
-                if (countSpan) {
-                    countSpan.innerText = data.count.toLocaleString();
-                }
-
-                if (heart) {
-                    heart.classList.toggle('liked', data.liked);
-                    heart.style.color = data.liked
-                        ? "var(--kombu-green)"
-                        : "var(--beige)";
-                }
-            })
-            .catch(error => console.error('Error:', error));
-    });
+        .catch(error => console.error('Error:', error));
+});
 
     /* Avatar preview */
     const avatarInput = document.getElementById('avatarUploadInput');
@@ -390,3 +353,143 @@ document
 
     });
 
+let currentTipId = null;
+
+const tipModal = document.getElementById('tipModal');
+const modalTitle = document.getElementById('modalTitle');
+const modalDescription = document.getElementById('modalDescription');
+const modalImage = document.getElementById('modalImage');
+const modalAuthor = document.getElementById('modalAuthor');
+const authorAvatar = document.getElementById('author-avatar');
+const modalComments = document.getElementById('modalComments');
+const commentForm = document.getElementById('commentForm');
+const commentContent = document.getElementById('commentContent');
+
+document.querySelectorAll('.open-tip-modal').forEach(button => {
+    button.addEventListener('click', e => {
+        e.preventDefault();
+
+        currentTipId = button.dataset.tipId;
+
+        modalTitle.textContent = button.dataset.title;
+        modalDescription.textContent = button.dataset.description;
+        modalAuthor.textContent = button.dataset.author;
+        authorAvatar.src = button.dataset.authorAvatar;
+
+        if (button.dataset.image) {
+            modalImage.src = button.dataset.image;
+            modalImage.style.display = 'block';
+        } else {
+            modalImage.style.display = 'none';
+        }
+
+        tipModal.classList.add('show');
+
+        loadComments(currentTipId);
+    });
+});
+
+function loadComments(tipId) {
+    modalComments.innerHTML = '<p class="comments-loading">Loading comments...</p>';
+
+    fetch(`/tips/${tipId}/comments`)
+        .then(response => response.json())
+        .then(comments => {
+            modalComments.innerHTML = '';
+
+            if (comments.length === 0) {
+                modalComments.innerHTML = '<p class="no-comments">No comments yet.</p>';
+                return;
+            }
+
+            comments.forEach(comment => {
+                modalComments.insertAdjacentHTML('beforeend', `
+                    <div class="comment-item" data-comment-id="${comment.id}">
+                        <img src="${comment.user_avatar}" class="comment-avatar" alt="User">
+
+                        <div class="comment-body">
+                            <div class="comment-header">
+                                <strong>${comment.user_name}</strong>
+                                <span>${comment.created_at}</span>
+                            </div>
+
+                            <p>${comment.content}</p>
+
+                            ${comment.can_delete ? `
+                                <div class="delete-comment-div">
+                                <button class="delete-comment-btn" data-comment-id="${comment.id}">
+                                    Delete
+                                </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `);
+            });
+        });
+}
+
+if (commentForm) {
+    commentForm.addEventListener('submit', e => {
+        e.preventDefault();
+
+        const content = commentContent.value.trim();
+
+        if (!currentTipId || content === '') return;
+
+        const csrfToken = document
+            .querySelector('meta[name="csrf-token"]')
+            ?.getAttribute('content');
+
+        fetch(`/tips/${currentTipId}/comments`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                content: content
+            })
+        })
+            .then(async response => {
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error(errorText);
+                    throw new Error('Error adding comment');
+                }
+
+                return response.json();
+            })
+            .then(() => {
+                commentContent.value = '';
+                loadComments(currentTipId);
+            })
+            .catch(error => {
+                console.error(error);
+                alert('The comment could not be posted.');
+            });
+    });
+}
+
+document.addEventListener('click', e => {
+    if (e.target.classList.contains('delete-comment-btn')) {
+        const commentId = e.target.dataset.commentId;
+
+        fetch(`/comments/${commentId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document
+                    .querySelector('meta[name="csrf-token"]')
+                    .getAttribute('content')
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Error deleting comment');
+                }
+
+                loadComments(currentTipId);
+            });
+    }
+});

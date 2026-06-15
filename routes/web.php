@@ -18,6 +18,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\AdminUserController;
@@ -168,7 +169,8 @@ Route::get('/', function () {
     }
 
     return view('welcome');
-})->name('welcome');;
+})->name('welcome');
+;
 
 Route::get('/tips/load', [HomeController::class, 'loadMore']);
 
@@ -207,6 +209,15 @@ Route::post('/tips', [TipController::class, 'store'])
     ->name('tips.store');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/tips/{tip}/comments', [CommentController::class, 'getComments'])
+        ->name('comments.index');
+
+    Route::post('/tips/{tip}/comments', [CommentController::class, 'store'])
+        ->name('comments.store');
+
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+        ->name('comments.destroy');
 
     Route::post('/like', [TipController::class, 'like']);
 

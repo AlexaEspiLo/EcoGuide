@@ -13,7 +13,8 @@ use App\Models\Tip;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 
-class User extends Authenticatable implements MustVerifyEmail{
+class User extends Authenticatable implements MustVerifyEmail
+{
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -25,7 +26,7 @@ class User extends Authenticatable implements MustVerifyEmail{
         'name',
         'email',
         'password',
-        'status',   // <--- Agregar esta
+        'status',
         'is_admin',
     ];
 
@@ -65,5 +66,9 @@ class User extends Authenticatable implements MustVerifyEmail{
     public function sendPasswordResetNotification($token): void
     {
         $this->notify(new EcoGuideResetPassword($token));
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

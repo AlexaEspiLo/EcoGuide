@@ -69,3 +69,20 @@ body {
     overflow-x: hidden;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 28px 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--moss-green);
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--kombu-green);
+}
