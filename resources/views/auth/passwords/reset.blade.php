@@ -49,10 +49,10 @@
                             </div>
                         @enderror
                         <div class="password-field">
-                            <input type="password" name="password" id="password" placeholder="********" required>
+                            <input type="password" name="password_confirmation" id="password_confirmation" placeholder="********" required>
 
                             <img src="{{ asset('icons/eye-hidden-icon.png') }}" class="password-toggle-icon"
-                                onclick="toggleInput('password', this)">
+                                onclick="toggleInput('password_confirmation', this)">
                         </div>
                     </div>
                 </div>

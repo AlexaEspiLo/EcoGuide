@@ -31,15 +31,10 @@ class ResetPasswordController extends Controller
             'password' => [
                 'required',
                 'confirmed',
-                'min:8',
-                'regex:/[A-Z]/',
-                'regex:/[a-z]/',
-                'regex:/[0-9]/',
-                'regex:/[@$!%*#?&]/',
+                'min:12',
             ],
         ], [
             'password.confirmed' => 'Passwords do not match.',
-            'password.regex' => 'Password must include uppercase, lowercase, number and special symbol.',
         ]);
 
         $status = Password::reset(

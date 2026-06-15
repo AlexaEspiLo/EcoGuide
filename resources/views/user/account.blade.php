@@ -46,9 +46,40 @@
                     </div>
                     <div class="form-actions">
                         <button type="submit" class="save-btn">{{ __('messages.save-changes') }}</button>
-                        <button type="button" class="back-btn" onclick="window.location.href='/profile'">{{ __('messages.back') }}</button>
+                        <button type="button" class="back-btn"
+                            onclick="window.location.href='/profile'">{{ __('messages.back') }}</button>
                     </div>
                 </form>
+                <div class="danger-zone">
+                    <h3>{{ __('messages.delete-account') }}</h3>
+
+                    <p>{{ __('messages.delete-account-warning') }}</p>
+
+                    <form action="{{ route('account.destroy') }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <div class="input-group">
+                            <label for="delete_password">
+                                {{ __('messages.confirm-password') }}
+                            </label>
+
+                            <input type="password" name="delete_password" id="delete_password" required
+                                placeholder="********">
+
+                            @error('delete_password')
+                                <small style="color: #b13b3b;">
+                                    {{ $message }}
+                                </small>
+                            @enderror
+                        </div>
+
+                        <button type="submit" class="delete-account-btn"
+                            onclick="return confirm('{{ __('messages.delete-account-confirm') }}')">
+                            {{ __('messages.delete-account') }}
+                        </button>
+                    </form>
+                </div>
 
             </div>
         </div>

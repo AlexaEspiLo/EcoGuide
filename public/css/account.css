@@ -401,6 +401,26 @@
     }
 }
 
+.danger-zone {
+    margin-top: 50px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(0,0,0,.1);
+}
+
+.delete-account-btn {
+    background: #c65b5b;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.delete-account-btn:hover {
+    background: #a94444;
+}
+
 @media (max-width: 720px) {
     .upload-modal-card {
         padding: 1.4rem;

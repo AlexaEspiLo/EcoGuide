@@ -224,6 +224,8 @@ Route::middleware('auth')->group(function () {
     /*
     | Profile
     */
+    Route::delete('/account', [ProfileController::class, 'destroy'])
+    ->name('account.destroy');
 
     Route::get('/profile', [ProfileController::class, 'index'])
         ->name('perfil');
@@ -273,7 +275,7 @@ Route::middleware('auth')->group(function () {
 });
 
 /*
-|--------------------------------------------------------------------------
+|---------------------a-----------------------------------------------------
 | LANGUAGE
 |--------------------------------------------------------------------------
 */

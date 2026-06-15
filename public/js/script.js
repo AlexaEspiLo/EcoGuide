@@ -33,47 +33,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* Likes */
-document.addEventListener('click', function (e) {
-    const section = e.target.closest('.like-section');
+    document.addEventListener('click', function (e) {
+        const section = e.target.closest('.like-section');
 
-    if (!section) return;
+        if (!section) return;
 
-    const tipId = section.id;
-    const heart = document.getElementById(`heart${tipId}`);
-    const countSpan = document.getElementById(`count${tipId}`);
+        const tipId = section.id;
+        const heart = document.getElementById(`heart${tipId}`);
+        const countSpan = document.getElementById(`count${tipId}`);
 
-    fetch("/like", {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': token
-        },
-        body: JSON.stringify({ id: tipId })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (countSpan) {
-                countSpan.innerText = data.count.toLocaleString();
-
-                countSpan.classList.remove('bump');
-                void countSpan.offsetWidth;
-                countSpan.classList.add('bump');
-            }
-
-            if (heart) {
-                heart.classList.toggle('liked', data.liked);
-
-                heart.classList.remove('animate');
-                void heart.offsetWidth;
-                heart.classList.add('animate');
-
-                setTimeout(() => {
-                    heart.classList.remove('animate');
-                }, 550);
-            }
+        fetch("/like", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': token
+            },
+            body: JSON.stringify({ id: tipId })
         })
-        .catch(error => console.error('Error:', error));
-});
+            .then(response => response.json())
+            .then(data => {
+                if (countSpan) {
+                    countSpan.innerText = data.count.toLocaleString();
+
+                    countSpan.classList.remove('bump');
+                    void countSpan.offsetWidth;
+                    countSpan.classList.add('bump');
+                }
+
+                if (heart) {
+                    heart.classList.toggle('liked', data.liked);
+
+                    heart.classList.remove('animate');
+                    void heart.offsetWidth;
+                    heart.classList.add('animate');
+
+                    setTimeout(() => {
+                        heart.classList.remove('animate');
+                    }, 550);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
 
     /* Avatar preview */
     const avatarInput = document.getElementById('avatarUploadInput');
@@ -364,6 +364,7 @@ const authorAvatar = document.getElementById('author-avatar');
 const modalComments = document.getElementById('modalComments');
 const commentForm = document.getElementById('commentForm');
 const commentContent = document.getElementById('commentContent');
+const modalCommentsCount = document.getElementById('modalCommentsCount');
 
 document.querySelectorAll('.open-tip-modal').forEach(button => {
     button.addEventListener('click', e => {
@@ -381,6 +382,9 @@ document.querySelectorAll('.open-tip-modal').forEach(button => {
             modalImage.style.display = 'block';
         } else {
             modalImage.style.display = 'none';
+        }
+        if (modalCommentsCount) {
+            modalCommentsCount.textContent = button.dataset.commentsCount || 0;
         }
 
         tipModal.classList.add('show');
@@ -492,4 +496,110 @@ document.addEventListener('click', e => {
                 loadComments(currentTipId);
             });
     }
+});
+document.querySelectorAll('.emoji-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        commentContent.value += btn.textContent;
+        commentContent.focus();
+    });
+});
+
+document.addEventListener('click', async function (e) {
+    const shareBtn = e.target.closest('.share-section');
+
+    if (!shareBtn) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    const title = shareBtn.getAttribute('data-title') || 'EcoGuide Tip';
+    const description = shareBtn.getAttribute('data-description') || '';
+    const url = shareBtn.getAttribute('data-url') || window.location.href;
+
+    const shareData = {
+        title: title,
+        text: `${description}\n\nShared from EcoGuide`,
+        url: url
+    };
+
+    try {
+        if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+            await navigator.share(shareData);
+            return;
+        }
+
+        if (navigator.share) {
+            await navigator.share({
+                title: title,
+                text: shareData.text,
+                url: url
+            });
+            return;
+        }
+
+        const textToCopy = `${title}\n\n${description}\n\n${url}`;
+
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(textToCopy);
+        } else {
+            const textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+
+        alert('Tip copied to clipboard.');
+
+    } catch (error) {
+        console.error('Share error:', error);
+    }
+});
+
+document.addEventListener('click', function (e) {
+
+    const commentBtn = e.target.closest('.open-comments-modal');
+
+    if (!commentBtn) return;
+
+    const tipId = commentBtn.dataset.tipId;
+
+    // Buscar el botón See Tip de esa misma card
+    const seeTipBtn = commentBtn
+        .closest('.cards')
+        .querySelector('.open-tip-modal');
+
+    if (!seeTipBtn) return;
+
+    // Abrir modal existente
+    seeTipBtn.click();
+
+    // Esperar a que termine de cargarse
+    setTimeout(() => {
+
+        const commentsSection =
+            document.querySelector('.comments-section');
+
+        if (commentsSection) {
+
+            commentsSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+        }
+
+        const textarea =
+            document.querySelector('#commentContent');
+
+        if (textarea) {
+            textarea.focus();
+        }
+
+    }, 300);
+
 });

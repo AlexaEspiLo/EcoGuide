@@ -20,32 +20,36 @@
         </div>
         <div class="comments-section">
 
-    <h3>Comments</h3>
+            <h3>
+                {{ __('messages.comments') }}
+                (<span id="modalCommentsCount">0</span>)
+            </h3>
 
-    <div id="modalComments" class="comments-list"></div>
+            <div id="modalComments" class="comments-list"></div>
 
-    @auth
-        <form id="commentForm" class="comment-form">
-            @csrf
+            @auth
+                <form id="commentForm" class="comment-form">
+                    @csrf
+                    <div class="emoji-picker">
+                        <button type="button" class="emoji-btn">🌱</button>
+                        <button type="button" class="emoji-btn">💚</button>
+                        <button type="button" class="emoji-btn">♻️</button>
+                        <button type="button" class="emoji-btn">🌎</button>
+                        <button type="button" class="emoji-btn">✨</button>
+                    </div>
+                    <textarea name="content" id="commentContent" placeholder="{{ __('messages.write-comment') }}" maxlength="500"
+                        required></textarea>
 
-            <textarea
-                name="content"
-                id="commentContent"
-                placeholder="Write a comment..."
-                maxlength="500"
-                required
-            ></textarea>
+                    <button type="submit">
+                        {{ __('messages.comment') }}
+                    </button>
+                </form>
+            @else
+                <p class="login-comment-message">
+                    {{ __('messages.login-to-comment') }}
+                </p>
+            @endauth
 
-            <button type="submit">
-                Comment
-            </button>
-        </form>
-    @else
-        <p class="login-comment-message">
-            Please log in to comment.
-        </p>
-    @endauth
-
-</div>
+        </div>
     </div>
 </div>

@@ -64,6 +64,12 @@ return [
     'home-title' => 'Sustainable Tips',
     'home-subtitle' => 'For Everyday Life',
     'home-text' => 'Small actions can create a big impact on our planet',
+    'comments' => 'Comments',
+    'comment' => 'Comment',
+    'no-comments' => 'No comments yet.',
+    'login-to-comment' => 'Please log in to comment.',
+    'write-comment' => 'Write a comment...',
+
 
     //Search
     'no-results' => 'No results match your search.',

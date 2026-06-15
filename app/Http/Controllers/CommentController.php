@@ -30,21 +30,25 @@ class CommentController extends Controller
     }
 
     public function store(Request $request, Tip $tip)
-    {
-        $request->validate([
-            'content' => 'required|string|max:500',
-        ]);
+{
+    $request->validate([
+        'content' => 'required|string|max:500',
+    ]);
 
-        Comment::create([
-            'tip_id' => $tip->id,
-            'user_id' => auth()->id(),
-            'content' => $request->input('content'),
-        ]);
+    Comment::create([
+        'tip_id' => $tip->id,
+        'user_id' => auth()->id(),
+        'content' => $request->input('content'),
+    ]);
 
+    if ($request->expectsJson()) {
         return response()->json([
             'success' => true,
         ]);
     }
+
+    return back()->with('success', 'Comment added successfully.');
+}
 
     public function destroy(Comment $comment)
     {

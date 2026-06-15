@@ -69,4 +69,39 @@ class ProfileController extends Controller
 
         return back()->with('success', __('messages.updated-photo'));
     }
+
+    public function destroy(Request $request)
+    {
+        $request->validate([
+            'delete_password' => 'required',
+        ], [
+            'delete_password.required' => 'Please enter your password.',
+        ]);
+
+        $user = auth()->user();
+
+        if (!Hash::check($request->input('delete_password'), $user->password)) {
+            return back()->withErrors([
+                'delete_password' => 'The password is incorrect.',
+            ]);
+        }
+
+        // Eliminar avatar si existe
+        if ($user->avatar) {
+            $avatarPath = base_path('storage/' . $user->avatar);
+
+            if (file_exists($avatarPath)) {
+                unlink($avatarPath);
+            }
+        }
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('success', 'Account deleted successfully.');
+    }
 }
