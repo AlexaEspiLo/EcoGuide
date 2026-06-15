@@ -1393,7 +1393,6 @@ input::placeholder {
 .delete-comment-div {
     display: flex;
     justify-content: flex-end;
-    margin-top: 10px;
 }
 
 .comment-form button,
